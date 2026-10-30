@@ -1,0 +1,8 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { getCollection } from 'astro:content';
+const services=(await getCollection('services',({data})=>!data.draft)).sort((a,b)=>a.data.order-b.data.order);
+---
+<MainLayout title="Fire & Safety Services | InteGrowSys" description="Fire alarm, hydrant and sprinkler, fire pump, AMC, audit, training, building integration and security/ELV services.">
+<section class="page-hero"><div class="container"><div class="breadcrumbs"><a href="/">Home</a> / Fire & Safety Services</div><div class="eyebrow">Our services</div><h1>Fire & life safety, maintenance and building systems integration.</h1><p class="lead">Explore service areas and contact InteGrowSys to scope the right solution for your site.</p></div></section><section class="section"><div class="container service-list">{services.map(s=><article class="service-item"><span class="pill">{s.data.category}</span><h3 style="margin-top:14px">{s.data.title}</h3><p>{s.data.description}</p><a href={`/services/${s.id}/`}>View service details →</a></article>)}</div></section>
+</MainLayout>

@@ -1,0 +1,10 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { getCollection, render } from 'astro:content';
+export async function getStaticPaths(){const services=await getCollection('services',({data})=>!data.draft);return services.map(service=>({params:{slug:service.id},props:{service}}));}
+const {service}=Astro.props;
+const {Content}=await render(service);
+---
+<MainLayout title={`${service.data.title} | InteGrowSys`} description={service.data.description} canonicalPath={`/services/${service.id}/`}>
+<section class="page-hero"><div class="container"><div class="breadcrumbs"><a href="/">Home</a> / <a href="/services/">Services</a> / {service.data.title}</div><div class="eyebrow">{service.data.category}</div><h1>{service.data.title}</h1><p class="lead">{service.data.description}</p><div class="hero-actions"><a class="button" href="/contact/">Request a quotation</a><a class="button secondary" href="/contact/">Request a site survey</a></div></div></section><section class="section"><div class="container content"><Content/><div class="feature-band" style="margin-top:40px"><div><h2>Discuss your site requirements.</h2><p>Scope, availability and technical suitability are confirmed for each project.</p></div><a class="button" href="/contact/">Contact InteGrowSys</a></div></div></section>
+</MainLayout>

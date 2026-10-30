@@ -1,0 +1,7 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+const examples=[{title:'Fire & life safety maintenance',desc:'Planned inspections, service documentation and follow-up actions.',tag:'Maintenance'},{title:'Building systems integration',desc:'Coordination of selected fire alarm, pressurization and ventilation signals.',tag:'Integration'},{title:'Connected monitoring concept',desc:'Assessment of relay outputs and notification needs for legacy equipment.',tag:'Smart monitoring'}];
+---
+<MainLayout title="Projects & Capabilities | InteGrowSys" description="Explore typical project categories across maintenance, systems integration and smart monitoring.">
+<section class="page-hero"><div class="container"><div class="breadcrumbs"><a href="/">Home</a> / Projects</div><div class="eyebrow">Projects & capabilities</div><h1>Solutions shaped around the site—not a one-size-fits-all package.</h1><p class="lead">These are capability examples, not claims of named customer installations. Approved project references can be added here.</p></div></section><section class="section"><div class="container card-grid">{examples.map(p=><article class="card"><span class="pill">{p.tag}</span><h3 style="margin-top:18px">{p.title}</h3><p>{p.desc}</p><a class="card-link" href="/contact/">Discuss a similar requirement →</a></article>)}</div><p class="small container" style="margin-top:24px">Confirm permission before publishing customer logos, photographs or case studies.</p></section>
+</MainLayout>

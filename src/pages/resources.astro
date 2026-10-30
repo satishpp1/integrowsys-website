@@ -1,0 +1,7 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+const resources=[{title:'Fire safety maintenance planning',text:'Use a documented inspection schedule, record observations and track corrective actions.',type:'Maintenance'},{title:'Prepare for a smart-monitoring assessment',text:'Collect panel make/model, available relay outputs, equipment list, site connectivity and alert recipients.',type:'Smart monitoring'},{title:'Emergency readiness',text:'Keep evacuation instructions, emergency contacts, response responsibilities and training records current.',type:'Preparedness'}];
+---
+<MainLayout title="Fire Safety & Smart Monitoring Resources | InteGrowSys" description="Practical guidance for fire safety maintenance, facility readiness and legacy-system monitoring assessments.">
+<section class="page-hero"><div class="container"><div class="breadcrumbs"><a href="/">Home</a> / Resources</div><div class="eyebrow">Resources</div><h1>Useful starting points for safer, better-informed facilities.</h1><p class="lead">Guidance is general and should be checked against applicable requirements, manufacturer instructions and site-specific risk assessments.</p></div></section><section class="section"><div class="container card-grid">{resources.map(r=><article class="card"><span class="pill">{r.type}</span><h3 style="margin-top:18px">{r.title}</h3><p>{r.text}</p><a class="card-link" href="/contact/">Ask InteGrowSys →</a></article>)}</div></section>
+</MainLayout>
