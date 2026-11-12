@@ -1,16 +1,244 @@
+
 ---
 import MainLayout from '../layouts/MainLayout.astro';
-const cards=[
-{icon:'♧',title:'Fire & Life Safety',text:'Fire alarm, hydrant, sprinkler, pump and maintenance services for safer facilities.',href:'/services/',link:'Explore services'},
-{icon:'◉',title:'Smart Monitoring',text:'Connect selected alarm and equipment signals to a notification workflow, subject to site requirements.',href:'/smart-monitoring/',link:'Explore monitoring'},
-{icon:'⌁',title:'Building Systems Integration',text:'Coordinate fire safety with pressurization, ventilation and selected building equipment controls.',href:'/services/building-systems-integration/',link:'Explore integration'},
-{icon:'▦',title:'Security & ELV',text:'CCTV, access control and networking solutions planned around your facility.',href:'/services/security-elv/',link:'Explore security & ELV'},
-{icon:'⟳',title:'Planned Maintenance',text:'Structured inspections, service reports and maintenance support for installed systems.',href:'/services/fire-safety-amc/',link:'Explore AMC'},
-{icon:'⌂',title:'Site Assessment',text:'Identify practical repair, integration and upgrade paths before deciding what to replace.',href:'/contact/',link:'Request a survey'}];
+
+const cards = [
+  {
+    icon: '♧',
+    title: 'Fire & Life Safety',
+    text: 'Fire alarm, hydrant, sprinkler, pump and maintenance services for safer facilities.',
+    href: '/services/',
+    link: 'Explore services'
+  },
+  {
+    icon: '◉',
+    title: 'Smart Monitoring',
+    text: 'Monitor selected alarm and equipment signals remotely, subject to site requirements.',
+    href: '/smart-monitoring/',
+    link: 'Explore monitoring'
+  },
+  {
+    icon: '⌁',
+    title: 'Building Systems Integration',
+    text: 'Integrate fire safety with pressurization, ventilation and selected building equipment.',
+    href: '/services/building-systems-integration/',
+    link: 'Explore integration'
+  },
+  {
+    icon: '▦',
+    title: 'Security & ELV',
+    text: 'CCTV, access control and networking solutions planned around your facility.',
+    href: '/services/security-elv/',
+    link: 'Explore security & ELV'
+  },
+  {
+    icon: '⟳',
+    title: 'Planned Maintenance',
+    text: 'Structured inspections, service reports and maintenance support for installed systems.',
+    href: '/services/fire-safety-amc/',
+    link: 'Explore AMC'
+  },
+  {
+    icon: '⌂',
+    title: 'Site Assessment',
+    text: 'Identify practical repair, integration and upgrade paths before deciding what to replace.',
+    href: '/contact/',
+    link: 'Request a survey'
+  }
+];
 ---
+
 <MainLayout>
-<section class="hero"><div class="container hero-grid"><div><div class="eyebrow">Fire & Safety · Integration · Smart Monitoring</div><h1>From fire safety systems to <span>smart, connected buildings.</span></h1><p class="lead">InteGrowSys helps facilities maintain essential safety systems, integrate building equipment and explore smarter monitoring—without assuming every legacy system needs a complete replacement.</p><div class="hero-actions"><a class="button" href="/contact/">Make My Existing System Smart ↗</a><a class="button secondary" href="/services/">Explore our services</a></div><p class="micro-note">Site-specific design · Integration-led thinking · Practical maintenance support</p></div><div class="hero-visual"><div class="visual-label">Connected facility concept</div><div class="visual-title">Know what’s happening across your systems.</div><div class="status-stack"><div class="status-row"><span><i class="status-dot"></i>Fire alarm interface</span><strong>Signal</strong></div><div class="status-row"><span><i class="status-dot"></i>Equipment status</span><strong>Monitor</strong></div><div class="status-row"><span><i class="status-dot"></i>Remote notification</span><strong>Respond</strong></div></div></div></div></section>
-<section class="section"><div class="container"><div class="section-heading"><div class="eyebrow">What we do</div><h2>Safety systems that work. Information that helps you act.</h2><p>From planned maintenance to carefully scoped monitoring upgrades, we focus on making systems useful to the people responsible for facilities, safety and operations.</p></div><div class="card-grid">{cards.map(c=><article class="card"><div class="icon-box" aria-hidden="true">{c.icon}</div><h3>{c.title}</h3><p>{c.text}</p><a class="card-link" href={c.href}>{c.link} →</a></article>)}</div></div></section>
-<section class="section soft"><div class="container"><div class="section-heading"><div class="eyebrow">Make legacy systems smarter</div><h2>Don’t replace everything before checking what can be made smart.</h2><p>Existing fire alarm panels, pump controllers and building equipment may provide useful status signals. A site assessment can review outputs, connectivity and practical monitoring options.</p></div><div class="feature-band"><div><h2>Start with the system you already have.</h2><p>Tell us what equipment is installed, what you want to monitor and where the site is located.</p></div><a class="button" href="/contact/">Request a smart-system assessment</a></div></div></section>
-<section class="section"><div class="container"><div class="section-heading"><div class="eyebrow">Typical environments</div><h2>Designed around real facility needs.</h2><p>Solutions can be scoped for different facility types and operating priorities.</p></div><div class="pill-row">{['IT / ITES offices','Manufacturing facilities','Commercial buildings','Industrial premises','Server & network rooms','Critical facilities','Office parks','Warehouses'].map(x=><span class="pill">{x}</span>)}</div></div></section>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Fire & Safety · Integration · Smart Monitoring</div>
+
+        <h1>
+          From fire safety systems to
+          <span>smart, connected buildings.</span>
+        </h1>
+
+        <p class="lead">
+          InteGrowSys helps facilities maintain essential safety systems,
+          integrate building equipment and explore smarter monitoring—
+          without assuming every legacy system needs a complete replacement.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button" href="/contact/?enquiry=smart-monitoring">
+            Make My Existing System Smart ↗
+          </a>
+          <a class="button secondary" href="/services/">
+            Explore Fire & Safety Services
+          </a>
+        </div>
+
+        <p class="micro-note">
+          Site-specific design · Integration-led thinking · Practical maintenance support
+        </p>
+      </div>
+
+      <div class="hero-visual">
+        <div class="visual-label">Connected facility concept</div>
+        <div class="visual-title">
+          Know what’s happening across your systems.
+        </div>
+
+        <div class="status-stack">
+          <div class="status-row">
+            <span><i class="status-dot"></i>Fire alarm interface</span>
+            <strong>Signal</strong>
+          </div>
+          <div class="status-row">
+            <span><i class="status-dot"></i>Equipment status</span>
+            <strong>Monitor</strong>
+          </div>
+          <div class="status-row">
+            <span><i class="status-dot"></i>Remote notification</span>
+            <strong>Respond</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">What we do</div>
+        <h2>Safety systems that work. Information that helps you act.</h2>
+        <p>
+          From planned maintenance to carefully scoped monitoring upgrades,
+          we focus on making systems useful to the people responsible for
+          facilities, safety and operations.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        {cards.map((card) => (
+          <article class="card">
+            <div class="icon-box" aria-hidden="true">{card.icon}</div>
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+            <a class="card-link" href={card.href}>{card.link} →</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">Start with your requirement</div>
+        <h2>What would you like to improve at your facility?</h2>
+        <p>
+          Choose the enquiry path that best matches your requirement.
+          Sharing a few details helps us understand the site before
+          arranging a discussion or survey.
+        </p>
+      </div>
+
+      <div class="qualification-grid">
+        <article class="qualification-card">
+          <div class="eyebrow">Fire Safety & Maintenance</div>
+          <h3>Maintain, repair or upgrade your fire safety systems.</h3>
+          <p>
+            For facility teams looking for AMC, fire safety audits,
+            fire alarm work, hydrant and sprinkler systems, fire pumps,
+            training or compliance-related support.
+          </p>
+
+          <ul class="check-list">
+            <li>Facility type and site location</li>
+            <li>Existing fire safety systems</li>
+            <li>AMC, audit, repair or upgrade requirement</li>
+          </ul>
+
+          <a class="button" href="/contact/?enquiry=fire-safety">
+            Enquire About Fire Safety
+          </a>
+        </article>
+
+        <article class="qualification-card">
+          <div class="eyebrow">Smart Monitoring & Integration</div>
+          <h3>Make selected existing systems smarter.</h3>
+          <p>
+            For sites interested in remote alerts, equipment status,
+            pump monitoring, pressure monitoring, water leak detection
+            or building systems integration.
+          </p>
+
+          <ul class="check-list">
+            <li>Existing panel or equipment make/model</li>
+            <li>Signals or conditions to monitor</li>
+            <li>Available connectivity and site location</li>
+          </ul>
+
+          <a class="button" href="/contact/?enquiry=smart-monitoring">
+            Enquire About Smart Monitoring
+          </a>
+        </article>
+      </div>
+
+      <p class="micro-note qualification-note">
+        Monitoring feasibility depends on the installed equipment,
+        available signals, site connectivity and the proposed configuration.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">Make legacy systems smarter</div>
+        <h2>Don’t replace everything before checking what can be made smart.</h2>
+        <p>
+          Existing fire alarm panels, pump controllers and building equipment
+          may provide useful status signals. A site assessment can review
+          outputs, connectivity and practical monitoring options.
+        </p>
+      </div>
+
+      <div class="feature-band">
+        <div>
+          <h2>Start with the system you already have.</h2>
+          <p>
+            Tell us what equipment is installed, what you want to monitor
+            and where the site is located.
+          </p>
+        </div>
+        <a class="button" href="/contact/?enquiry=smart-monitoring">
+          Request a Smart-System Assessment
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <div class="section-heading">
+        <div class="eyebrow">Typical environments</div>
+        <h2>Designed around real facility needs.</h2>
+        <p>
+          Solutions can be scoped for different facility types
+          and operating priorities.
+        </p>
+      </div>
+
+      <div class="pill-row">
+        {[
+          'IT / ITES offices',
+          'Manufacturing facilities',
+          'Commercial buildings',
+          'Industrial premises',
+          'Server & network rooms',
+          'Critical facilities',
+          'Office parks',
+          'Warehouses'
+        ].map((item) => <span class="pill">{item}</span>)}
+      </div>
+    </div>
+  </section>
 </MainLayout>

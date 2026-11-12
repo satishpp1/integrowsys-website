@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "integrowsys-site",
+  "main": "./src/worker.ts",
+  "compatibility_date": "2026-11-10",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "integrowsys-leads-staging",
+      "database_id": "3c1d861f-45eb-4bae-b5a1-2bf889a3fcec",
+      "migrations_dir": "./migrations"
+    }
+  ]
+}
