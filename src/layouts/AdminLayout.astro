@@ -1,0 +1,66 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'InteGrowSys Lead Management Dashboard' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://www.integrowsys.com').toString();
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="generator" content={Astro.generator}/>
+  <meta name="description" content={description}/>
+  <link rel="canonical" href={canonical}/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <title>{title}</title>
+  <link rel="stylesheet" href="/styles/admin.css"/>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="admin-header">
+    <div class="container admin-header-inner">
+      <a class="admin-brand" href="/admin/" aria-label="InteGrowSys Admin home">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="var(--blue)"/>
+          <path d="M8 16L14 22L24 10" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>InteGrowSys Admin</span>
+      </a>
+      <nav class="admin-nav" aria-label="Admin navigation">
+        <a href="/admin/" class:list={{active: Astro.url.pathname === '/admin/'}}>Dashboard</a>
+        <a href="/admin/leads" class:list={{active: Astro.url.pathname.startsWith('/admin/leads')}}>Leads</a>
+      </nav>
+      <div class="admin-user">
+        <span id="user-email" class="user-email">Loading…</span>
+        <a class="button secondary" href="/">View Site</a>
+      </div>
+    </div>
+  </header>
+  <main id="main" class="admin-main">
+    <div class="container">
+      <slot/>
+    </div>
+  </main>
+  <footer class="admin-footer">
+    <div class="container">
+      <p>© {new Date().getFullYear()} InteGrowSys. Internal use only.</p>
+    </div>
+  </footer>
+  <script>
+    const email = document.querySelector<HTMLElement>('#user-email');
+    const userMeta = document.querySelector<HTMLMetaElement>('meta[name="cf-access-user"]');
+    const userCookie = document.cookie.match(/cf-access-user=([^;]+)/)?.[1];
+    const userEmail = userMeta?.content || userCookie;
+    if (email && userEmail) {
+      email.textContent = decodeURIComponent(userEmail);
+    } else if (email) {
+      email.textContent = 'Authenticated';
+    }
+  </script>
+</body>
+</html>

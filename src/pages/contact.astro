@@ -1,300 +1,434 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import { 
+  Phone, 
+  Mail, 
+  MapPin, 
+  Clock, 
+  CheckCircle2, 
+  Send
+} from 'lucide-astro';
 ---
 
 <MainLayout
-  title="Contact InteGrowSys | Request a Site Survey"
-  description="Contact InteGrowSys for fire safety services, maintenance, building systems integration or a smart monitoring assessment."
+  title="Contact InteGrowSys | Request a Site Survey or Quotation"
+  description="Contact InteGrowSys for fire safety AMC, statutory fire audits, hydrants & sprinklers, building systems integration, or an AlertGuard IoT assessment in Pune."
 >
-  <section class="page-hero">
-    <div class="container">
-      <div class="breadcrumbs"><a href="/">Home</a> / Contact</div>
-      <div class="eyebrow">Start a conversation</div>
-      <h1>Tell us about your facility and what you want to improve.</h1>
-      <p class="lead">
-        Request a quotation, site survey or assessment of whether your existing
-        alarm or building systems can support smarter monitoring.
+  <!-- Page Header -->
+  <section class="bg-slate-900 text-white py-14 lg:py-16 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Get In Touch</div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-black tracking-tight text-white">
+        Request a Site Survey or Technical Discussion
+      </h1>
+      <p class="text-slate-300 text-base sm:text-lg mt-3 max-w-3xl">
+        Whether you need statutory fire safety AMC compliance, a complete pump room overhaul, or want to explore retrofitting existing alarm panels with AlertGuard IoT, our engineering team is here to assist.
       </p>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container contact-grid">
-      <div class="contact-panel">
-        <h2>Contact details</h2>
-        <p>InteGrowSys</p>
+  <!-- Contact & Form Grid -->
+  <section class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        
+        <!-- Left Column: Direct Contact & Scope Checklist -->
+        <div class="lg:col-span-5 space-y-8">
+          
+          <!-- Direct Channels Card -->
+          <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-6">
+            <h2 class="text-xl font-heading font-bold text-slate-900">Direct Support Channels</h2>
 
-        <p><strong>Email</strong><br />
-          <a href="mailto:crm@integrowsys.com">crm@integrowsys.com</a>
-        </p>
+            <div class="space-y-4">
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-1">
+                  <Phone class="w-5 h-5" />
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-slate-500 uppercase">Direct Engineering Lines</div>
+                  <a href="tel:+919860027825" class="text-base font-bold text-slate-900 hover:text-blue-600 transition block">
+                    +91 98600 27825
+                  </a>
+                  <a href="tel:+917507600091" class="text-base font-bold text-slate-900 hover:text-blue-600 transition block">
+                    +91 75076 00091
+                  </a>
+                </div>
+              </div>
 
-        <p><strong>Phone</strong><br />
-          <a href="tel:+919860027825">+91 98600 27825</a><br />
-          <a href="tel:+917507600091">+91 75076 00091</a>
-        </p>
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-1">
+                  <Mail class="w-5 h-5" />
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-slate-500 uppercase">Inquiries & RFPs</div>
+                  <a href="mailto:crm@integrowsys.com" class="text-base font-bold text-slate-900 hover:text-blue-600 transition block">
+                    crm@integrowsys.com
+                  </a>
+                </div>
+              </div>
 
-        <p><strong>Office</strong><br />
-          B25, Erica, Magarpatta City, Hadapsar, Pune, Maharashtra 411013
-        </p>
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-1">
+                  <MapPin class="w-5 h-5" />
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-slate-500 uppercase">Pune Service Center</div>
+                  <p class="text-sm text-slate-700 leading-snug mt-0.5">
+                    B25, Erica, Magarpatta City, Hadapsar, Pune, Maharashtra 411013
+                  </p>
+                </div>
+              </div>
 
-        <a class="button" href="mailto:crm@integrowsys.com?subject=InteGrowSys%20Site%20Assessment">
-          Email an enquiry
-        </a>
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-1">
+                  <Clock class="w-5 h-5" />
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-slate-500 uppercase">Operating Hours</div>
+                  <p class="text-sm text-slate-700 leading-snug mt-0.5">
+                    Monday – Saturday: 9:00 AM – 7:00 PM IST
+                  </p>
+                </div>
+              </div>
+            </div>
 
-        <div style="margin-top: 2rem;">
-          <h3>What can we help with?</h3>
-          <ul class="check-list">
-            <li>Fire alarm system or panel interface</li>
-            <li>Fire hydrant, sprinkler or fire pump system</li>
-            <li>Fire Safety AMC, audit or training</li>
-            <li>Pressurization or basement ventilation</li>
-            <li>CCTV, access control or networking</li>
-            <li>Remote alarm/fault notifications</li>
-            <li>Pump status, pressure, temperature, humidity or water leak monitoring</li>
-          </ul>
+            <div class="pt-4 border-t border-slate-100">
+              <a 
+                href="mailto:crm@integrowsys.com?subject=InteGrowSys%20Direct%20Inquiry" 
+                class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm bg-slate-900 text-white hover:bg-slate-800 transition"
+              >
+                <Mail class="w-4 h-4" />
+                <span>Send Quick Email</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Information that helps speed up review -->
+          <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
+            <h3 class="font-heading font-bold text-slate-900 text-base flex items-center gap-2">
+              <CheckCircle2 class="w-5 h-5 text-emerald-600" />
+              <span>Details that help us prepare</span>
+            </h3>
+            <p class="text-xs text-slate-600">
+              Sharing any of these in your message allows our engineering team to provide specific guidance faster:
+            </p>
+            <ul class="space-y-2 text-xs text-slate-700">
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                <span>Facility type (IT park, factory, warehouse, commercial)</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                <span>Existing equipment make/model (Honeywell, Morley, Notifier, Kirloskar, etc.)</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                <span>Target requirement (AMC renewal, statutory audit, IoT retrofit)</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                <span>Site location and timeline</span>
+              </li>
+            </ul>
+          </div>
+
         </div>
-      </div>
 
-      <div class="contact-panel">
-        <h2>Send us an enquiry</h2>
-        <p>
-          Share a few details about your facility and requirements.
-          Our team will get in touch with you.
-        </p>
+        <!-- Right Column: Lead Qualification Form -->
+        <div class="lg:col-span-7">
+          <div class="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-sm">
+            
+            <div class="mb-8">
+              <h2 class="text-2xl font-heading font-bold text-slate-900">Send an Enquiry</h2>
+              <p class="text-sm text-slate-600 mt-1">
+                Fill in the details below. Our technical team will review and get in touch promptly.
+              </p>
+            </div>
 
-        <form id="lead-form">
-          <div class="form-field">
-            <label for="name">Your name *</label>
-            <input id="name" name="name" type="text" maxlength="100" required autocomplete="name" />
+            <form id="lead-form" class="space-y-5">
+              
+              <!-- Name & Company -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="name" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Your Name *
+                  </label>
+                  <input 
+                    id="name" 
+                    name="name" 
+                    type="text" 
+                    maxlength="100" 
+                    required 
+                    autocomplete="name" 
+                    placeholder="e.g. Rajesh Sharma"
+                    class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 outline-none text-sm transition"
+                  />
+                </div>
+
+                <div>
+                  <label for="company" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Company / Organisation
+                  </label>
+                  <input 
+                    id="company" 
+                    name="company" 
+                    type="text" 
+                    maxlength="150" 
+                    autocomplete="organization" 
+                    placeholder="e.g. Apex Manufacturing Ltd."
+                    class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 outline-none text-sm transition"
+                  />
+                </div>
+              </div>
+
+              <!-- Designation & Email -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="designation" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Designation
+                  </label>
+                  <input 
+                    id="designation" 
+                    name="designation" 
+                    type="text" 
+                    maxlength="100" 
+                    autocomplete="organization-title" 
+                    placeholder="e.g. Facility Manager / Safety Head"
+                    class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 outline-none text-sm transition"
+                  />
+                </div>
+
+                <div>
+                  <label for="email" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Business Email
+                  </label>
+                  <input 
+                    id="email" 
+                    name="email" 
+                    type="email" 
+                    maxlength="254" 
+                    autocomplete="email" 
+                    placeholder="e.g. rajesh@company.com"
+                    class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 outline-none text-sm transition"
+                  />
+                </div>
+              </div>
+
+              <!-- Phone & City -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="phone" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Phone Number *
+                  </label>
+                  <input 
+                    id="phone" 
+                    name="phone" 
+                    type="tel" 
+                    maxlength="30" 
+                    required 
+                    autocomplete="tel" 
+                    placeholder="e.g. +91 98765 43210"
+                    class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 outline-none text-sm transition"
+                  />
+                </div>
+
+                <div>
+                  <label for="city" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    City / Facility Location
+                  </label>
+                  <input 
+                    id="city" 
+                    name="city" 
+                    type="text" 
+                    maxlength="100" 
+                    autocomplete="address-level2" 
+                    placeholder="e.g. Pune / PCMC / Chakan"
+                    class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 outline-none text-sm transition"
+                  />
+                </div>
+              </div>
+
+              <!-- Facility Type & Service Required -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="facility_type" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Facility Type
+                  </label>
+                  <select 
+                    id="facility_type" 
+                    name="facility_type" 
+                    class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 outline-none text-sm bg-white transition"
+                  >
+                    <option value="">Select facility type</option>
+                    <option>Manufacturing / Industrial</option>
+                    <option>IT Park / Corporate Office</option>
+                    <option>Commercial Complex / Mall</option>
+                    <option>Hospital / Healthcare</option>
+                    <option>Educational Institution</option>
+                    <option>Residential / Housing Society</option>
+                    <option>Warehouse / Logistics Hub</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="service_interest" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                    Service Required *
+                  </label>
+                  <select 
+                    id="service_interest" 
+                    name="service_interest" 
+                    required 
+                    class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 outline-none text-sm bg-white transition"
+                  >
+                    <option value="">Select a service</option>
+                    <option>Fire Safety AMC &amp; Maintenance</option>
+                    <option>Fire Alarm Systems</option>
+                    <option>Fire Hydrant &amp; Sprinkler Systems</option>
+                    <option>Fire Safety Audit &amp; Training</option>
+                    <option>Fire Pump Systems</option>
+                    <option>Smart Monitoring &amp; IoT</option>
+                    <option>Pressurization &amp; Basement Ventilation</option>
+                    <option>CCTV, Access Control &amp; Networking</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Enquiry Details Message -->
+              <div>
+                <label for="message" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                  Enquiry Details & Specific Issues *
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  maxlength="3000"
+                  required
+                  placeholder="Describe your facility requirements, existing systems (make/model if known), site location, or issues..."
+                  class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-500/20 outline-none text-sm transition"
+                ></textarea>
+              </div>
+
+              <!-- Honeypot -->
+              <div class="hidden" aria-hidden="true">
+                <label for="website">Leave empty</label>
+                <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+              </div>
+
+              <!-- Consent Checkbox -->
+              <div class="pt-2">
+                <label class="flex items-start gap-3 cursor-pointer">
+                  <input 
+                    type="checkbox" 
+                    name="consent" 
+                    id="consent" 
+                    required 
+                    class="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 cursor-pointer" 
+                  />
+                  <span class="text-xs text-slate-600 leading-snug">
+                    I agree to allow InteGrowSys engineers to contact me regarding this enquiry.
+                  </span>
+                </label>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="pt-3">
+                <button 
+                  type="submit" 
+                  id="submit-button"
+                  class="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25 transition active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  <Send class="w-4 h-4" />
+                  <span>Submit Enquiry</span>
+                </button>
+              </div>
+
+              <!-- Status Alert Box -->
+              <p id="form-status" role="status" aria-live="polite" class="text-sm font-semibold text-center mt-3 empty:hidden"></p>
+
+            </form>
+
           </div>
+        </div>
 
-          <div class="form-field">
-            <label for="company">Company / Organisation</label>
-            <input id="company" name="company" type="text" maxlength="150" autocomplete="organization" />
-          </div>
-
-          <div class="form-field">
-            <label for="designation">Designation</label>
-            <input id="designation" name="designation" type="text" maxlength="100" autocomplete="organization-title" />
-          </div>
-
-          <div class="form-field">
-            <label for="email">Business email</label>
-            <input id="email" name="email" type="email" maxlength="254" autocomplete="email" />
-          </div>
-
-          <div class="form-field">
-            <label for="phone">Phone number *</label>
-            <input id="phone" name="phone" type="tel" maxlength="30" required autocomplete="tel" />
-          </div>
-
-          <div class="form-field">
-            <label for="city">City / Location</label>
-            <input id="city" name="city" type="text" maxlength="100" autocomplete="address-level2" />
-          </div>
-
-          <div class="form-field">
-            <label for="facility_type">Facility type</label>
-            <select id="facility_type" name="facility_type">
-              <option value="">Select facility type</option>
-              <option>Manufacturing / Industrial</option>
-              <option>IT Park / Office</option>
-              <option>Commercial Complex / Mall</option>
-              <option>Hospital / Healthcare</option>
-              <option>Educational Institution</option>
-              <option>Residential / Housing Society</option>
-              <option>Warehouse / Logistics</option>
-              <option>Other</option>
-            </select>
-          </div>
-
-          <div class="form-field">
-            <label for="service_interest">Service required *</label>
-            <select id="service_interest" name="service_interest" required>
-              <option value="">Select a service</option>
-              <option>Fire Safety AMC &amp; Maintenance</option>
-              <option>Fire Alarm Systems</option>
-              <option>Fire Hydrant &amp; Sprinkler Systems</option>
-              <option>Fire Safety Audit &amp; Training</option>
-              <option>Fire Pump Systems</option>
-              <option>Smart Monitoring &amp; IoT</option>
-              <option>Pressurization &amp; Basement Ventilation</option>
-              <option>CCTV, Access Control &amp; Networking</option>
-              <option>Other</option>
-            </select>
-          </div>
-
-          <div class="form-field">
-            <label for="message">Enquiry details *</label>
-            <textarea
-              id="message"
-              name="message"
-              rows="5"
-              maxlength="3000"
-              required
-              placeholder="Describe your requirements, existing systems, site location or any specific issue..."
-            ></textarea>
-          </div>
-
-          <div class="form-honeypot" aria-hidden="true">
-            <label for="website">Leave this field empty</label>
-            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
-          </div>
-
-          <div class="form-field consent-field">
-            <label>
-              <input type="checkbox" name="consent" id="consent" required />
-              I agree to be contacted by InteGrowSys regarding this enquiry.
-            </label>
-          </div>
-
-          <button class="button" type="submit" id="submit-button">
-            Submit enquiry
-          </button>
-
-          <p id="form-status" role="status" aria-live="polite"></p>
-        </form>
       </div>
     </div>
   </section>
-
-  <style>
-    .form-field {
-      margin-bottom: 1rem;
-    }
-
-    .form-field label {
-      display: block;
-      margin-bottom: 0.4rem;
-      font-weight: 600;
-    }
-
-    .form-field input:not([type="checkbox"]),
-    .form-field select,
-    .form-field textarea {
-      display: block;
-      width: 100%;
-      box-sizing: border-box;
-      padding: 0.75rem;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      font: inherit;
-      background: #fff;
-      color: #172033;
-    }
-
-    .form-field textarea {
-      resize: vertical;
-    }
-
-    .consent-field label {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      font-weight: 400;
-    }
-
-    .consent-field input {
-      margin-top: 0.25rem;
-    }
-
-    .form-honeypot {
-      position: absolute;
-      left: -10000px;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-    }
-
-    #form-status {
-      margin-top: 1rem;
-      font-weight: 600;
-    }
-
-    #form-status.success {
-      color: #15803d;
-    }
-
-    #form-status.error {
-      color: #b91c1c;
-    }
-
-    #submit-button:disabled {
-      opacity: 0.65;
-      cursor: not-allowed;
-    }
-  </style>
-
-  <script>
-    const form = document.querySelector<HTMLFormElement>('#lead-form');
-    const submitButton = document.querySelector<HTMLButtonElement>('#submit-button');
-    const formStatus = document.querySelector<HTMLParagraphElement>('#form-status');
-
-    form?.addEventListener('submit', async (event) => {
-      event.preventDefault();
-
-      if (!form.reportValidity() || !submitButton || !formStatus) return;
-
-      submitButton.disabled = true;
-      submitButton.textContent = 'Submitting...';
-      formStatus.textContent = '';
-      formStatus.className = '';
-
-      const formData = new FormData(form);
-
-      const payload = {
-        name: formData.get('name'),
-        company: formData.get('company'),
-        designation: formData.get('designation'),
-        email: formData.get('email'),
-        phone: formData.get('phone'),
-        city: formData.get('city'),
-        facility_type: formData.get('facility_type'),
-        service_interest: formData.get('service_interest'),
-        message: formData.get('message'),
-        website: formData.get('website'),
-        consent: formData.get('consent') === 'on'
-      };
-
-      try {
-        const response = await fetch('/api/leads', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        const result: unknown = await response.json();
-
-        if (
-          typeof result !== 'object' ||
-          result === null ||
-          !('success' in result) ||
-          typeof result.success !== 'boolean' ||
-          !('message' in result) ||
-          typeof result.message !== 'string'
-        ) {
-          throw new Error('Unexpected response from the server. Please try again.');
-        }
-
-        if (!response.ok || !result.success) {
-          throw new Error(result.message || 'Unable to submit your enquiry.');
-        }
-
-        formStatus.textContent = result.message;
-        formStatus.className = 'success';
-        form.reset();
-
-              } catch (error) {
-         formStatus.textContent =
-           error instanceof Error
-             ? error.message
-             : 'Something went wrong. Please try again or email crm@integrowsys.com.';
-         formStatus.className = 'error';
-
-      } finally {
-        submitButton.disabled = false;
-        submitButton.textContent = 'Submit enquiry';
-      }
-    });
-  </script>
 </MainLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#lead-form');
+  const submitButton = document.querySelector<HTMLButtonElement>('#submit-button');
+  const formStatus = document.querySelector<HTMLParagraphElement>('#form-status');
+
+  // Pre-select service if passed in URL query param, e.g. ?enquiry=smart-monitoring
+  const urlParams = new URLSearchParams(window.location.search);
+  const enquiryParam = urlParams.get('enquiry');
+  const serviceSelect = document.getElementById('service_interest') as HTMLSelectElement | null;
+
+  if (enquiryParam && serviceSelect) {
+    if (enquiryParam === 'smart-monitoring') {
+      serviceSelect.value = 'Smart Monitoring & IoT';
+    } else if (enquiryParam === 'fire-safety') {
+      serviceSelect.value = 'Fire Safety AMC & Maintenance';
+    }
+  }
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    if (!form.reportValidity() || !submitButton || !formStatus) return;
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'Submitting Enquiry...';
+    formStatus.textContent = '';
+    formStatus.className = 'text-sm font-semibold text-center mt-3';
+
+    const formData = new FormData(form);
+
+    const payload = {
+      name: formData.get('name'),
+      company: formData.get('company'),
+      designation: formData.get('designation'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      city: formData.get('city'),
+      facility_type: formData.get('facility_type'),
+      service_interest: formData.get('service_interest'),
+      message: formData.get('message'),
+      website: formData.get('website'),
+      consent: formData.get('consent') === 'on'
+    };
+
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const result = (await response.json()) as { success?: boolean; message?: string };
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || 'Unable to submit your enquiry.');
+      }
+
+      formStatus.textContent = result.message || 'Thank you! Your enquiry has been received.';
+      formStatus.className = 'text-sm font-semibold text-center mt-3 text-emerald-600 bg-emerald-50 py-3 rounded-xl border border-emerald-200';
+      form.reset();
+
+    } catch (error) {
+      formStatus.textContent =
+        error instanceof Error
+          ? error.message
+          : 'Something went wrong. Please try again or email crm@integrowsys.com.';
+      formStatus.className = 'text-sm font-semibold text-center mt-3 text-rose-600 bg-rose-50 py-3 rounded-xl border border-rose-200';
+
+    } finally {
+      submitButton.disabled = false;
+      submitButton.innerHTML = `<svg class="w-4 h-4 mr-2 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Submit Enquiry`;
+    }
+  });
+</script>

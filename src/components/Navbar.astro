@@ -1,0 +1,270 @@
+---
+import { 
+  Flame, 
+  Cpu, 
+  Phone, 
+  Menu, 
+  X, 
+  ChevronDown, 
+  ArrowRight
+} from 'lucide-astro';
+
+const currentPath = Astro.url.pathname;
+
+const serviceLinks = [
+  { label: 'Fire Safety AMC & Maintenance', href: '/services/fire-safety-amc/', desc: 'Planned inspections & SLA-backed support' },
+  { label: 'Fire Alarm Systems', href: '/services/fire-alarm-systems/', desc: 'Conventional & addressable panels' },
+  { label: 'Hydrant & Sprinkler Systems', href: '/services/fire-hydrant-sprinkler/', desc: 'Piping, valves & suppression networks' },
+  { label: 'Fire Pump Systems', href: '/services/fire-pump-systems/', desc: 'Main, jockey & diesel engine pump rooms' },
+  { label: 'Fire Safety Audits', href: '/services/fire-safety-audits/', desc: 'Statutory compliance & gap analysis' },
+  { label: 'Fire Safety Training', href: '/services/fire-safety-training/', desc: 'Drills, extinguisher practice & evacuation' },
+  { label: 'Building Systems Integration', href: '/services/building-systems-integration/', desc: 'Pressurization & smoke ventilation' },
+  { label: 'Security & ELV Systems', href: '/services/security-elv/', desc: 'CCTV, access control & cabling' }
+];
+---
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all duration-200">
+  <!-- Top Utility Bar for Direct Support -->
+  <div class="hidden md:block bg-slate-900 text-slate-300 text-xs py-1.5 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-4">
+        <span class="flex items-center gap-1.5 text-emerald-400 font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Pune Service Hub: Magarpatta City, Hadapsar
+        </span>
+        <span class="text-slate-500">|</span>
+        <span class="text-slate-400">Emergency & AMC Response Support</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="tel:+919860027825" class="hover:text-white transition flex items-center gap-1">
+          <Phone class="w-3.5 h-3.5 text-blue-400" />
+          <span>+91 98600 27825</span>
+        </a>
+        <a href="tel:+917507600091" class="hover:text-white transition flex items-center gap-1">
+          <Phone class="w-3.5 h-3.5 text-blue-400" />
+          <span>+91 75076 00091</span>
+        </a>
+        <a href="mailto:crm@integrowsys.com" class="hover:text-white transition">crm@integrowsys.com</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation Bar -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-3 group" aria-label="InteGrowSys Home">
+        <img 
+          src="/images/integrowsys-logo.jpg" 
+          alt="InteGrowSys" 
+          width="180" 
+          height="65" 
+          class="h-12 w-auto object-contain transition group-hover:opacity-95" 
+        />
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden lg:flex items-center gap-1" aria-label="Main navigation">
+        <a 
+          href="/" 
+          class={`px-3.5 py-2 text-sm font-semibold rounded-lg transition ${currentPath === '/' ? 'text-blue-600 bg-blue-50' : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'}`}
+        >
+          Home
+        </a>
+
+        <!-- Services Dropdown -->
+        <div class="relative group">
+          <button 
+            type="button" 
+            class={`px-3.5 py-2 text-sm font-semibold rounded-lg transition inline-flex items-center gap-1.5 ${currentPath.startsWith('/services') ? 'text-blue-600 bg-blue-50' : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'}`}
+            aria-expanded="false"
+          >
+            <span>Fire & Safety Services</span>
+            <ChevronDown class="w-4 h-4 text-slate-400 group-hover:rotate-180 transition-transform duration-200" />
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div class="absolute left-0 top-full pt-2 w-96 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 z-50">
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200/80 p-3 grid gap-1">
+              <div class="px-3 py-1.5 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                Core Capabilities
+              </div>
+              {serviceLinks.map((service) => (
+                <a 
+                  href={service.href} 
+                  class="p-2.5 rounded-xl hover:bg-slate-50 transition group/item flex items-start gap-3"
+                >
+                  <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:bg-blue-600 group-hover/item:text-white transition">
+                    <Flame class="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div class="text-sm font-bold text-slate-800 group-hover/item:text-blue-600 transition">
+                      {service.label}
+                    </div>
+                    <div class="text-xs text-slate-500">
+                      {service.desc}
+                    </div>
+                  </div>
+                </a>
+              ))}
+              <div class="pt-2 mt-1 border-t border-slate-100 px-2 flex justify-between items-center text-xs">
+                <a href="/services/" class="font-bold text-blue-600 hover:text-blue-700 inline-flex items-center gap-1">
+                  View All Services <ArrowRight class="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Smart Monitoring (AlertGuard) -->
+        <a 
+          href="/smart-monitoring/" 
+          class={`px-3.5 py-2 text-sm font-semibold rounded-lg transition inline-flex items-center gap-2 ${currentPath.startsWith('/smart-monitoring') ? 'text-blue-600 bg-blue-50' : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'}`}
+        >
+          <Cpu class="w-4 h-4 text-indigo-600" />
+          <span>Smart Monitoring</span>
+          <span class="bg-indigo-100 text-indigo-700 text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded-md">
+            AlertGuard
+          </span>
+        </a>
+
+        <!-- Projects -->
+        <a 
+          href="/projects/" 
+          class={`px-3.5 py-2 text-sm font-semibold rounded-lg transition ${currentPath.startsWith('/projects') ? 'text-blue-600 bg-blue-50' : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'}`}
+        >
+          Projects
+        </a>
+
+        <!-- About -->
+        <a 
+          href="/about/" 
+          class={`px-3.5 py-2 text-sm font-semibold rounded-lg transition ${currentPath.startsWith('/about') ? 'text-blue-600 bg-blue-50' : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'}`}
+        >
+          About
+        </a>
+
+        <!-- Resources -->
+        <a 
+          href="/resources/" 
+          class={`px-3.5 py-2 text-sm font-semibold rounded-lg transition ${currentPath.startsWith('/resources') ? 'text-blue-600 bg-blue-50' : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'}`}
+        >
+          Resources
+        </a>
+      </nav>
+
+      <!-- Header CTA & Contact -->
+      <div class="hidden sm:flex items-center gap-3">
+        <a 
+          href="/contact/" 
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-blue-600 text-white shadow-md shadow-blue-500/20 hover:bg-blue-700 hover:shadow-lg transition active:scale-[0.98]"
+        >
+          <span>Request Site Survey</span>
+          <ArrowRight class="w-4 h-4" />
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <div class="flex items-center lg:hidden">
+        <button 
+          id="mobile-menu-btn" 
+          type="button" 
+          class="p-2.5 rounded-xl text-slate-700 hover:bg-slate-100 transition"
+          aria-label="Toggle mobile menu"
+          aria-expanded="false"
+        >
+          <Menu class="w-6 h-6 menu-open-icon" />
+          <X class="w-6 h-6 menu-close-icon hidden" />
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Navigation Drawer -->
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-2">
+    <a 
+      href="/" 
+      class="block px-3 py-2.5 rounded-xl text-base font-bold text-slate-800 hover:bg-slate-50"
+    >
+      Home
+    </a>
+    
+    <div class="py-1">
+      <div class="px-3 py-1 text-xs font-bold uppercase tracking-wider text-slate-400">Services</div>
+      {serviceLinks.slice(0, 5).map((service) => (
+        <a 
+          href={service.href} 
+          class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50"
+        >
+          {service.label}
+        </a>
+      ))}
+      <a href="/services/" class="block px-3 py-1.5 text-xs font-bold text-blue-600">
+        View all 8 services →
+      </a>
+    </div>
+
+    <a 
+      href="/smart-monitoring/" 
+      class="flex items-center justify-between px-3 py-2.5 rounded-xl text-base font-bold text-slate-800 hover:bg-slate-50"
+    >
+      <span class="flex items-center gap-2">
+        <Cpu class="w-5 h-5 text-indigo-600" />
+        Smart Monitoring (AlertGuard)
+      </span>
+      <span class="bg-indigo-100 text-indigo-700 text-xs px-2 py-0.5 rounded font-extrabold">IoT</span>
+    </a>
+
+    <a 
+      href="/projects/" 
+      class="block px-3 py-2.5 rounded-xl text-base font-bold text-slate-800 hover:bg-slate-50"
+    >
+      Projects & Experience
+    </a>
+
+    <a 
+      href="/about/" 
+      class="block px-3 py-2.5 rounded-xl text-base font-bold text-slate-800 hover:bg-slate-50"
+    >
+      About InteGrowSys
+    </a>
+
+    <a 
+      href="/resources/" 
+      class="block px-3 py-2.5 rounded-xl text-base font-bold text-slate-800 hover:bg-slate-50"
+    >
+      Resources & Compliance
+    </a>
+
+    <div class="pt-4 mt-2 border-t border-slate-100 space-y-2.5">
+      <div class="text-xs text-slate-500 px-3">
+        Direct lines: 
+        <a href="tel:+919860027825" class="font-bold text-slate-800">+91 98600 27825</a> / 
+        <a href="tel:+917507600091" class="font-bold text-slate-800">+91 75076 00091</a>
+      </div>
+      <a 
+        href="/contact/" 
+        class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-sm bg-blue-600 text-white shadow-md hover:bg-blue-700 transition"
+      >
+        Request a Site Survey
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const openIcon = menuBtn?.querySelector('.menu-open-icon');
+  const closeIcon = menuBtn?.querySelector('.menu-close-icon');
+
+  menuBtn?.addEventListener('click', () => {
+    const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+    menuBtn.setAttribute('aria-expanded', String(!isExpanded));
+    mobileMenu?.classList.toggle('hidden');
+    openIcon?.classList.toggle('hidden');
+    closeIcon?.classList.toggle('hidden');
+  });
+</script>

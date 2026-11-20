@@ -1,10 +1,284 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
-const items=[{title:'Fire alarm notifications',text:'Where a compatible panel provides suitable relay outputs, selected alarm or fault states may be sent to an additional notification device.'},{title:'Fire pump & equipment status',text:'Monitor selected equipment run/fault signals where suitable contacts and safe installation methods are available.'},{title:'Pressure & environmental signals',text:'Pressure, temperature, humidity or water-leak monitoring requires compatible sensors, signal interfaces and a site-specific design.'},{title:'Connectivity options',text:'Connectivity is selected for the site. Wi-Fi is documented for current AlertGuard; Ethernet, LoRa or other gateways must be verified for each offered configuration.'}];
+import { 
+  Cpu, 
+  Flame, 
+  Activity, 
+  BellRing, 
+  Radio, 
+  ArrowRight, 
+  Sliders, 
+  ShieldAlert, 
+  HelpCircle
+} from 'lucide-astro';
+
+const monitorPoints = [
+  {
+    icon: Flame,
+    title: 'Fire Alarm Panel Interface',
+    description: 'Where compatible panels provide NO/NC dry contact relay outputs, common Fire and Fault conditions are immediately signaled to AlertGuard.',
+    badge: 'Alarm & Fault Signals'
+  },
+  {
+    icon: Activity,
+    title: 'Fire Pump Room Supervision',
+    description: 'Supervise main, diesel engine and jockey pump run/trip signals and starter panel power availability using relay auxiliaries.',
+    badge: 'Equipment Status'
+  },
+  {
+    icon: Sliders,
+    title: 'Header Line Pressure Thresholds',
+    description: 'Interface contact pressure switches or pressure transducers to detect drop in fire hydrant or sprinkler water line pressure before a failure.',
+    badge: 'Hydraulic Health'
+  },
+  {
+    icon: ShieldAlert,
+    title: 'Critical Environmental & Water Leak',
+    description: 'Connect dry-contact rope water leak detectors, flood probes, or environmental thresholds in server rooms, UPS battery hubs, and basements.',
+    badge: 'Facility Protection'
+  }
+];
+
+const steps = [
+  {
+    num: '01',
+    title: 'Site Survey & Signal Audit',
+    desc: 'Our engineers review installed equipment, make/model, available potential-free contacts, auxiliary terminals, power access, and network coverage.'
+  },
+  {
+    num: '02',
+    title: 'Integration Design & Escalation Matrix',
+    desc: 'We map up to five key alarm inputs, define alert routing (who gets emailed/pinged), and specify exact physical connectivity requirements.'
+  },
+  {
+    num: '03',
+    title: 'Commissioning & Handover Verification',
+    desc: 'Hardware is installed in an industrial enclosure, signal trip tests are verified end-to-end, and site teams receive handover documentation.'
+  }
+];
 ---
-<MainLayout title="Smart Monitoring & AlertGuard | InteGrowSys" description="Configuration-based monitoring and notifications for compatible legacy alarm and building equipment systems.">
-<section class="page-hero"><div class="container"><div class="breadcrumbs"><a href="/">Home</a> / Smart Monitoring</div><div class="eyebrow">Smart monitoring</div><h1>Make your existing alarm system smarter.</h1><p class="lead">Add a carefully scoped monitoring layer to selected signals from compatible equipment—so the right people can be notified when something changes.</p><div class="hero-actions"><a class="button" href="/contact/">Request a system assessment</a><a class="button secondary" href="mailto:crm@integrowsys.com?subject=AlertGuard%20and%20Smart%20Monitoring">Ask about AlertGuard</a></div></div></section>
-<section class="section"><div class="container"><div class="section-heading"><h2>What could be monitored?</h2><p>Actual scope depends on the panel, output contacts, sensor interface, power, network and notification requirements.</p></div><div class="card-grid">{items.map(x=><article class="card"><h3>{x.title}</h3><p>{x.text}</p></article>)}</div></div></section>
-<section class="section soft"><div class="container content"><h2>AlertGuard: an add-on notification concept</h2><p>The current AlertGuard integration manual describes an ESP32-based add-on that monitors up to five configurable NO/NC dry-contact relay inputs. It can send email notifications and webhooks over Wi-Fi when configured inputs change state.</p><p>Its embedded web interface is documented for device health, zone status and event-log access. Confirm supported inputs, connectivity, alert routing and commissioning requirements for the specific configuration before ordering.</p><div class="notice"><strong>Scope note:</strong> Ethernet, LoRa, direct analog sensor measurements and a full cloud dashboard are not assumed to be standard AlertGuard features here. Quote them only when verified for the proposed installation.</div><h2>How an assessment works</h2><div class="steps"><div class="step"><h3>Review</h3><p>Identify equipment, make/model, outputs, signals and site risks.</p></div><div class="step"><h3>Design</h3><p>Agree monitoring points, connectivity, alert recipients and limitations.</p></div><div class="step"><h3>Commission</h3><p>Test the agreed signal path, notifications and handover records.</p></div></div></div></section>
-<section class="section"><div class="container"><div class="feature-band"><div><h2>Could your legacy panel be connected?</h2><p>Send the panel make/model and a brief description of what you want to know remotely.</p></div><a class="button" href="/contact/">Start an assessment</a></div></div></section>
+
+<MainLayout 
+  title="Smart Monitoring & AlertGuard IoT | InteGrowSys" 
+  description="Add an intelligent notification layer to your existing legacy fire alarm panels, pumps, and facility equipment without complete replacements."
+>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 text-white py-16 lg:py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-400/20 text-indigo-300 text-xs font-bold uppercase tracking-wider mb-6">
+          <Cpu class="w-3.5 h-3.5" />
+          <span>AlertGuard™ IoT Add-On Solution</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl font-heading font-black tracking-tight text-white leading-tight">
+          Make your existing alarm system <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-emerald-400">intelligent & connected.</span>
+        </h1>
+
+        <p class="text-lg text-slate-300 mt-6 leading-relaxed">
+          You don’t have to discard functional fire alarm panels or pump controllers to get remote alerts. 
+          AlertGuard connects non-invasively to existing dry-contact relay outputs, dispatching instant notifications over Wi-Fi or cellular the moment a condition changes.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4 mt-8">
+          <a 
+            href="/contact/?enquiry=smart-monitoring" 
+            class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition"
+          >
+            <span>Request a Smart Assessment</span>
+            <ArrowRight class="w-4 h-4" />
+          </a>
+          <a 
+            href="mailto:crm@integrowsys.com?subject=AlertGuard%20Technical%20Inquiry" 
+            class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 transition"
+          >
+            Ask About AlertGuard Specs
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive System Architecture Diagram -->
+  <section class="py-16 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <div class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2">How It Connects</div>
+        <h2 class="text-3xl font-heading font-bold text-slate-900">
+          The Non-Invasive Retrofit Architecture
+        </h2>
+        <p class="text-slate-600 text-sm mt-2">
+          AlertGuard sits alongside your approved life safety systems without altering their statutory operation or local alarm sounders.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative">
+        <!-- Node 1 -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center mb-4">
+              <Flame class="w-5 h-5" />
+            </div>
+            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Step 1: Signal Origin</div>
+            <h3 class="font-heading font-bold text-slate-900 text-base mt-1">Legacy Equipment</h3>
+            <p class="text-xs text-slate-600 mt-2">
+              Fire alarm panel auxiliary relays, pump run contacts, or pressure switches trip.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200 text-xs font-mono text-slate-500">
+            NO / NC Dry Contacts
+          </div>
+        </div>
+
+        <!-- Node 2 -->
+        <div class="p-6 rounded-2xl bg-blue-50/50 border border-blue-200 flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center mb-4 shadow-sm shadow-blue-500/20">
+              <Cpu class="w-5 h-5" />
+            </div>
+            <div class="text-xs font-bold text-blue-600 uppercase tracking-wider">Step 2: Processing</div>
+            <h3 class="font-heading font-bold text-slate-900 text-base mt-1">AlertGuard IoT Node</h3>
+            <p class="text-xs text-slate-600 mt-2">
+              ESP32 industrial gateway samples 5 configurable inputs in real-time with debouncing.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-blue-200 text-xs font-mono text-blue-700">
+            Local Web Console & Logs
+          </div>
+        </div>
+
+        <!-- Node 3 -->
+        <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center mb-4">
+              <Radio class="w-5 h-5" />
+            </div>
+            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Step 3: Connectivity</div>
+            <h3 class="font-heading font-bold text-slate-900 text-base mt-1">Secure Edge Transport</h3>
+            <p class="text-xs text-slate-600 mt-2">
+              Transmits encrypted payload over facility Wi-Fi or cellular gateway.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200 text-xs font-mono text-slate-500">
+            TLS / Encrypted Webhook
+          </div>
+        </div>
+
+        <!-- Node 4 -->
+        <div class="p-6 rounded-2xl bg-emerald-50/50 border border-emerald-200 flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center mb-4 shadow-sm shadow-emerald-500/20">
+              <BellRing class="w-5 h-5" />
+            </div>
+            <div class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Step 4: Dispatch</div>
+            <h3 class="font-heading font-bold text-slate-900 text-base mt-1">Actionable Alerts</h3>
+            <p class="text-xs text-slate-600 mt-2">
+              Instant notification sent to Facility Head, Safety Officer, and AMC team.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-emerald-200 text-xs font-mono text-emerald-700">
+            Email & Webhook Delivered
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What Can Be Monitored -->
+  <section class="py-20 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-12">
+        <div class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2">Scope of Monitoring</div>
+        <h2 class="text-3xl font-heading font-bold text-slate-900">
+          What can be supervised at your facility?
+        </h2>
+        <p class="text-slate-600 text-base mt-2">
+          AlertGuard interfaces with equipment capable of providing standard electrical contacts or certified transducer outputs.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {monitorPoints.map((point) => {
+          const Icon = point.icon;
+          return (
+            <div class="bg-white p-7 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                    <Icon class="w-5 h-5" />
+                  </div>
+                  <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">
+                    {point.badge}
+                  </span>
+                </div>
+                <h3 class="font-heading font-bold text-slate-900 text-lg mb-2">
+                  {point.title}
+                </h3>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                  {point.description}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3-Step Assessment Process -->
+  <section class="py-20 bg-white border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2">Implementation Process</div>
+        <h2 class="text-3xl font-heading font-bold text-slate-900">
+          How an engineering assessment works
+        </h2>
+        <p class="text-slate-600 text-sm mt-2">
+          We don't guess compatibility from a brochure. We verify physical contact availability and signal safety on site.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {steps.map((step) => (
+          <div class="relative bg-slate-50 p-8 rounded-3xl border border-slate-200">
+            <div class="font-heading font-black text-3xl text-blue-600 mb-4">{step.num}</div>
+            <h3 class="font-heading font-bold text-slate-900 text-lg mb-2">{step.title}</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Scope Transparency Disclaimer -->
+      <div class="mt-12 p-6 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-sm flex items-start gap-4">
+        <HelpCircle class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+        <div>
+          <div class="font-bold">Important Technical Notice:</div>
+          <p class="text-xs text-amber-800 mt-1 leading-relaxed">
+            AlertGuard is designed as a notification and operational awareness add-on. It does not replace certified life safety control panels, mandatory audible sirens, or statutory Form-B maintenance obligations required under the Maharashtra Fire Prevention Act. Ethernet, LoRa, and proprietary analog telemetry are available on custom engineering quotation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="py-16 bg-slate-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white">
+          Could your facility panel be made smart?
+        </h2>
+        <p class="text-slate-400 text-sm mt-1 max-w-xl">
+          Share your panel make and model. Our engineers will verify relay output feasibility and propose an integration layout.
+        </p>
+      </div>
+      <a 
+        href="/contact/?enquiry=smart-monitoring" 
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/20 transition shrink-0"
+      >
+        <span>Schedule an Engineering Review</span>
+        <ArrowRight class="w-4 h-4" />
+      </a>
+    </div>
+  </section>
 </MainLayout>

@@ -1,7 +1,142 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
-const resources=[{title:'Fire safety maintenance planning',text:'Use a documented inspection schedule, record observations and track corrective actions.',type:'Maintenance'},{title:'Prepare for a smart-monitoring assessment',text:'Collect panel make/model, available relay outputs, equipment list, site connectivity and alert recipients.',type:'Smart monitoring'},{title:'Emergency readiness',text:'Keep evacuation instructions, emergency contacts, response responsibilities and training records current.',type:'Preparedness'}];
+import { 
+  ArrowRight,
+  HelpCircle
+} from 'lucide-astro';
+
+const resources = [
+  {
+    tag: 'Maintenance & AMC',
+    title: 'Fire Safety Maintenance Schedule Checklist',
+    text: 'A structured roadmap covering monthly jockey pump auto-start tests, quarterly sprinkler valve inspections, and annual deep servicing required under NBC 2016.',
+    link: '/contact/?enquiry=fire-safety',
+    linkText: 'Request Checklist PDF'
+  },
+  {
+    tag: 'Smart Monitoring',
+    title: 'Prepare for an AlertGuard IoT Assessment',
+    text: 'Information required prior to an engineering survey: panel make/model, auxiliary relay output schematics, Wi-Fi/cellular signal strength, and key alert recipients.',
+    link: '/smart-monitoring/',
+    linkText: 'View IoT Integration Specs'
+  },
+  {
+    tag: 'Emergency Preparedness',
+    title: 'Form-B Compliance & Statutory Readiness',
+    text: 'Key criteria scrutinized during statutory fire officer audits in Maharashtra, including pressure logbooks, extinguisher refilling records, and mock drill certifications.',
+    link: '/contact/?enquiry=fire-safety',
+    linkText: 'Consult on Form-B'
+  }
+];
+
+const faqs = [
+  {
+    q: 'Do we need to replace our existing fire alarm panel to add AlertGuard?',
+    a: 'No. AlertGuard is designed specifically as a non-invasive add-on. If your existing panel has potential-free auxiliary contacts (NO/NC relays for Fire and Fault), AlertGuard connects to those terminals without modifying your panel’s internal circuitry or local alarm sounders.'
+  },
+  {
+    q: 'What is included in an InteGrowSys Fire Safety AMC contract?',
+    a: 'Our AMC contracts include structured periodic inspection visits (monthly/quarterly), test runs of main, diesel, and jockey fire pumps, functional testing of detectors and manual call points, hydrant pressure verification, Form-B statutory documentation support, and preferential response times for emergency breakdown calls.'
+  },
+  {
+    q: 'Can AlertGuard notify multiple people during an emergency?',
+    a: 'Yes. AlertGuard supports configurable recipient lists. You can route alerts to the on-site security desk, facility manager, safety officer, and AMC support team via automated email and webhook notifications.'
+  },
+  {
+    q: 'Which regions does InteGrowSys serve?',
+    a: 'Our primary engineering and rapid-response operations are centered in Pune and surrounding industrial corridors including Hadapsar, Magarpatta, Hinjawadi, Chakan, Talegaon, Ranjangaon, and PCMC, as well as project-based engagements across Maharashtra.'
+  }
+];
 ---
-<MainLayout title="Fire Safety & Smart Monitoring Resources | InteGrowSys" description="Practical guidance for fire safety maintenance, facility readiness and legacy-system monitoring assessments.">
-<section class="page-hero"><div class="container"><div class="breadcrumbs"><a href="/">Home</a> / Resources</div><div class="eyebrow">Resources</div><h1>Useful starting points for safer, better-informed facilities.</h1><p class="lead">Guidance is general and should be checked against applicable requirements, manufacturer instructions and site-specific risk assessments.</p></div></section><section class="section"><div class="container card-grid">{resources.map(r=><article class="card"><span class="pill">{r.type}</span><h3 style="margin-top:18px">{r.title}</h3><p>{r.text}</p><a class="card-link" href="/contact/">Ask InteGrowSys →</a></article>)}</div></section>
+
+<MainLayout 
+  title="Fire Safety & Smart Monitoring Resources | InteGrowSys" 
+  description="Practical checklists, compliance guidance, and FAQs for fire safety maintenance, statutory audits, and legacy equipment IoT retrofits."
+>
+  <!-- Hero Section -->
+  <section class="bg-slate-900 text-white py-16 lg:py-20 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Knowledge & Tools</div>
+      <h1 class="text-3xl sm:text-5xl font-heading font-black tracking-tight text-white max-w-4xl">
+        Useful starting points for safer, better-informed facilities.
+      </h1>
+      <p class="text-slate-300 text-base sm:text-lg mt-4 max-w-3xl leading-relaxed">
+        Practical guidance for facility managers, safety heads, and operational teams. 
+        Align with statutory requirements, prepare for site audits, and review technical retrofits.
+      </p>
+    </div>
+  </section>
+
+  <!-- Resources Grid -->
+  <section class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        {resources.map((item) => (
+          <article class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+            <div>
+              <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">
+                {item.tag}
+              </span>
+              <h2 class="text-xl font-heading font-bold text-slate-900 mt-4 mb-3">
+                {item.title}
+              </h2>
+              <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                {item.text}
+              </p>
+            </div>
+
+            <div class="pt-4 border-t border-slate-100">
+              <a 
+                href={item.link} 
+                class="inline-flex items-center gap-1.5 text-sm font-bold text-blue-600 hover:text-blue-700 transition"
+              >
+                <span>{item.linkText}</span>
+                <ArrowRight class="w-4 h-4" />
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="max-w-4xl mx-auto bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm">
+        <div class="text-center max-w-xl mx-auto mb-10">
+          <div class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">Frequently Asked Questions</div>
+          <h2 class="text-2xl sm:text-3xl font-heading font-bold text-slate-900">
+            Common questions from facility managers
+          </h2>
+        </div>
+
+        <div class="space-y-6">
+          {faqs.map((faq) => (
+            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200/80">
+              <h3 class="font-heading font-bold text-slate-900 text-base mb-2 flex items-start gap-2.5">
+                <HelpCircle class="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                <span>{faq.q}</span>
+              </h3>
+              <p class="text-sm text-slate-600 leading-relaxed pl-7.5">
+                {faq.a}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Action Box in FAQ -->
+        <div class="mt-10 p-6 rounded-2xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <div class="font-bold text-sm">Have a specific question about your site?</div>
+            <p class="text-xs text-slate-400 mt-0.5">Our engineers are available for technical consultations.</p>
+          </div>
+          <a 
+            href="/contact/" 
+            class="px-5 py-2.5 rounded-xl font-bold text-xs bg-blue-600 hover:bg-blue-500 text-white transition shrink-0"
+          >
+            Contact InteGrowSys
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
 </MainLayout>

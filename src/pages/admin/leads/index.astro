@@ -1,0 +1,305 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Leads | InteGrowSys Admin">
+  <header class="page-header">
+    <div>
+      <h1>Leads</h1>
+      <p>Manage and track all enquiries</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <button class="button" id="export-btn" type="button">Export CSV</button>
+    </div>
+  </header>
+
+  <div class="filters">
+    <div class="filter-group">
+      <label for="status-filter">Status</label>
+      <select id="status-filter">
+        <option value="">All Statuses</option>
+        <option value="new">New</option>
+        <option value="contacted">Contacted</option>
+        <option value="qualified">Qualified</option>
+        <option value="proposal">Proposal</option>
+        <option value="won">Won</option>
+        <option value="lost">Lost</option>
+        <option value="spam">Spam</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="service-filter">Service</label>
+      <select id="service-filter">
+        <option value="">All Services</option>
+        <option value="Fire Safety AMC & Maintenance">Fire Safety AMC & Maintenance</option>
+        <option value="Fire Alarm Systems">Fire Alarm Systems</option>
+        <option value="Fire Hydrant & Sprinkler Systems">Fire Hydrant & Sprinkler Systems</option>
+        <option value="Fire Safety Audit & Training">Fire Safety Audit & Training</option>
+        <option value="Fire Pump Systems">Fire Pump Systems</option>
+        <option value="Smart Monitoring & IoT">Smart Monitoring & IoT</option>
+        <option value="Pressurization & Basement Ventilation">Pressurization & Basement Ventilation</option>
+        <option value="CCTV, Access Control & Networking">CCTV, Access Control & Networking</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="date-from">From</label>
+      <input type="date" id="date-from" />
+    </div>
+    <div class="filter-group">
+      <label for="date-to">To</label>
+      <input type="date" id="date-to" />
+    </div>
+    <div class="filter-group" style="margin-left:auto;">
+      <button class="button secondary" id="clear-filters" type="button">Clear</button>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Lead</th>
+          <th>Service</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>City</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="leads-table-body">
+        <tr><td colspan="8" class="loading"><div class="spinner"></div>Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <nav class="pagination" id="pagination" aria-label="Leads pagination" style="display:none;">
+  </nav>
+</AdminLayout>
+
+<script>
+interface LeadRecord {
+  id: string;
+  name: string;
+  company?: string | null;
+  service_interest: string;
+  phone: string;
+  email?: string | null;
+  city?: string | null;
+  created_at: number;
+  status: string;
+}
+
+interface LeadsResponse {
+  data?: LeadRecord[];
+  total?: number;
+  page?: number;
+  limit?: number;
+}
+
+const STATE = {
+  page: 1,
+  limit: 25,
+  total: 0,
+  totalPages: 0,
+  filters: {
+    status: '',
+    service: '',
+    dateFrom: '',
+    dateTo: ''
+  }
+};
+
+const tbody = document.getElementById('leads-table-body');
+const pagination = document.getElementById('pagination');
+const exportBtn = document.getElementById('export-btn') as HTMLButtonElement | null;
+const statusFilter = document.getElementById('status-filter') as HTMLSelectElement | null;
+const serviceFilter = document.getElementById('service-filter') as HTMLSelectElement | null;
+const dateFrom = document.getElementById('date-from') as HTMLInputElement | null;
+const dateTo = document.getElementById('date-to') as HTMLInputElement | null;
+const clearFilters = document.getElementById('clear-filters') as HTMLButtonElement | null;
+
+const ESC_MAP: Record<string, string> = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;'
+};
+
+function escapeHtml(str: unknown): string {
+  return String(str ?? '').replace(/[&<>"']/g, c => ESC_MAP[c] || c);
+}
+
+function formatDate(ts: unknown): string {
+  if (!ts) return '—';
+  const d = new Date(typeof ts === 'number' ? ts * 1000 : String(ts));
+  return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
+function showToast(message: string, type: 'info' | 'success' | 'error' = 'info') {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.className = `toast ${type === 'success' ? 'success' : type === 'error' ? 'error' : ''}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+function buildQuery(): string {
+  const params = new URLSearchParams({
+    page: String(STATE.page),
+    limit: String(STATE.limit)
+  });
+  if (STATE.filters.status) params.set('status', STATE.filters.status);
+  if (STATE.filters.service) params.set('service', STATE.filters.service);
+  if (STATE.filters.dateFrom) params.set('date_from', STATE.filters.dateFrom);
+  if (STATE.filters.dateTo) params.set('date_to', STATE.filters.dateTo);
+  return params.toString();
+}
+
+function renderLeads(leads: LeadRecord[]) {
+  if (!tbody) return;
+  if (!leads.length) {
+    tbody.innerHTML = `<tr><td colspan="8" class="empty-state" style="display:block;padding:40px;">No leads match your filters</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = leads.map(lead => `
+    <tr>
+      <td>
+        <div class="lead-name">${escapeHtml(lead.name)}</div>
+        <div class="lead-company">${escapeHtml(lead.company || '—')}</div>
+      </td>
+      <td><span class="lead-service">${escapeHtml(lead.service_interest)}</span></td>
+      <td class="lead-phone">${escapeHtml(lead.phone)}</td>
+      <td>${escapeHtml(lead.email || '—')}</td>
+      <td>${escapeHtml(lead.city || '—')}</td>
+      <td class="lead-date">${formatDate(lead.created_at)}</td>
+      <td><span class="status-badge ${escapeHtml(lead.status)}">${escapeHtml(lead.status)}</span></td>
+      <td>
+        <div class="actions">
+          <a class="btn-icon" href="/admin/leads/${encodeURIComponent(lead.id)}" title="View details" aria-label="View ${escapeHtml(lead.name)}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </a>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function renderPagination() {
+  if (!pagination) return;
+  if (STATE.totalPages <= 1) {
+    pagination.style.display = 'none';
+    return;
+  }
+  pagination.style.display = 'flex';
+  const start = Math.max(1, STATE.page - 2);
+  const end = Math.min(STATE.totalPages, STATE.page + 2);
+  let html = '';
+  if (STATE.page > 1) {
+    html += `<a href="#" data-page="${STATE.page - 1}" aria-label="Previous"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></a>`;
+  }
+  if (start > 1) {
+    html += `<a href="#" data-page="1">1</a>`;
+    if (start > 2) html += `<span class="ellipsis">…</span>`;
+  }
+  for (let i = start; i <= end; i++) {
+    if (i === STATE.page) {
+      html += `<a class="active" aria-current="page">${i}</a>`;
+    } else {
+      html += `<a href="#" data-page="${i}">${i}</a>`;
+    }
+  }
+  if (end < STATE.totalPages) {
+    if (end < STATE.totalPages - 1) html += `<span class="ellipsis">…</span>`;
+    html += `<a href="#" data-page="${STATE.totalPages}">${STATE.totalPages}</a>`;
+  }
+  if (STATE.page < STATE.totalPages) {
+    html += `<a href="#" data-page="${STATE.page + 1}" aria-label="Next"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></a>`;
+  }
+  html += `<span class="page-info">Showing ${(STATE.page - 1) * STATE.limit + 1}–${Math.min(STATE.page * STATE.limit, STATE.total)} of ${STATE.total}</span>`;
+  pagination.innerHTML = html;
+}
+
+async function loadLeads() {
+  if (!tbody) return;
+  tbody.innerHTML = `<tr><td colspan="8" class="loading"><div class="spinner"></div>Loading…</td></tr>`;
+  try {
+    const res = await fetch(`/api/admin/leads?${buildQuery()}`);
+    const data = (await res.json()) as LeadsResponse;
+    STATE.total = data.total ?? 0;
+    STATE.totalPages = Math.ceil(STATE.total / STATE.limit);
+    renderLeads(data.data ?? []);
+    renderPagination();
+  } catch (err) {
+    console.error('Load leads failed:', err);
+    tbody.innerHTML = `<tr><td colspan="8" class="empty-state" style="display:block;padding:40px;color:#dc2626;">Failed to load leads</td></tr>`;
+    if (pagination) pagination.style.display = 'none';
+  }
+}
+
+pagination?.addEventListener('click', (e) => {
+  const target = e.target as HTMLElement | null;
+  const link = target?.closest<HTMLAnchorElement>('a[data-page]');
+  if (link && link.dataset.page) {
+    e.preventDefault();
+    STATE.page = parseInt(link.dataset.page, 10);
+    loadLeads();
+  }
+});
+
+function applyFilters() {
+  if (statusFilter) STATE.filters.status = statusFilter.value;
+  if (serviceFilter) STATE.filters.service = serviceFilter.value;
+  if (dateFrom) STATE.filters.dateFrom = dateFrom.value;
+  if (dateTo) STATE.filters.dateTo = dateTo.value;
+  STATE.page = 1;
+  loadLeads();
+}
+
+[statusFilter, serviceFilter].forEach(el => el?.addEventListener('change', applyFilters));
+[dateFrom, dateTo].forEach(el => el?.addEventListener('change', applyFilters));
+
+clearFilters?.addEventListener('click', () => {
+  if (statusFilter) statusFilter.value = '';
+  if (serviceFilter) serviceFilter.value = '';
+  if (dateFrom) dateFrom.value = '';
+  if (dateTo) dateTo.value = '';
+  applyFilters();
+});
+
+exportBtn?.addEventListener('click', async () => {
+  if (!exportBtn) return;
+  exportBtn.disabled = true;
+  exportBtn.textContent = 'Exporting…';
+  try {
+    const params = new URLSearchParams();
+    if (STATE.filters.status) params.set('status', STATE.filters.status);
+    if (STATE.filters.service) params.set('service', STATE.filters.service);
+    if (STATE.filters.dateFrom) params.set('date_from', STATE.filters.dateFrom);
+    if (STATE.filters.dateTo) params.set('date_to', STATE.filters.dateTo);
+    const res = await fetch(`/api/admin/leads/export?${params.toString()}`);
+    if (!res.ok) throw new Error('Export failed');
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `leads-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('CSV exported successfully', 'success');
+  } catch (err) {
+    console.error('Export failed:', err);
+    showToast('Export failed', 'error');
+  } finally {
+    exportBtn.disabled = false;
+    exportBtn.textContent = 'Export CSV';
+  }
+});
+
+loadLeads();
+</script>

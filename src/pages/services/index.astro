@@ -1,8 +1,114 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
 import { getCollection } from 'astro:content';
-const services=(await getCollection('services',({data})=>!data.draft)).sort((a,b)=>a.data.order-b.data.order);
+import { 
+  Flame, 
+  Wrench, 
+  ShieldCheck, 
+  Radio, 
+  Sliders, 
+  GraduationCap, 
+  ArrowRight,
+  Sparkles
+} from 'lucide-astro';
+
+const services = (await getCollection('services', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const getServiceIcon = (id: string) => {
+  if (id.includes('alarm')) return Flame;
+  if (id.includes('amc')) return Wrench;
+  if (id.includes('audit')) return ShieldCheck;
+  if (id.includes('training')) return GraduationCap;
+  if (id.includes('pump')) return Sliders;
+  if (id.includes('security')) return Radio;
+  return Flame;
+};
 ---
-<MainLayout title="Fire & Safety Services | InteGrowSys" description="Fire alarm, hydrant and sprinkler, fire pump, AMC, audit, training, building integration and security/ELV services.">
-<section class="page-hero"><div class="container"><div class="breadcrumbs"><a href="/">Home</a> / Fire & Safety Services</div><div class="eyebrow">Our services</div><h1>Fire & life safety, maintenance and building systems integration.</h1><p class="lead">Explore service areas and contact InteGrowSys to scope the right solution for your site.</p></div></section><section class="section"><div class="container service-list">{services.map(s=><article class="service-item"><span class="pill">{s.data.category}</span><h3 style="margin-top:14px">{s.data.title}</h3><p>{s.data.description}</p><a href={`/services/${s.id}/`}>View service details →</a></article>)}</div></section>
+
+<MainLayout 
+  title="Fire & Safety Services Catalog | InteGrowSys" 
+  description="Explore InteGrowSys fire alarm systems, fire hydrants & sprinklers, pump rooms, AMC maintenance, safety audits, training, and building integration in Pune."
+>
+  <!-- Page Hero -->
+  <section class="bg-slate-900 text-white py-16 lg:py-20 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Our Capabilities</div>
+      <h1 class="text-3xl sm:text-5xl font-heading font-black tracking-tight text-white max-w-4xl">
+        Fire & Life Safety, Planned Maintenance & Systems Integration
+      </h1>
+      <p class="text-slate-300 text-base sm:text-lg mt-4 max-w-3xl leading-relaxed">
+        Engineering solutions structured around statutory safety requirements and operational reliability. 
+        From design and installation support to SLA-backed maintenance and IoT retrofits.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {services.map((service) => {
+          const Icon = getServiceIcon(service.id);
+          return (
+            <article class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-200 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                    <Icon class="w-5 h-5" />
+                  </div>
+                  <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">
+                    {service.data.category}
+                  </span>
+                </div>
+
+                <h2 class="text-xl font-heading font-bold text-slate-900 mb-2">
+                  {service.data.title}
+                </h2>
+                <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                  {service.data.description}
+                </p>
+              </div>
+
+              <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                <a 
+                  href={`/services/${service.id}/`} 
+                  class="inline-flex items-center gap-1.5 text-sm font-bold text-blue-600 hover:text-blue-700 transition"
+                >
+                  <span>View Scope & Details</span>
+                  <ArrowRight class="w-4 h-4" />
+                </a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      <!-- Feature Highlight: Need Smart Retrofit? -->
+      <div class="mt-12 rounded-3xl p-8 bg-gradient-to-r from-blue-900 to-indigo-900 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+        <div class="space-y-2">
+          <div class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-300 uppercase tracking-wider">
+            <Sparkles class="w-3.5 h-3.5 text-amber-400" />
+            <span>Smart Monitoring Available for All Systems</span>
+          </div>
+          <h3 class="text-2xl font-heading font-bold text-white">
+            Have existing panels or pumps that need remote monitoring?
+          </h3>
+          <p class="text-slate-300 text-sm max-w-2xl">
+            Learn how AlertGuard interfaces directly with auxiliary relay contacts to deliver real-time notifications to your phone without replacing installed controllers.
+          </p>
+        </div>
+        <a 
+          href="/smart-monitoring/" 
+          class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-white text-blue-900 hover:bg-slate-100 transition shrink-0"
+        >
+          <span>Explore AlertGuard</span>
+          <ArrowRight class="w-4 h-4" />
+        </a>
+      </div>
+
+    </div>
+  </section>
 </MainLayout>

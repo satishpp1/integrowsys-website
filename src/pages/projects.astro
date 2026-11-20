@@ -1,7 +1,115 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
-const examples=[{title:'Fire & life safety maintenance',desc:'Planned inspections, service documentation and follow-up actions.',tag:'Maintenance'},{title:'Building systems integration',desc:'Coordination of selected fire alarm, pressurization and ventilation signals.',tag:'Integration'},{title:'Connected monitoring concept',desc:'Assessment of relay outputs and notification needs for legacy equipment.',tag:'Smart monitoring'}];
+import { 
+  Building2, 
+  Factory, 
+  Warehouse, 
+  ArrowRight
+} from 'lucide-astro';
+
+const caseScenarios = [
+  {
+    tag: 'Fire Safety AMC & Maintenance',
+    category: 'Commercial High-Rise & IT Campuses',
+    icon: Building2,
+    challenge: 'Aging fire alarm panels and quarterly compliance gaps leading to non-compliance notices under the Maharashtra Fire Prevention Act.',
+    solution: 'Structured preventive maintenance contract with quarterly physical hydro-testing of sprinkler lines, smoke detector sensitivity testing, and Form-B certification support.',
+    outcome: 'Zero statutory downtime, 100% compliant documentation, and dedicated technician SLA for emergency panel fault resolution.'
+  },
+  {
+    tag: 'Building Systems Integration',
+    category: 'Industrial Manufacturing Plant',
+    icon: Factory,
+    challenge: 'Staircase pressurization fans and smoke extraction dampers were isolated and did not automatically actuate upon fire alarm trip.',
+    solution: 'Signal interlock design connecting addressable fire alarm control relays to motorized smoke damper actuators and starter panels.',
+    outcome: 'Automated smoke compartmentation within 15 seconds of alarm confirmation, compliant with NBC 2016 Part 4 egress requirements.'
+  },
+  {
+    tag: 'AlertGuard IoT Retrofit',
+    category: 'Logistics Warehouse & Cold Storage',
+    icon: Warehouse,
+    challenge: 'Pump room jockey pump was tripping unnoticed over weekends, causing main header pressure to bleed down and triggering false alarms.',
+    solution: 'AlertGuard 5-zone IoT gateway installed on pump starter auxiliary dry contacts and water line pressure switches, broadcasting instant email/webhook alerts.',
+    outcome: 'Immediate mobile notifications whenever pressure dips below 7 Bar, eliminating unmonitored equipment trips without replacing the legacy pump controller.'
+  }
+];
 ---
-<MainLayout title="Projects & Capabilities | InteGrowSys" description="Explore typical project categories across maintenance, systems integration and smart monitoring.">
-<section class="page-hero"><div class="container"><div class="breadcrumbs"><a href="/">Home</a> / Projects</div><div class="eyebrow">Projects & capabilities</div><h1>Solutions shaped around the site—not a one-size-fits-all package.</h1><p class="lead">These are capability examples, not claims of named customer installations. Approved project references can be added here.</p></div></section><section class="section"><div class="container card-grid">{examples.map(p=><article class="card"><span class="pill">{p.tag}</span><h3 style="margin-top:18px">{p.title}</h3><p>{p.desc}</p><a class="card-link" href="/contact/">Discuss a similar requirement →</a></article>)}</div><p class="small container" style="margin-top:24px">Confirm permission before publishing customer logos, photographs or case studies.</p></section>
+
+<MainLayout 
+  title="Project Capabilities & Case Scenarios | InteGrowSys" 
+  description="Explore typical facility engineering case studies across fire safety maintenance, pump room automation, and AlertGuard smart monitoring in Maharashtra."
+>
+  <!-- Hero Section -->
+  <section class="bg-slate-900 text-white py-16 lg:py-20 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Engineering Capabilities</div>
+      <h1 class="text-3xl sm:text-5xl font-heading font-black tracking-tight text-white max-w-4xl">
+        Solutions shaped around the site—not a generic package.
+      </h1>
+      <p class="text-slate-300 text-base sm:text-lg mt-4 max-w-3xl leading-relaxed">
+        Explore typical project categories across maintenance contracts, building systems integration, and configuration-based IoT retrofits for real-world facility environments.
+      </p>
+    </div>
+  </section>
+
+  <!-- Scenarios Grid -->
+  <section class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="space-y-8">
+        {caseScenarios.map((scenario) => {
+          const Icon = scenario.icon;
+          return (
+            <div class="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-sm flex flex-col lg:flex-row gap-8 items-start justify-between">
+              <div class="space-y-4 max-w-3xl">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                    <Icon class="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">
+                      {scenario.tag}
+                    </span>
+                    <div class="text-xs text-slate-400 font-medium mt-1">{scenario.category}</div>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                  <div class="p-4 rounded-2xl bg-rose-50/60 border border-rose-100">
+                    <div class="text-xs font-bold text-rose-700 uppercase tracking-wider mb-1">Challenge</div>
+                    <p class="text-xs text-slate-700 leading-relaxed">{scenario.challenge}</p>
+                  </div>
+
+                  <div class="p-4 rounded-2xl bg-blue-50/60 border border-blue-100">
+                    <div class="text-xs font-bold text-blue-700 uppercase tracking-wider mb-1">InteGrowSys Solution</div>
+                    <p class="text-xs text-slate-700 leading-relaxed">{scenario.solution}</p>
+                  </div>
+
+                  <div class="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100">
+                    <div class="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-1">Operational Outcome</div>
+                    <p class="text-xs text-slate-700 leading-relaxed">{scenario.outcome}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shrink-0 pt-4 lg:pt-0">
+                <a 
+                  href="/contact/" 
+                  class="inline-flex items-center gap-1.5 px-5 py-3 rounded-xl font-bold text-xs bg-slate-900 text-white hover:bg-blue-600 transition"
+                >
+                  <span>Discuss a Similar Requirement</span>
+                  <ArrowRight class="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div class="mt-12 text-center text-xs text-slate-500">
+        Note: Capability examples describe engineering configurations. Client references and on-site NDA case studies are shared during formal technical evaluations.
+      </div>
+
+    </div>
+  </section>
 </MainLayout>

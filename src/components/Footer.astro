@@ -1,0 +1,176 @@
+---
+import { 
+  Phone, 
+  MapPin, 
+  Cpu, 
+  Flame, 
+  ArrowUpRight 
+} from 'lucide-astro';
+---
+
+<footer class="bg-slate-950 text-slate-300 border-t border-slate-800 pt-16 pb-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-slate-800/80">
+      
+      <!-- Brand & Mission Column -->
+      <div class="lg:col-span-2 space-y-4">
+        <a href="/" class="inline-block" aria-label="InteGrowSys">
+          <span class="font-heading font-black text-2xl text-white tracking-tight">
+            InteGrow<span class="text-blue-500">Sys</span>
+          </span>
+        </a>
+        <p class="text-slate-400 text-sm leading-relaxed max-w-sm">
+          Practical fire & life safety engineering, planned facility maintenance, 
+          and configuration-based smart monitoring. Making legacy building systems intelligent without unnecessary replacements.
+        </p>
+
+        <div class="flex items-center gap-2 text-xs text-slate-400 pt-2">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-emerald-400 font-medium">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            ISO & NBC 2016 Compliant Standards
+          </span>
+        </div>
+
+        <div class="pt-4 text-xs text-slate-500">
+          <div class="font-bold text-slate-400 mb-1">Registered Office:</div>
+          <div class="flex items-start gap-2">
+            <MapPin class="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
+            <span>B25, Erica, Magarpatta City, Hadapsar, Pune, Maharashtra 411013</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fire & Safety Services Column -->
+      <div>
+        <h3 class="font-heading font-bold text-sm text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+          <Flame class="w-4 h-4 text-amber-500" />
+          <span>Fire Safety</span>
+        </h3>
+        <ul class="space-y-2.5 text-sm">
+          <li>
+            <a href="/services/fire-safety-amc/" class="text-slate-400 hover:text-white transition">
+              Fire Safety AMC Contracts
+            </a>
+          </li>
+          <li>
+            <a href="/services/fire-alarm-systems/" class="text-slate-400 hover:text-white transition">
+              Fire Alarm Systems
+            </a>
+          </li>
+          <li>
+            <a href="/services/fire-hydrant-sprinkler/" class="text-slate-400 hover:text-white transition">
+              Hydrant & Sprinklers
+            </a>
+          </li>
+          <li>
+            <a href="/services/fire-pump-systems/" class="text-slate-400 hover:text-white transition">
+              Fire Pump Systems
+            </a>
+          </li>
+          <li>
+            <a href="/services/fire-safety-audits/" class="text-slate-400 hover:text-white transition">
+              Fire Safety Audits
+            </a>
+          </li>
+          <li>
+            <a href="/services/fire-safety-training/" class="text-slate-400 hover:text-white transition">
+              Training & Drills
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Smart Monitoring & Integration Column -->
+      <div>
+        <h3 class="font-heading font-bold text-sm text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+          <Cpu class="w-4 h-4 text-indigo-400" />
+          <span>Smart & ELV</span>
+        </h3>
+        <ul class="space-y-2.5 text-sm">
+          <li>
+            <a href="/smart-monitoring/" class="text-slate-400 hover:text-white transition flex items-center gap-1">
+              <span>AlertGuard IoT Concept</span>
+              <ArrowUpRight class="w-3.5 h-3.5 text-slate-500" />
+            </a>
+          </li>
+          <li>
+            <a href="/services/building-systems-integration/" class="text-slate-400 hover:text-white transition">
+              Pressurization Integration
+            </a>
+          </li>
+          <li>
+            <a href="/services/security-elv/" class="text-slate-400 hover:text-white transition">
+              CCTV & Surveillance
+            </a>
+          </li>
+          <li>
+            <a href="/services/security-elv/" class="text-slate-400 hover:text-white transition">
+              Access Control Systems
+            </a>
+          </li>
+          <li>
+            <a href="/projects/" class="text-slate-400 hover:text-white transition">
+              Project Capabilities
+            </a>
+          </li>
+          <li>
+            <a href="/resources/" class="text-slate-400 hover:text-white transition">
+              Readiness Checklists
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Direct Contact Column -->
+      <div>
+        <h3 class="font-heading font-bold text-sm text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+          <Phone class="w-4 h-4 text-emerald-400" />
+          <span>Connect</span>
+        </h3>
+        <div class="space-y-3 text-sm">
+          <div>
+            <div class="text-xs text-slate-500">Sales & Quotations</div>
+            <a href="tel:+919860027825" class="text-white hover:text-blue-400 font-semibold transition block">
+              +91 98600 27825
+            </a>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500">Technical Coordination</div>
+            <a href="tel:+917507600091" class="text-white hover:text-blue-400 font-semibold transition block">
+              +91 75076 00091
+            </a>
+          </div>
+          <div>
+            <div class="text-xs text-slate-500">Email Inquiries</div>
+            <a href="mailto:crm@integrowsys.com" class="text-slate-400 hover:text-white transition block break-all">
+              crm@integrowsys.com
+            </a>
+          </div>
+          <div class="pt-2">
+            <a 
+              href="/contact/" 
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition"
+            >
+              Book Site Survey
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Copyright & Cloudflare Notice -->
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div>
+        © {new Date().getFullYear()} InteGrowSys. All rights reserved. Protect. Monitor. Integrate. Respond.
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="/about/" class="hover:text-slate-400 transition">About</a>
+        <a href="/resources/" class="hover:text-slate-400 transition">Resources</a>
+        <a href="/contact/" class="hover:text-slate-400 transition">Contact</a>
+        <span class="text-slate-600">·</span>
+        <span class="text-slate-500">Hosted on Cloudflare Edge</span>
+      </div>
+    </div>
+  </div>
+</footer>

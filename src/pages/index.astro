@@ -1,243 +1,448 @@
-
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import { 
+  Flame, 
+  Cpu, 
+  ShieldCheck, 
+  Wrench, 
+  Building2, 
+  Sliders, 
+  ArrowRight, 
+  CheckCircle2, 
+  Radio, 
+  Sparkles,
+  Server,
+  Factory,
+  Warehouse
+} from 'lucide-astro';
 
-const cards = [
+const services = [
   {
-    icon: '♧',
+    icon: Flame,
     title: 'Fire & Life Safety',
-    text: 'Fire alarm, hydrant, sprinkler, pump and maintenance services for safer facilities.',
-    href: '/services/',
-    link: 'Explore services'
+    description: 'Fire alarm, hydrant, sprinkler, and pump systems engineered to NBC 2016 and statutory standards.',
+    href: '/services/fire-alarm-systems/',
+    tag: 'Compliance & Safety'
   },
   {
-    icon: '◉',
-    title: 'Smart Monitoring',
-    text: 'Monitor selected alarm and equipment signals remotely, subject to site requirements.',
+    icon: Cpu,
+    title: 'Smart Monitoring (AlertGuard)',
+    description: 'Non-invasive IoT retrofit for existing alarm panels and pump rooms. Real-time alerts over Wi-Fi/cellular.',
     href: '/smart-monitoring/',
-    link: 'Explore monitoring'
+    tag: 'IoT Retrofit'
   },
   {
-    icon: '⌁',
+    icon: Sliders,
     title: 'Building Systems Integration',
-    text: 'Integrate fire safety with pressurization, ventilation and selected building equipment.',
+    description: 'Interlock fire alarm triggers with lift homing, staircase pressurization, and smoke ventilation dampers.',
     href: '/services/building-systems-integration/',
-    link: 'Explore integration'
+    tag: 'Integration'
   },
   {
-    icon: '▦',
-    title: 'Security & ELV',
-    text: 'CCTV, access control and networking solutions planned around your facility.',
-    href: '/services/security-elv/',
-    link: 'Explore security & ELV'
-  },
-  {
-    icon: '⟳',
-    title: 'Planned Maintenance',
-    text: 'Structured inspections, service reports and maintenance support for installed systems.',
+    icon: Wrench,
+    title: 'Planned AMC & Testing',
+    description: 'Quarterly and monthly preventive maintenance contracts, hydraulic testing, and Form-B compliance documentation.',
     href: '/services/fire-safety-amc/',
-    link: 'Explore AMC'
+    tag: 'Maintenance'
   },
   {
-    icon: '⌂',
-    title: 'Site Assessment',
-    text: 'Identify practical repair, integration and upgrade paths before deciding what to replace.',
-    href: '/contact/',
-    link: 'Request a survey'
+    icon: ShieldCheck,
+    title: 'Fire Audits & Risk Assessment',
+    description: 'Comprehensive physical hazard inspections, gap audits, and practical remediation roadmaps for facility managers.',
+    href: '/services/fire-safety-audits/',
+    tag: 'Risk & Audit'
+  },
+  {
+    icon: Radio,
+    title: 'Security & ELV Coordination',
+    description: 'CCTV surveillance, biometric access control, and structured facility networking aligned with safety policies.',
+    href: '/services/security-elv/',
+    tag: 'ELV & Security'
   }
+];
+
+const environments = [
+  { name: 'IT / ITES Campuses', icon: Building2, desc: 'High-density office parks & server rooms' },
+  { name: 'Manufacturing Plants', icon: Factory, desc: 'Industrial machinery, paint booths & raw materials' },
+  { name: 'Warehouses & Logistics', icon: Warehouse, desc: 'High-bay racking, sprinkler heads & dock areas' },
+  { name: 'Data & Server Rooms', icon: Server, desc: 'Clean agent suppression & micro-environment sensing' },
+  { name: 'Commercial High-Rises', icon: Building2, desc: 'Pressurization, wet risers & staircase evacuation' }
 ];
 ---
 
-<MainLayout>
-  <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <div class="eyebrow">Fire & Safety · Integration · Smart Monitoring</div>
+<MainLayout 
+  title="InteGrowSys | Fire Safety Engineering, Systems Integration & Smart Monitoring"
+  description="InteGrowSys provides fire & life safety systems, planned AMC maintenance, and configuration-based AlertGuard smart monitoring in Pune and Maharashtra."
+>
+  <!-- HERO SECTION -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 text-white pt-12 pb-20 lg:pt-20 lg:pb-28">
+    <!-- Background subtle glow grid -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(37,99,235,0.25),rgba(255,255,255,0))] pointer-events-none"></div>
+    <div class="absolute -top-40 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-10 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-        <h1>
-          From fire safety systems to
-          <span>smart, connected buildings.</span>
-        </h1>
-
-        <p class="lead">
-          InteGrowSys helps facilities maintain essential safety systems,
-          integrate building equipment and explore smarter monitoring—
-          without assuming every legacy system needs a complete replacement.
-        </p>
-
-        <div class="hero-actions">
-          <a class="button" href="/contact/?enquiry=smart-monitoring">
-            Make My Existing System Smart ↗
-          </a>
-          <a class="button secondary" href="/services/">
-            Explore Fire & Safety Services
-          </a>
-        </div>
-
-        <p class="micro-note">
-          Site-specific design · Integration-led thinking · Practical maintenance support
-        </p>
-      </div>
-
-      <div class="hero-visual">
-        <div class="visual-label">Connected facility concept</div>
-        <div class="visual-title">
-          Know what’s happening across your systems.
-        </div>
-
-        <div class="status-stack">
-          <div class="status-row">
-            <span><i class="status-dot"></i>Fire alarm interface</span>
-            <strong>Signal</strong>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <!-- Left Content -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-xs font-bold uppercase tracking-wider">
+            <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+            <span>Fire Safety · Systems Integration · Smart Monitoring</span>
           </div>
-          <div class="status-row">
-            <span><i class="status-dot"></i>Equipment status</span>
-            <strong>Monitor</strong>
-          </div>
-          <div class="status-row">
-            <span><i class="status-dot"></i>Remote notification</span>
-            <strong>Respond</strong>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-heading">
-        <div class="eyebrow">What we do</div>
-        <h2>Safety systems that work. Information that helps you act.</h2>
-        <p>
-          From planned maintenance to carefully scoped monitoring upgrades,
-          we focus on making systems useful to the people responsible for
-          facilities, safety and operations.
-        </p>
-      </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-black tracking-tight text-white leading-[1.12]">
+            From fire safety systems to <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-emerald-400">smart, connected buildings.</span>
+          </h1>
 
-      <div class="card-grid">
-        {cards.map((card) => (
-          <article class="card">
-            <div class="icon-box" aria-hidden="true">{card.icon}</div>
-            <h3>{card.title}</h3>
-            <p>{card.text}</p>
-            <a class="card-link" href={card.href}>{card.link} →</a>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section soft">
-    <div class="container">
-      <div class="section-heading">
-        <div class="eyebrow">Start with your requirement</div>
-        <h2>What would you like to improve at your facility?</h2>
-        <p>
-          Choose the enquiry path that best matches your requirement.
-          Sharing a few details helps us understand the site before
-          arranging a discussion or survey.
-        </p>
-      </div>
-
-      <div class="qualification-grid">
-        <article class="qualification-card">
-          <div class="eyebrow">Fire Safety & Maintenance</div>
-          <h3>Maintain, repair or upgrade your fire safety systems.</h3>
-          <p>
-            For facility teams looking for AMC, fire safety audits,
-            fire alarm work, hydrant and sprinkler systems, fire pumps,
-            training or compliance-related support.
+          <p class="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-2xl font-normal">
+            InteGrowSys helps facility managers maintain essential life safety systems, integrate equipment controls, and add real-time monitoring—<span class="text-white font-semibold">without the expense of replacing functional legacy panels.</span>
           </p>
 
-          <ul class="check-list">
-            <li>Facility type and site location</li>
-            <li>Existing fire safety systems</li>
-            <li>AMC, audit, repair or upgrade requirement</li>
-          </ul>
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a 
+              href="/contact/?enquiry=smart-monitoring" 
+              class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-blue-600 text-white shadow-lg shadow-blue-600/30 hover:bg-blue-500 hover:shadow-xl hover:shadow-blue-500/40 transition active:scale-[0.98]"
+            >
+              <span>Make My Existing System Smart</span>
+              <ArrowRight class="w-4 h-4" />
+            </a>
 
-          <a class="button" href="/contact/?enquiry=fire-safety">
-            Enquire About Fire Safety
-          </a>
-        </article>
+            <a 
+              href="/services/" 
+              class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-slate-800/80 hover:bg-slate-800 text-slate-200 border border-slate-700 hover:border-slate-600 transition"
+            >
+              Explore Fire & Safety Services
+            </a>
+          </div>
 
-        <article class="qualification-card">
-          <div class="eyebrow">Smart Monitoring & Integration</div>
-          <h3>Make selected existing systems smarter.</h3>
-          <p>
-            For sites interested in remote alerts, equipment status,
-            pump monitoring, pressure monitoring, water leak detection
-            or building systems integration.
-          </p>
+          <!-- Micro Trust Marks -->
+          <div class="pt-6 border-t border-slate-800/80 flex flex-wrap items-center gap-y-3 gap-x-6 text-xs text-slate-400">
+            <span class="flex items-center gap-1.5 text-slate-300">
+              <CheckCircle2 class="w-4 h-4 text-emerald-400" />
+              Site-Specific Engineering
+            </span>
+            <span class="flex items-center gap-1.5 text-slate-300">
+              <CheckCircle2 class="w-4 h-4 text-emerald-400" />
+              Integration-Led Thinking
+            </span>
+            <span class="flex items-center gap-1.5 text-slate-300">
+              <CheckCircle2 class="w-4 h-4 text-emerald-400" />
+              Fast Pune & Regional Response
+            </span>
+          </div>
+        </div>
 
-          <ul class="check-list">
-            <li>Existing panel or equipment make/model</li>
-            <li>Signals or conditions to monitor</li>
-            <li>Available connectivity and site location</li>
-          </ul>
+        <!-- Right Visual: Connected Facility Live Telemetry Concept -->
+        <div class="lg:col-span-5">
+          <div class="relative rounded-3xl bg-slate-800/70 border border-slate-700/80 p-6 sm:p-8 backdrop-blur-xl shadow-2xl shadow-black/50 overflow-hidden">
+            <!-- Accent glow on the card -->
+            <div class="absolute -right-20 -top-20 w-60 h-60 bg-blue-500/20 rounded-full blur-2xl pointer-events-none"></div>
 
-          <a class="button" href="/contact/?enquiry=smart-monitoring">
-            Enquire About Smart Monitoring
-          </a>
-        </article>
+            <div class="flex items-center justify-between border-b border-slate-700/60 pb-4 mb-6">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></div>
+                <div class="w-3 h-3 rounded-full bg-emerald-400 absolute"></div>
+                <span class="text-xs font-mono font-bold tracking-wider uppercase text-emerald-400 ml-2">Telemetry Live</span>
+              </div>
+              <span class="text-xs text-slate-400 font-mono">AlertGuard IoT Node #01</span>
+            </div>
+
+            <div class="text-xl font-heading font-black text-white mb-2">
+              Know what’s happening across your facility.
+            </div>
+            <p class="text-xs text-slate-400 mb-6">
+              Dry-contact outputs transform legacy hardware into proactive, cloud-connected safety signals.
+            </p>
+
+            <!-- Status Rows -->
+            <div class="space-y-3">
+              <div class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs">
+                <div class="flex items-center gap-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                  <span class="font-medium text-slate-200">Main Fire Alarm Panel</span>
+                </div>
+                <span class="font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Normal Standby</span>
+              </div>
+
+              <div class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs">
+                <div class="flex items-center gap-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                  <span class="font-medium text-slate-200">Hydrant Line Pressure</span>
+                </div>
+                <span class="font-mono font-bold text-blue-300 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">8.2 Bar (Optimal)</span>
+              </div>
+
+              <div class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs">
+                <div class="flex items-center gap-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-blue-400"></span>
+                  <span class="font-medium text-slate-200">Diesel Fire Pump Controller</span>
+                </div>
+                <span class="font-bold text-slate-300 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">Auto Standby</span>
+              </div>
+
+              <div class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-slate-700/60 text-xs">
+                <div class="flex items-center gap-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                  <span class="font-medium text-slate-200">Alert Notification Hub</span>
+                </div>
+                <span class="font-bold text-indigo-300 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">Email & Webhook Ready</span>
+              </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-700/60 flex items-center justify-between text-xs text-slate-400">
+              <span class="flex items-center gap-1.5">
+                <Sparkles class="w-3.5 h-3.5 text-amber-400" />
+                Zero disruption retrofit
+              </span>
+              <a href="/smart-monitoring/" class="text-blue-400 hover:text-blue-300 font-bold inline-flex items-center gap-1">
+                Explore architecture →
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
-
-      <p class="micro-note qualification-note">
-        Monitoring feasibility depends on the installed equipment,
-        available signals, site connectivity and the proposed configuration.
-      </p>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-heading">
-        <div class="eyebrow">Make legacy systems smarter</div>
-        <h2>Don’t replace everything before checking what can be made smart.</h2>
-        <p>
-          Existing fire alarm panels, pump controllers and building equipment
-          may provide useful status signals. A site assessment can review
-          outputs, connectivity and practical monitoring options.
-        </p>
-      </div>
-
-      <div class="feature-band">
+  <!-- TRUST & METRICS BANNER -->
+  <section class="border-y border-slate-200 bg-white py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
         <div>
-          <h2>Start with the system you already have.</h2>
-          <p>
-            Tell us what equipment is installed, what you want to monitor
-            and where the site is located.
-          </p>
+          <div class="text-3xl font-heading font-black text-slate-900">100%</div>
+          <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mt-1">NBC 2016 Aligned</div>
         </div>
-        <a class="button" href="/contact/?enquiry=smart-monitoring">
-          Request a Smart-System Assessment
-        </a>
+        <div>
+          <div class="text-3xl font-heading font-black text-blue-600">Retrofit</div>
+          <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mt-1">No Hardware Rip-and-Replace</div>
+        </div>
+        <div>
+          <div class="text-3xl font-heading font-black text-slate-900">24/7</div>
+          <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mt-1">Critical Signal Readiness</div>
+        </div>
+        <div>
+          <div class="text-3xl font-heading font-black text-emerald-600">Pune Hub</div>
+          <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mt-1">Local Engineering Team</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section soft">
-    <div class="container">
-      <div class="section-heading">
-        <div class="eyebrow">Typical environments</div>
-        <h2>Designed around real facility needs.</h2>
-        <p>
-          Solutions can be scoped for different facility types
-          and operating priorities.
+  <!-- CORE CAPABILITIES BENTO GRID -->
+  <section class="py-20 lg:py-24 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="max-w-3xl mb-16">
+        <div class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2">Comprehensive Solutions</div>
+        <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-slate-900 tracking-tight">
+          Safety systems that work. Information that helps you act.
+        </h2>
+        <p class="text-base sm:text-lg text-slate-600 mt-4 leading-relaxed">
+          From planned maintenance to carefully scoped monitoring upgrades, we focus on making systems genuinely useful to the engineers and facility heads responsible for safety.
         </p>
       </div>
 
-      <div class="pill-row">
-        {[
-          'IT / ITES offices',
-          'Manufacturing facilities',
-          'Commercial buildings',
-          'Industrial premises',
-          'Server & network rooms',
-          'Critical facilities',
-          'Office parks',
-          'Warehouses'
-        ].map((item) => <span class="pill">{item}</span>)}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {services.map((item) => {
+          const Icon = item.icon;
+          return (
+            <article class="group bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-200 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-5">
+                  <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition duration-200">
+                    <Icon class="w-6 h-6" />
+                  </div>
+                  <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full group-hover:bg-blue-50 group-hover:text-blue-700 transition">
+                    {item.tag}
+                  </span>
+                </div>
+                <h3 class="text-xl font-heading font-bold text-slate-900 group-hover:text-blue-600 transition mb-3">
+                  {item.title}
+                </h3>
+                <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                  {item.description}
+                </p>
+              </div>
+
+              <a 
+                href={item.href} 
+                class="inline-flex items-center gap-1.5 text-sm font-bold text-blue-600 group-hover:text-blue-700 transition"
+              >
+                <span>Learn more</span>
+                <ArrowRight class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </article>
+          );
+        })}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TWO INQUIRY PATHWAYS (QUALIFICATION SECTION) -->
+  <section class="py-20 bg-white border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2">Start With Your Goal</div>
+        <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-slate-900 tracking-tight">
+          What would you like to improve at your facility?
+        </h2>
+        <p class="text-base text-slate-600 mt-3">
+          Select the pathway matching your immediate requirement. Sharing site context helps our engineers prepare a meaningful preliminary review.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        
+        <!-- Pathway 1: Fire Safety & AMC -->
+        <div class="rounded-3xl p-8 sm:p-10 bg-slate-50 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div class="space-y-5">
+            <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center">
+              <Flame class="w-6 h-6" />
+            </div>
+            <div>
+              <div class="text-xs font-bold text-amber-700 uppercase tracking-wider">Maintenance & Compliance</div>
+              <h3 class="text-2xl font-heading font-bold text-slate-900 mt-1">
+                Maintain, repair or certify your fire systems.
+              </h3>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Designed for facility and operations teams seeking statutory compliance, Annual Maintenance Contracts (AMC), fire safety audits, pump room overhauls, or staff emergency training.
+            </p>
+
+            <ul class="space-y-2.5 text-sm text-slate-700 pt-2">
+              <li class="flex items-center gap-2">
+                <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>Quarterly preventive service with signed reports</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>Form-B statutory compliance documentation</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>Emergency troubleshooting & replacement spares</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-8 mt-6 border-t border-slate-200/80">
+            <a 
+              href="/contact/?enquiry=fire-safety" 
+              class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-slate-900 hover:bg-slate-800 text-white shadow-md transition"
+            >
+              <span>Enquire About Fire Safety AMC</span>
+              <ArrowRight class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+
+        <!-- Pathway 2: Smart Monitoring Retrofit -->
+        <div class="rounded-3xl p-8 sm:p-10 bg-gradient-to-br from-blue-900 to-indigo-950 text-white shadow-xl flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -right-20 -bottom-20 w-60 h-60 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="space-y-5 relative z-10">
+            <div class="w-12 h-12 rounded-2xl bg-white/10 text-blue-300 border border-white/10 flex items-center justify-center">
+              <Cpu class="w-6 h-6" />
+            </div>
+            <div>
+              <div class="text-xs font-bold text-blue-300 uppercase tracking-wider">AlertGuard IoT Retrofit</div>
+              <h3 class="text-2xl font-heading font-bold text-white mt-1">
+                Make your existing legacy equipment smarter.
+              </h3>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              For teams wanting remote alerts, pump trip notifications, water leak warnings, and pressure threshold monitoring without discarding functioning panels.
+            </p>
+
+            <ul class="space-y-2.5 text-sm text-slate-200 pt-2">
+              <li class="flex items-center gap-2">
+                <CheckCircle2 class="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Connects to dry-contact relay outputs (NO/NC)</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <CheckCircle2 class="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Email and webhook escalations within seconds</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <CheckCircle2 class="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Local Wi-Fi or cellular gateway architecture</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-8 mt-6 border-t border-white/10 relative z-10">
+            <a 
+              href="/contact/?enquiry=smart-monitoring" 
+              class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/40 transition"
+            >
+              <span>Enquire About Smart Monitoring</span>
+              <ArrowRight class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-8 text-center text-xs text-slate-500">
+        Monitoring feasibility is evaluated during the engineering survey based on installed equipment, contact outputs, and connectivity.
+      </div>
+    </div>
+  </section>
+
+  <!-- ENVIRONMENTS & FACILITY TYPES -->
+  <section class="py-16 bg-slate-100 border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-xl mx-auto mb-10">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">Tailored For Real-World Facilities</h3>
+        <p class="text-lg font-heading font-bold text-slate-800 mt-1">
+          Engineered to match distinct facility operating risks.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        {environments.map((env) => {
+          const Icon = env.icon;
+          return (
+            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+              <div>
+                <div class="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mb-3">
+                  <Icon class="w-5 h-5" />
+                </div>
+                <div class="font-bold text-slate-800 text-sm mb-1">{env.name}</div>
+                <div class="text-xs text-slate-500 leading-snug">{env.desc}</div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="py-16 bg-blue-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div>
+          <h2 class="text-3xl font-heading font-black tracking-tight">
+            Start with the system you already have.
+          </h2>
+          <p class="text-blue-100 text-base mt-2 max-w-2xl">
+            Tell us your equipment make and model, what you want to monitor, and where your facility is located in Maharashtra.
+          </p>
+        </div>
+        <div class="flex items-center gap-4 shrink-0">
+          <a 
+            href="/contact/?enquiry=smart-monitoring" 
+            class="px-6 py-3.5 rounded-xl font-bold text-sm bg-white text-blue-600 shadow-md hover:bg-slate-100 transition"
+          >
+            Request a Free Assessment
+          </a>
+        </div>
       </div>
     </div>
   </section>

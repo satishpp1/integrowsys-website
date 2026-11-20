@@ -1,0 +1,339 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { id: 'view' } }
+  ];
+}
+---
+
+<AdminLayout title="Lead Details | InteGrowSys Admin">
+  <header class="page-header">
+    <div>
+      <h1>Lead Details</h1>
+      <p id="lead-breadcrumb" style="margin:0;color:var(--admin-muted);">Loading…</p>
+    </div>
+    <a class="button secondary" href="/admin/leads">← Back to Leads</a>
+  </header>
+
+  <div class="detail-grid">
+    <div>
+      <div class="detail-card">
+        <h2>Contact Information</h2>
+        <div class="detail-field">
+          <label>Name</label>
+          <div class="value" id="f-name">—</div>
+        </div>
+        <div class="detail-field">
+          <label>Company</label>
+          <div class="value" id="f-company">—</div>
+        </div>
+        <div class="detail-field">
+          <label>Designation</label>
+          <div class="value" id="f-designation">—</div>
+        </div>
+        <div class="detail-field">
+          <label>Email</label>
+          <div class="value"><a href="#" id="f-email">—</a></div>
+        </div>
+        <div class="detail-field">
+          <label>Phone</label>
+          <div class="value"><a href="#" id="f-phone">—</a></div>
+        </div>
+        <div class="detail-field">
+          <label>City / Location</label>
+          <div class="value" id="f-city">—</div>
+        </div>
+        <div class="detail-field">
+          <label>Facility Type</label>
+          <div class="value" id="f-facility">—</div>
+        </div>
+      </div>
+
+      <div class="detail-card detail-section">
+        <h2>Enquiry Details</h2>
+        <div class="detail-field">
+          <label>Service Interest</label>
+          <div class="value" id="f-service">—</div>
+        </div>
+        <div class="detail-field">
+          <label>Message</label>
+          <div class="value" id="f-message" style="white-space:pre-wrap;line-height:1.6;">—</div>
+        </div>
+        <div class="detail-field">
+          <label>Source Page</label>
+          <div class="value" id="f-source">—</div>
+        </div>
+      </div>
+
+      <div class="detail-card detail-section">
+        <h2>Status & Activity</h2>
+        <div class="detail-field">
+          <label>Current Status</label>
+          <div class="value">
+            <select class="status-select" id="status-select" aria-label="Lead status">
+              <option value="new">New</option>
+              <option value="contacted">Contacted</option>
+              <option value="qualified">Qualified</option>
+              <option value="proposal">Proposal</option>
+              <option value="won">Won</option>
+              <option value="lost">Lost</option>
+              <option value="spam">Spam</option>
+            </select>
+          </div>
+        </div>
+        <div class="detail-field" style="margin-top:16px;">
+          <label>Created</label>
+          <div class="value" id="f-created">—</div>
+        </div>
+        <div class="detail-field">
+          <label>Last Updated</label>
+          <div class="value" id="f-updated">—</div>
+        </div>
+      </div>
+    </div>
+
+    <aside>
+      <div class="detail-card">
+        <h2>Notes</h2>
+        <div class="notes-list" id="notes-list">
+          <div class="loading"><div class="spinner"></div>Loading notes…</div>
+        </div>
+        <form class="note-form" id="note-form">
+          <textarea id="note-text" placeholder="Add a note…" aria-label="Note text" required></textarea>
+          <div class="btn-row">
+            <button class="button" type="submit">Add Note</button>
+          </div>
+        </form>
+      </div>
+    </aside>
+  </div>
+</AdminLayout>
+
+<script>
+interface LeadRecord {
+  id: string;
+  name: string;
+  company?: string | null;
+  designation?: string | null;
+  email?: string | null;
+  phone: string;
+  city?: string | null;
+  facility_type?: string | null;
+  service_interest: string;
+  message: string;
+  source_path?: string | null;
+  status: string;
+  created_at: number;
+  updated_at: number;
+}
+
+interface NoteRecord {
+  id: string;
+  lead_id: string;
+  author: string;
+  text: string;
+  created_at: number;
+}
+
+const leadId = new URLSearchParams(window.location.search).get('id') ||
+               window.location.pathname.split('/').filter(Boolean).pop() || '';
+
+let currentLead: LeadRecord | null = null;
+
+const statusSelect = document.getElementById('status-select') as HTMLSelectElement | null;
+const noteForm = document.getElementById('note-form') as HTMLFormElement | null;
+const noteText = document.getElementById('note-text') as HTMLTextAreaElement | null;
+const notesList = document.getElementById('notes-list');
+
+const ESC_MAP: Record<string, string> = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;'
+};
+
+function escapeHtml(str: unknown): string {
+  return String(str ?? '').replace(/[&<>"']/g, c => ESC_MAP[c] || c);
+}
+
+function formatDateTime(ts: unknown): string {
+  if (!ts) return '—';
+  const d = new Date(typeof ts === 'number' ? ts * 1000 : String(ts));
+  return d.toLocaleString('en-IN', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+}
+
+function showToast(message: string, type: 'info' | 'success' | 'error' = 'info') {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.className = `toast ${type === 'success' ? 'success' : type === 'error' ? 'error' : ''}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+function renderNotes(notes: NoteRecord[]) {
+  if (!notesList) return;
+  if (!notes.length) {
+    notesList.innerHTML = `<div class="empty-state" style="padding:20px;">No notes yet</div>`;
+    return;
+  }
+  notesList.innerHTML = notes.map(note => `
+    <div class="note-item">
+      <div class="note-header">
+        <strong>${escapeHtml(note.author || 'Admin')}</strong>
+        <span>${formatDateTime(note.created_at)}</span>
+      </div>
+      <div class="note-text">${escapeHtml(note.text)}</div>
+    </div>
+  `).join('');
+}
+
+async function loadNotes() {
+  if (!notesList || !leadId || leadId === 'view') return;
+  try {
+    const res = await fetch(`/api/admin/leads/${encodeURIComponent(leadId)}/notes`);
+    const data = (await res.json()) as { data?: NoteRecord[] };
+    renderNotes(data.data ?? []);
+  } catch (err) {
+    console.error('Load notes failed:', err);
+    notesList.innerHTML = `<div class="empty-state" style="padding:20px;">Failed to load notes</div>`;
+  }
+}
+
+function renderLead(lead: LeadRecord) {
+  const breadcrumb = document.getElementById('lead-breadcrumb');
+  if (breadcrumb) {
+    breadcrumb.textContent = `${lead.name} · ${lead.service_interest} · ${formatDateTime(lead.created_at)}`;
+  }
+
+  const fName = document.getElementById('f-name');
+  const fCompany = document.getElementById('f-company');
+  const fDesignation = document.getElementById('f-designation');
+  const fEmail = document.getElementById('f-email') as HTMLAnchorElement | null;
+  const fPhone = document.getElementById('f-phone') as HTMLAnchorElement | null;
+  const fCity = document.getElementById('f-city');
+  const fFacility = document.getElementById('f-facility');
+  const fService = document.getElementById('f-service');
+  const fMessage = document.getElementById('f-message');
+  const fSource = document.getElementById('f-source');
+  const fCreated = document.getElementById('f-created');
+  const fUpdated = document.getElementById('f-updated');
+
+  if (fName) fName.textContent = lead.name;
+  if (fCompany) fCompany.textContent = lead.company || '—';
+  if (fDesignation) fDesignation.textContent = lead.designation || '—';
+
+  if (fEmail) {
+    fEmail.textContent = lead.email || '—';
+    fEmail.href = lead.email ? `mailto:${lead.email}` : '#';
+  }
+
+  if (fPhone) {
+    fPhone.textContent = lead.phone;
+    fPhone.href = lead.phone ? `tel:${lead.phone}` : '#';
+  }
+
+  if (fCity) fCity.textContent = lead.city || '—';
+  if (fFacility) fFacility.textContent = lead.facility_type || '—';
+  if (fService) fService.textContent = lead.service_interest;
+  if (fMessage) fMessage.textContent = lead.message;
+  if (fSource) fSource.textContent = lead.source_path ? `/${lead.source_path.replace(/^\//, '')}` : 'Direct';
+  if (fCreated) fCreated.textContent = formatDateTime(lead.created_at);
+  if (fUpdated) fUpdated.textContent = formatDateTime(lead.updated_at);
+
+  if (statusSelect) {
+    statusSelect.value = lead.status;
+  }
+}
+
+async function loadLead() {
+  if (!leadId || leadId === 'view') {
+    const breadcrumb = document.getElementById('lead-breadcrumb');
+    if (breadcrumb) breadcrumb.textContent = 'Please select a lead from the leads list';
+    if (notesList) notesList.innerHTML = `<div class="empty-state" style="padding:20px;">No lead selected</div>`;
+    return;
+  }
+
+  try {
+    const res = await fetch(`/api/admin/leads/${encodeURIComponent(leadId)}`);
+    if (!res.ok) throw new Error('Lead not found');
+    const lead = (await res.json()) as LeadRecord;
+    currentLead = lead;
+    renderLead(lead);
+    loadNotes();
+  } catch (err) {
+    console.error('Load lead failed:', err);
+    const breadcrumb = document.getElementById('lead-breadcrumb');
+    if (breadcrumb) breadcrumb.textContent = 'Failed to load lead';
+  }
+}
+
+statusSelect?.addEventListener('change', async () => {
+  if (!currentLead || !statusSelect) return;
+  const newStatus = statusSelect.value;
+  if (newStatus === currentLead.status) return;
+
+  statusSelect.disabled = true;
+  try {
+    const res = await fetch(`/api/admin/leads/${encodeURIComponent(leadId)}/status`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: newStatus })
+    });
+    if (!res.ok) throw new Error('Failed to update status');
+    currentLead.status = newStatus;
+    showToast(`Status updated to ${newStatus}`, 'success');
+  } catch (err) {
+    console.error('Status update failed:', err);
+    showToast('Failed to update status', 'error');
+    statusSelect.value = currentLead.status;
+  } finally {
+    statusSelect.disabled = false;
+  }
+});
+
+noteForm?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (!noteText || !leadId) return;
+  const text = noteText.value.trim();
+  if (!text) return;
+
+  const submitBtn = noteForm.querySelector<HTMLButtonElement>('button');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Adding…';
+  }
+
+  try {
+    const res = await fetch(`/api/admin/leads/${encodeURIComponent(leadId)}/notes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text })
+    });
+    if (!res.ok) throw new Error('Failed to add note');
+    noteText.value = '';
+    loadNotes();
+    showToast('Note added', 'success');
+  } catch (err) {
+    console.error('Add note failed:', err);
+    showToast('Failed to add note', 'error');
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Add Note';
+    }
+  }
+});
+
+loadLead();
+</script>

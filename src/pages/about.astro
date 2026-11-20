@@ -1,7 +1,134 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import { 
+  ShieldCheck, 
+  CheckCircle2, 
+  MapPin, 
+  ArrowRight,
+  Cpu,
+  Wrench
+} from 'lucide-astro';
 ---
-<MainLayout title="About InteGrowSys | Fire Safety & Systems Integration" description="Learn about InteGrowSys and its approach to fire and life safety, building systems integration and smart monitoring.">
-<section class="page-hero"><div class="container"><div class="breadcrumbs"><a href="/">Home</a> / About</div><div class="eyebrow">About InteGrowSys</div><h1>Practical safety engineering, thoughtful integration and smarter operations.</h1><p class="lead">We bring fire and life safety systems, building services and monitoring concepts together around the requirements of each site.</p></div></section>
-<section class="section"><div class="container content"><h2>Our approach</h2><p>InteGrowSys works across fire and life safety, planned maintenance, building systems integration and selected security/ELV services. Our focus is to understand the installed systems, the people who operate them and the information needed to respond effectively.</p><h2>Integration before unnecessary replacement</h2><p>Where suitable interfaces are available, an existing system may provide useful status or alarm signals to an additional monitoring layer. Suitability depends on make and model, available outputs, site conditions, network connectivity and the required response workflow.</p><h2>What guides our work</h2><ul class="check-list"><li>Understand the facility and existing equipment before recommending changes.</li><li>Keep approved life-safety operation central to any integration.</li><li>Define which signals, notifications and service records are included.</li><li>Document configuration, limitations and maintenance responsibilities.</li></ul><div class="notice"><strong>Important:</strong> Monitoring add-ons supplement approved life-safety systems; they should not replace required local alarm functions, statutory inspections or emergency procedures.</div></div></section>
+
+<MainLayout 
+  title="About InteGrowSys | Fire & Life Safety Engineering & Smart Monitoring" 
+  description="Learn about InteGrowSys: Our engineering-first philosophy, Pune Magarpatta City headquarters, and practical approach to life safety and smart building integration."
+>
+  <!-- Hero Section -->
+  <section class="bg-slate-900 text-white py-16 lg:py-20 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">About InteGrowSys</div>
+      <h1 class="text-3xl sm:text-5xl font-heading font-black tracking-tight text-white max-w-4xl">
+        Practical safety engineering, thoughtful integration & smarter facility operations.
+      </h1>
+      <p class="text-slate-300 text-base sm:text-lg mt-4 max-w-3xl leading-relaxed">
+        We bridge the gap between traditional fire and life safety infrastructure and modern IoT monitoring. 
+        Headquartered in Pune, Maharashtra, we help facilities protect people, maintain compliance, and gain real-time awareness.
+      </p>
+    </div>
+  </section>
+
+  <!-- Content & Principles -->
+  <section class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        
+        <!-- Story Column -->
+        <div class="lg:col-span-8 space-y-10">
+          
+          <div class="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm space-y-6">
+            <h2 class="text-2xl font-heading font-bold text-slate-900">Our Engineering Approach</h2>
+            <p class="text-slate-600 leading-relaxed text-base">
+              Facility management teams often face a difficult dilemma: installed fire alarm panels, hydrants, and pump room controllers function reliably, but lack modern connectivity, dashboards, and remote alerts. Vendors typically suggest tearing everything out and replacing it with costly proprietary networks.
+            </p>
+            <p class="text-slate-600 leading-relaxed text-base">
+              At <strong class="text-slate-900">InteGrowSys</strong>, our guiding principle is different: <span class="text-blue-600 font-bold">Integration before unnecessary replacement.</span> Where suitable potential-free contacts or auxiliary interfaces exist, legacy hardware can be safely augmented with an intelligent monitoring layer—saving capital while improving response times.
+            </p>
+
+            <div class="pt-6 border-t border-slate-100">
+              <h3 class="text-lg font-heading font-bold text-slate-900 mb-4">What Guides Our Engineering</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <div class="flex items-center gap-2 text-sm font-bold text-slate-900 mb-1">
+                    <ShieldCheck class="w-4 h-4 text-emerald-600" />
+                    <span>Life Safety is Central</span>
+                  </div>
+                  <p class="text-xs text-slate-600">
+                    Add-on monitoring never interferes with statutory local siren operation or primary panel fail-safes.
+                  </p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <div class="flex items-center gap-2 text-sm font-bold text-slate-900 mb-1">
+                    <Wrench class="w-4 h-4 text-blue-600" />
+                    <span>Pragmatic Maintenance</span>
+                  </div>
+                  <p class="text-xs text-slate-600">
+                    Inspections focus on real pump room readiness, flow testing, and verified relay triggers.
+                  </p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <div class="flex items-center gap-2 text-sm font-bold text-slate-900 mb-1">
+                    <Cpu class="w-4 h-4 text-indigo-600" />
+                    <span>Configuration-Based IoT</span>
+                  </div>
+                  <p class="text-xs text-slate-600">
+                    Tailored to what your facility actually needs to know—without bloated software subscriptions.
+                  </p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <div class="flex items-center gap-2 text-sm font-bold text-slate-900 mb-1">
+                    <CheckCircle2 class="w-4 h-4 text-emerald-600" />
+                    <span>Transparent Scopes</span>
+                  </div>
+                  <p class="text-xs text-slate-600">
+                    Every quote clearly documents supported inputs, limitations, and maintenance responsibilities.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Regulatory Note -->
+            <div class="p-5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs leading-relaxed">
+              <strong>Statutory Compliance Commitment:</strong> InteGrowSys adheres to National Building Code (NBC) 2016 Part 4, Maharashtra Fire Prevention & Life Safety Measures Act, and relevant BIS standards. Monitoring add-ons complement approved systems and do not replace mandatory physical drills or Form-B requirements.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Headquarters & Operations Column -->
+        <div class="lg:col-span-4 space-y-6">
+          <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-5">
+            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+              <MapPin class="w-5 h-5" />
+            </div>
+            <div>
+              <h3 class="text-base font-heading font-bold text-slate-900">Pune Engineering Office</h3>
+              <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                Centrally based in Magarpatta City to serve IT parks, manufacturing belts (Chakan, Bhosari, Talegaon, Ranjangaon), and commercial towers across Pune and western Maharashtra.
+              </p>
+            </div>
+
+            <div class="pt-4 border-t border-slate-100 text-xs text-slate-700 space-y-2">
+              <div class="font-bold text-slate-900">Registered Location:</div>
+              <p>B25, Erica, Magarpatta City, Hadapsar, Pune, Maharashtra 411013</p>
+            </div>
+
+            <div class="pt-4 border-t border-slate-100 space-y-2">
+              <a 
+                href="/contact/" 
+                class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-700 text-white transition"
+              >
+                <span>Request a Site Meeting</span>
+                <ArrowRight class="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
 </MainLayout>

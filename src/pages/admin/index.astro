@@ -1,0 +1,153 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Dashboard | InteGrowSys Admin">
+  <header class="page-header">
+    <div>
+      <h1>Dashboard</h1>
+      <p>Overview of lead pipeline and recent activity</p>
+    </div>
+    <a class="button" href="/admin/leads">View All Leads →</a>
+  </header>
+
+  <div class="stats-grid" id="stats-grid">
+    <div class="stat-card">
+      <div class="label">Total Leads</div>
+      <div class="value" id="stat-total">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">New This Month</div>
+      <div class="value" id="stat-new">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Qualified / Proposal</div>
+      <div class="value" id="stat-active">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Won</div>
+      <div class="value won" id="stat-won">—</div>
+    </div>
+  </div>
+
+  <section>
+    <div class="page-header" style="margin-bottom: 16px;">
+      <h2 style="font-size: 1.2rem;">Recent Leads</h2>
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Lead</th>
+            <th>Service</th>
+            <th>Phone</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="leads-table-body">
+          <tr><td colspan="6" class="loading"><div class="spinner"></div>Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</AdminLayout>
+
+<script>
+interface LeadRecord {
+  id: string;
+  name: string;
+  company?: string | null;
+  service_interest: string;
+  phone: string;
+  created_at: number;
+  status: string;
+}
+
+interface StatsRecord {
+  total?: number;
+  new_this_month?: number;
+  qualified?: number;
+  proposal?: number;
+  won?: number;
+}
+
+const ESC_MAP: Record<string, string> = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;'
+};
+
+function escapeHtml(str: unknown): string {
+  return String(str ?? '').replace(/[&<>"']/g, c => ESC_MAP[c] || c);
+}
+
+function formatDate(ts: unknown): string {
+  if (!ts) return '—';
+  const d = new Date(typeof ts === 'number' ? ts * 1000 : String(ts));
+  return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
+async function loadDashboard() {
+  const tbody = document.getElementById('leads-table-body');
+  try {
+    const [statsRes, leadsRes] = await Promise.all([
+      fetch('/api/admin/stats'),
+      fetch('/api/admin/leads?limit=10')
+    ]);
+
+    const stats = (await statsRes.json()) as StatsRecord;
+    const leads = (await leadsRes.json()) as { data?: LeadRecord[] };
+
+    const statTotal = document.getElementById('stat-total');
+    const statNew = document.getElementById('stat-new');
+    const statActive = document.getElementById('stat-active');
+    const statWon = document.getElementById('stat-won');
+
+    if (statTotal) statTotal.textContent = String(stats.total ?? '—');
+    if (statNew) statNew.textContent = String(stats.new_this_month ?? '—');
+    if (statActive) {
+      const activeCount = (stats.qualified ?? 0) + (stats.proposal ?? 0);
+      statActive.textContent = String(activeCount);
+    }
+    if (statWon) statWon.textContent = String(stats.won ?? '—');
+
+    if (!tbody) return;
+
+    if (!leads.data?.length) {
+      tbody.innerHTML = `<tr><td colspan="6" class="empty-state" style="display:block;padding:40px;">No leads yet</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = leads.data.map(lead => `
+      <tr>
+        <td>
+          <div class="lead-name">${escapeHtml(lead.name)}</div>
+          <div class="lead-company">${escapeHtml(lead.company || '—')}</div>
+        </td>
+        <td><span class="lead-service">${escapeHtml(lead.service_interest)}</span></td>
+        <td class="lead-phone">${escapeHtml(lead.phone)}</td>
+        <td class="lead-date">${formatDate(lead.created_at)}</td>
+        <td><span class="status-badge ${escapeHtml(lead.status)}">${escapeHtml(lead.status)}</span></td>
+        <td>
+          <div class="actions">
+            <a class="btn-icon" href="/admin/leads/${encodeURIComponent(lead.id)}" title="View details" aria-label="View ${escapeHtml(lead.name)}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </a>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    console.error('Dashboard load failed:', err);
+    if (tbody) {
+      tbody.innerHTML = `<tr><td colspan="6" class="empty-state" style="display:block;padding:40px;color:#dc2626;">Failed to load</td></tr>`;
+    }
+  }
+}
+
+loadDashboard();
+</script>
