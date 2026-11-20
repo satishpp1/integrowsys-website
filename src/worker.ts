@@ -73,7 +73,8 @@ async function verifyTurnstile(token: string, secret: string, remoteIp?: string)
 
 function getAdminUser(request: Request, url: URL): string | null {
   const user = request.headers.get("cf-access-authenticated-user-email") ||
-               request.headers.get("cf-access-user");
+               request.headers.get("cf-access-user") ||
+               request.headers.get("x-admin-user");
   if (user) return user;
   if (url.hostname === "localhost" || url.hostname === "127.0.0.1") {
     return "admin@local.integrowsys.com";
