@@ -240,29 +240,37 @@ import {
         <div class="space-y-4">
           <div class="flex items-center justify-between p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs">
             <span class="text-slate-400">Input Channels Required:</span>
-            <span class="font-mono font-bold text-blue-300 text-sm" id="spec-channels">6 Channels</span>
+            <span class="font-mono font-bold text-amber-300 text-sm" id="spec-channels">6 Channels</span>
           </div>
 
           <div class="flex items-center justify-between p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs">
-            <span class="text-slate-400">Recommended Node:</span>
-            <span class="font-bold text-white text-xs" id="spec-node">AlertGuard Node-8 (8-Ch DIN)</span>
+            <span class="text-slate-400">Hardware Model:</span>
+            <span class="font-bold text-white text-xs" id="spec-node">AlertGuard Wi-Fi (ESP32 5-Ch)</span>
           </div>
 
           <div class="flex items-center justify-between p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs">
             <span class="text-slate-400">Connectivity Profile:</span>
-            <span class="font-mono font-bold text-indigo-300 text-xs" id="spec-net">Dual-Path (Wi-Fi + 4G)</span>
+            <span class="font-mono font-bold text-emerald-300 text-xs" id="spec-net">2.4 GHz Wi-Fi (Production)</span>
           </div>
 
           <div class="flex items-center justify-between p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs">
             <span class="text-slate-400">Alert Dispatch Speed:</span>
-            <span class="font-mono font-bold text-emerald-400">&lt; 3.0 Seconds</span>
+            <span class="font-mono font-bold text-emerald-400">&lt; 2.5 Seconds</span>
           </div>
         </div>
 
+        <!-- Production vs Roadmap Notice -->
+        <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200">
+          <div class="font-bold text-amber-300 mb-0.5">Hardware Roadmap Notice:</div>
+          <p class="leading-relaxed text-[11px] text-slate-300">
+            <strong>AlertGuard Wi-Fi</strong> is deployed in production. 4–20 mA current loop analog, 4G LTE, and LoRa wireless options are in active development.
+          </p>
+        </div>
+
         <!-- Compliance & Scope Note -->
-        <div class="p-4 rounded-xl bg-blue-950/60 border border-blue-800/60 text-xs text-blue-200 flex items-start gap-3">
-          <ShieldCheck class="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
-          <p class="leading-relaxed">
+        <div class="p-4 rounded-xl bg-slate-800/90 border border-slate-700/70 text-xs text-slate-300 flex items-start gap-3">
+          <ShieldCheck class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+          <p class="leading-relaxed text-[11px]">
             <strong class="text-white">Statutory Safety:</strong> AlertGuard passive dry-contact monitoring preserves all certified life safety panel loops, local sirens, and Form-B compliance intact.
           </p>
         </div>
@@ -272,7 +280,7 @@ import {
           <a 
             id="btn-apply-survey" 
             href="/contact/?enquiry=smart-monitoring" 
-            class="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/25 transition active:scale-[0.98]"
+            class="btn-cta-primary w-full !py-3.5 !text-sm text-center"
           >
             <span>Request Site Survey with this Spec</span>
             <ArrowRight class="w-4 h-4" />

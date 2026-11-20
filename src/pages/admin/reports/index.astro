@@ -1,0 +1,165 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { 
+  ClipboardList, 
+  Sparkles, 
+  ArrowRight,
+  UserCheck
+} from '@lucide/astro';
+
+const mockReports = [
+  {
+    id: 'FSR-2026-104',
+    facility: 'Tata BlueScope Steel Complex',
+    date: '18 Nov 2026',
+    engineer: 'Vikas Jadhav (Senior Service Eng)',
+    type: 'Quarterly Pump Room Hydraulic Test',
+    pressureReadings: 'Jockey 7.5 Bar · Main 8.2 Bar · Diesel 9.0 Bar',
+    clientSign: 'M. S. Deshmukh (GM Facilities)',
+    status: 'Verified & Signed'
+  },
+  {
+    id: 'FSR-2026-103',
+    facility: 'EON Free Zone Cluster C',
+    date: '14 Nov 2026',
+    engineer: 'Amit Patil (Lead Fire Tech)',
+    type: 'Addressable Loop & Smoke Sensor Audit',
+    pressureReadings: 'Loop 1-4 Normalized · 0 Faults Reported',
+    clientSign: 'S. N. Nair (Building Manager)',
+    status: 'Verified & Signed'
+  },
+  {
+    id: 'FSR-2026-102',
+    facility: 'Hinjawadi Phase 3 Tech Center',
+    date: '08 Nov 2026',
+    engineer: 'Rohan Shinde (Service Tech)',
+    type: 'Basement Jet Fan & Damper Relay Test',
+    pressureReadings: 'Aux Contacts Verified · Interlock Pass',
+    clientSign: 'Pravin Kulkarni (Facility Admin)',
+    status: 'Verified & Signed'
+  }
+];
+---
+
+<AdminLayout title="Field Service Reports | InteGrowSys Admin">
+  <div class="space-y-8">
+    
+    <!-- Top Header -->
+    <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider mb-2">
+          <ClipboardList class="w-3.5 h-3.5 text-amber-600" />
+          <span>Field Ops Webapp · In Active Development</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-heading font-black text-slate-900 tracking-tight">
+          Field Service Reports (FSR) & Inspection Logs
+        </h1>
+        <p class="text-sm text-slate-500 mt-1">
+          Digital job cards, pump pressure transducer calibrations, alarm loop diagnostic checklists, and client sign-off records.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button 
+          type="button" 
+          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 shadow-sm transition"
+        >
+          <span>Create Digital Field Job Card</span>
+          <ArrowRight class="w-3.5 h-3.5" />
+        </button>
+      </div>
+    </header>
+
+    <!-- Architecture Roadmap Notice Banner -->
+    <div class="bg-gradient-to-r from-amber-950 via-slate-900 to-slate-900 border border-amber-800/40 rounded-2xl p-6 text-white shadow-lg">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div class="space-y-2 max-w-2xl">
+          <div class="flex items-center gap-2 text-xs font-mono font-bold uppercase text-amber-400">
+            <Sparkles class="w-4 h-4 text-amber-400" />
+            <span>Architecture Roadmap</span>
+          </div>
+          <h2 class="text-lg font-heading font-bold text-white">
+            Upcoming D1 Schema: <code class="text-amber-300 font-mono text-sm">field_service_reports</code> & <code class="text-amber-300 font-mono text-sm">equipment_readings</code>
+          </h2>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Engineers on site will fill out pump churn test curves, smoke detector loop voltage readings, and valve inspection logs from mobile phones. Once signed by the client, reports generate instant PDF dossiers and dispatch via WhatsApp.
+          </p>
+        </div>
+
+        <div class="shrink-0 flex flex-col gap-2 text-xs font-mono">
+          <div class="px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80 text-amber-400">
+            ✓ Digital Pump Pressure & Flow Logs
+          </div>
+          <div class="px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80 text-emerald-400">
+            ✓ On-Screen Client Signature Capture
+          </div>
+          <div class="px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80 text-blue-400">
+            ✓ Instant PDF & WhatsApp Dispatch
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mock Field Reports Register -->
+    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+      <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+        <div>
+          <h2 class="font-heading font-bold text-base text-slate-900">
+            Recent Field Service Reports (Preview Mode)
+          </h2>
+          <p class="text-xs text-slate-500 mt-0.5">Sample verified inspection reports from Pune facility maintenance teams</p>
+        </div>
+        <span class="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+          3 Reports Logged
+        </span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-slate-50 border-b border-slate-100 text-xs font-bold uppercase tracking-wider text-slate-500">
+            <tr>
+              <th class="py-3.5 px-6">Report ID & Date</th>
+              <th class="py-3.5 px-6">Facility & Scope</th>
+              <th class="py-3.5 px-6">Assigned Engineer</th>
+              <th class="py-3.5 px-6">Equipment Readings</th>
+              <th class="py-3.5 px-6">Client Sign-off</th>
+              <th class="py-3.5 px-6 text-right">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            {mockReports.map((r) => (
+              <tr class="hover:bg-slate-50/70 transition">
+                <td class="py-4 px-6 font-mono text-xs">
+                  <div class="font-bold text-slate-900">{r.id}</div>
+                  <div class="text-slate-500">{r.date}</div>
+                </td>
+                <td class="py-4 px-6">
+                  <div class="font-bold text-slate-900 text-sm">{r.facility}</div>
+                  <div class="text-xs text-slate-500">{r.type}</div>
+                </td>
+                <td class="py-4 px-6 text-xs text-slate-700 font-medium">
+                  {r.engineer}
+                </td>
+                <td class="py-4 px-6 font-mono text-xs text-slate-600">
+                  {r.pressureReadings}
+                </td>
+                <td class="py-4 px-6 text-xs text-emerald-700">
+                  <span class="inline-flex items-center gap-1 font-semibold">
+                    <UserCheck class="w-3.5 h-3.5 text-emerald-600" />
+                    <span>{r.clientSign}</span>
+                  </span>
+                </td>
+                <td class="py-4 px-6 text-right">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    {r.status}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</AdminLayout>

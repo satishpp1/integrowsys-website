@@ -88,9 +88,18 @@ export function getStaticPaths() {
           </div>
 
           <div>
-            <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-0.5">Phone Number</div>
-            <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-0.5">Phone & Immediate Actions</div>
+            <div class="flex flex-wrap items-center gap-2 mt-1">
               <a href="#" id="f-phone" class="font-mono font-bold text-blue-600 hover:underline">—</a>
+              <a 
+                href="#" 
+                id="f-whatsapp-btn" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="hidden inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition"
+              >
+                <span>WhatsApp</span>
+              </a>
             </div>
           </div>
 
@@ -330,6 +339,14 @@ function renderLead(lead: LeadRecord) {
   if (fPhone) {
     fPhone.textContent = lead.phone;
     fPhone.href = lead.phone ? `tel:${lead.phone}` : '#';
+  }
+
+  const waBtn = document.getElementById('f-whatsapp-btn') as HTMLAnchorElement | null;
+  if (waBtn && lead.phone) {
+    const rawDigits = lead.phone.replace(/[^0-9]/g, '');
+    const cleanDigits = rawDigits.length === 10 ? `91${rawDigits}` : rawDigits;
+    waBtn.href = `https://wa.me/${cleanDigits}?text=${encodeURIComponent(`Hello ${lead.name || 'Sir/Madam'}, this is InteGrowSys following up on your enquiry for ${lead.service_interest}.`)}`;
+    waBtn.classList.remove('hidden');
   }
 
   if (fCity) fCity.textContent = lead.city || '—';

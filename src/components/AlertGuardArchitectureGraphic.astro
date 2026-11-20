@@ -1,0 +1,236 @@
+---
+// AlertGuardArchitectureGraphic.astro
+// Visual technical representation based on AlertGuard User & Configuration Manual v1.0
+import { 
+  Cpu, 
+  Wifi, 
+  Mail, 
+  Bell, 
+  Settings2, 
+  ShieldCheck, 
+  Terminal, 
+  Sparkles,
+  FileSpreadsheet
+} from '@lucide/astro';
+---
+
+<div class="relative bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl overflow-hidden text-white">
+  <!-- Glowing Background Grid -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-600/10 via-transparent to-transparent pointer-events-none"></div>
+  <div class="absolute -top-24 -right-24 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- Header & Version Tags -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800/80 relative z-10">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-amber-500 text-white flex items-center justify-center font-black shadow-lg shadow-amber-500/20">
+        <Cpu class="w-5 h-5" />
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h3 class="font-heading font-black text-xl text-white tracking-tight">AlertGuard™ Architecture</h3>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+            Wi-Fi v1.0 Production
+          </span>
+        </div>
+        <p class="text-xs text-slate-400">ESP32-based dry-contact add-on bridge for alarm panels & pump rooms</p>
+      </div>
+    </div>
+
+    <!-- Active Hardware Status Badge -->
+    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-800/90 border border-slate-700/80 text-xs font-mono">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span class="text-slate-300">RSSI:</span>
+      <span class="text-emerald-400 font-bold">-65 dBm (Good)</span>
+      <span class="text-slate-500">|</span>
+      <span class="text-slate-300">SoftAP:</span>
+      <span class="text-blue-400">AlertSetup</span>
+    </div>
+  </div>
+
+  <!-- Main Architecture Flow Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 my-8 relative z-10 items-stretch">
+    
+    <!-- Column 1: Fire Alarm Panel & Dry Contact Relays (Inputs) -->
+    <div class="lg:col-span-4 bg-slate-900/90 rounded-2xl border border-slate-800 p-5 flex flex-col justify-between">
+      <div>
+        <div class="text-[11px] font-mono font-bold uppercase tracking-wider text-amber-400 mb-3 flex items-center gap-1.5">
+          <Settings2 class="w-3.5 h-3.5" />
+          <span>Physical Inputs (Up to 5 Zones)</span>
+        </div>
+        <div class="text-sm font-bold text-white mb-2">Panel NO / NC Potential-Free Relays</div>
+        <p class="text-xs text-slate-400 mb-4">
+          Non-invasive 4-pin/multi-pin jumper harness connected directly to auxiliary contacts:
+        </p>
+        
+        <div class="space-y-2 text-xs font-mono">
+          <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800">
+            <span class="text-slate-300">Zone 1 · Main Alarm</span>
+            <span class="text-emerald-400 font-bold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/50">GPIO 4</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800">
+            <span class="text-slate-300">Zone 2 · Vault / Panel Fault</span>
+            <span class="text-slate-400 font-bold bg-slate-900 px-2 py-0.5 rounded border border-slate-800">GPIO 13</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800">
+            <span class="text-slate-300">Zone 3 · Pump Room Trip</span>
+            <span class="text-slate-400 font-bold bg-slate-900 px-2 py-0.5 rounded border border-slate-800">GPIO 14</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800">
+            <span class="text-slate-300">Zone 4 · Line Pressure Drop</span>
+            <span class="text-slate-400 font-bold bg-slate-900 px-2 py-0.5 rounded border border-slate-800">GPIO 27</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-lg bg-slate-950/70 border border-slate-800">
+            <span class="text-slate-300">Zone 5 · Server Water Leak</span>
+            <span class="text-slate-400 font-bold bg-slate-900 px-2 py-0.5 rounded border border-slate-800">GPIO 33</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-slate-400 flex items-center justify-between">
+        <span>Hardware Filter:</span>
+        <span class="font-mono text-amber-400 font-semibold">50 ms Debounce</span>
+      </div>
+    </div>
+
+    <!-- Column 2: Central ESP-WROOM-32 Processing & Enclosure -->
+    <div class="lg:col-span-4 bg-gradient-to-b from-slate-900/90 to-slate-950 rounded-2xl border-2 border-orange-500/30 p-5 flex flex-col justify-between relative shadow-lg shadow-orange-500/5">
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-slate-950 font-black text-[10px] tracking-wider uppercase px-2.5 py-0.5 rounded-full">
+        Hardware Core
+      </div>
+
+      <div>
+        <div class="text-[11px] font-mono font-bold uppercase tracking-wider text-orange-400 mb-2 flex items-center gap-1.5">
+          <Cpu class="w-3.5 h-3.5" />
+          <span>ESP-WROOM-32 Controller</span>
+        </div>
+        <div class="text-sm font-bold text-white mb-2">Dual-Tier Embedded Web Server</div>
+        <p class="text-xs text-slate-400 mb-4">
+          Operates an autonomous web console over LAN with zero external cloud dependencies required:
+        </p>
+
+        <!-- Tier Comparison Cards -->
+        <div class="space-y-2.5 text-xs">
+          <!-- Client Tier -->
+          <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-bold text-blue-400 flex items-center gap-1">
+                <ShieldCheck class="w-3.5 h-3.5" /> Tier 1: Client Console
+              </span>
+              <span class="font-mono text-[10px] text-slate-400">/login?tier=1</span>
+            </div>
+            <p class="text-[11px] text-slate-400">
+              Live zone status, Wi-Fi profiles, uptime counter & 100-event circular buffer log (CSV export).
+            </p>
+          </div>
+
+          <!-- Developer Tier -->
+          <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-bold text-amber-400 flex items-center gap-1">
+                <Terminal class="w-3.5 h-3.5" /> Tier 2: Developer / Admin
+              </span>
+              <span class="font-mono text-[10px] text-slate-400">/login?tier=2</span>
+            </div>
+            <p class="text-[11px] text-slate-400">
+              SMTP Port 465 SSL, Webhook endpoints, GPIO pin mapping, heartbeat cadence & OTA updates.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+        <span>Power Input:</span>
+        <span class="text-white font-bold">5V DC Micro-USB</span>
+      </div>
+    </div>
+
+    <!-- Column 3: Dispatch Networks (Email, Webhook, WhatsApp) -->
+    <div class="lg:col-span-4 bg-slate-900/90 rounded-2xl border border-slate-800 p-5 flex flex-col justify-between">
+      <div>
+        <div class="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-400 mb-3 flex items-center gap-1.5">
+          <Wifi class="w-3.5 h-3.5" />
+          <span>Outbound Digital Dispatch</span>
+        </div>
+        <div class="text-sm font-bold text-white mb-2">Real-Time Team Escalation</div>
+        <p class="text-xs text-slate-400 mb-4">
+          On zone state transition, AlertGuard dispatches alerts within seconds across modern channels:
+        </p>
+
+        <div class="space-y-2.5 text-xs">
+          <!-- WhatsApp Notification -->
+          <div class="flex items-start gap-2.5 p-2.5 rounded-xl bg-emerald-950/40 border border-emerald-800/60">
+            <div class="w-7 h-7 rounded-lg bg-emerald-500 text-white flex items-center justify-center shrink-0 mt-0.5">
+              <Bell class="w-4 h-4" />
+            </div>
+            <div>
+              <div class="font-bold text-emerald-300">WhatsApp Alert Webhook</div>
+              <div class="text-[11px] text-slate-300">
+                Direct text to Facility In-charge, Maintenance Engineer & Safety Officers with zone details.
+              </div>
+            </div>
+          </div>
+
+          <!-- Direct SMTP -->
+          <div class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-950/70 border border-slate-800">
+            <div class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center shrink-0 mt-0.5">
+              <Mail class="w-4 h-4" />
+            </div>
+            <div>
+              <div class="font-bold text-blue-300">Direct SMTP Email (SSL 465)</div>
+              <div class="text-[11px] text-slate-400">
+                TLS/SSL encrypted emails sent to recipient list with customizable subject lines.
+              </div>
+            </div>
+          </div>
+
+          <!-- Enterprise Webhooks -->
+          <div class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-950/70 border border-slate-800">
+            <div class="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center shrink-0 mt-0.5">
+              <Sparkles class="w-4 h-4" />
+            </div>
+            <div>
+              <div class="font-bold text-indigo-300">Slack, Teams & Discord</div>
+              <div class="text-[11px] text-slate-400">
+                Automated webhook JSON payloads posted directly into facility operations channels.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+        <span>CSV Event Export:</span>
+        <span class="text-emerald-400 font-mono font-bold flex items-center gap-1">
+          <FileSpreadsheet class="w-3.5 h-3.5" /> 100 Events
+        </span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Development Roadmap Banner -->
+  <div class="mt-6 pt-6 border-t border-slate-800/80 bg-slate-900/50 -mx-6 sm:-mx-8 lg:-mx-10 -mb-6 sm:-mb-8 lg:-mb-10 px-6 sm:px-8 lg:px-10 py-5 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <span class="px-2.5 py-1 rounded-md bg-amber-500/20 text-amber-300 font-extrabold text-[11px] uppercase tracking-wider border border-amber-500/30">
+        Engineering Roadmap
+      </span>
+      <span class="text-xs text-slate-300">
+        <strong>AlertGuard Wi-Fi</strong> is deployed in production. Other specialized variants are in active engineering development:
+      </span>
+    </div>
+
+    <!-- Roadmap Tags -->
+    <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+      <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700">
+        4–20 mA Current Loop (Analog)
+      </span>
+      <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700">
+        Cellular 4G LTE Gateway
+      </span>
+      <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 border border-slate-700">
+        LoRa Long-Range Wireless
+      </span>
+    </div>
+  </div>
+</div>

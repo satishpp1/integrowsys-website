@@ -1,0 +1,108 @@
+---
+// FireSafetyLifecycleGraphic.astro
+// Visual 4-Stage Lifecycle graphic reflecting InteGrowSys Logo hues (Flame Red, Emerald Green, Amber, Blue)
+import { 
+  Flame, 
+  ShieldCheck, 
+  Cpu, 
+  PhoneCall, 
+  Sparkles
+} from '@lucide/astro';
+
+const stages = [
+  {
+    step: '01',
+    title: 'Design & Installation',
+    subtitle: 'NBC 2016 Part 4 & IS Codes',
+    description: 'System design, hydraulic calculations, NFPA/IS adherence, and turn-key commissioning for alarm, hydrant, sprinkler, and pump systems.',
+    colorClass: 'border-red-500/30 bg-red-500/10 text-red-400',
+    iconBg: 'bg-red-600 text-white shadow-red-500/30',
+    accent: 'text-red-400',
+    badge: 'Statutory Base',
+    icon: Flame
+  },
+  {
+    step: '02',
+    title: 'Planned AMC & Form-B',
+    subtitle: 'Preventive SLA Maintenance',
+    description: 'Quarterly physical testing, pump churn runs, smoke detector sensitivity calibration, valve greasing, and licensed Form-B certification.',
+    colorClass: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400',
+    iconBg: 'bg-emerald-600 text-white shadow-emerald-500/30',
+    accent: 'text-emerald-400',
+    badge: 'Legal Compliance',
+    icon: ShieldCheck
+  },
+  {
+    step: '03',
+    title: 'AlertGuard™ IoT Monitoring',
+    subtitle: 'Real-time Signal Supervision',
+    description: 'Non-invasive ESP32 Wi-Fi hardware bridging existing panel dry contacts to instant WhatsApp, email, and webhook incident notifications.',
+    colorClass: 'border-amber-500/30 bg-amber-500/10 text-amber-400',
+    iconBg: 'bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-amber-500/30',
+    accent: 'text-amber-400',
+    badge: 'Smart Upgrade',
+    icon: Cpu
+  },
+  {
+    step: '04',
+    title: 'Rapid Pune Response',
+    subtitle: '24/7 Engineering Support',
+    description: 'Hub-based rapid deployment from Hadapsar/Magarpatta across Pune industrial belts (Pimpri-Chinchwad, Chakan, Ranjangaon, Hinjawadi).',
+    colorClass: 'border-blue-500/30 bg-blue-500/10 text-blue-400',
+    iconBg: 'bg-blue-600 text-white shadow-blue-500/30',
+    accent: 'text-blue-400',
+    badge: 'On-Ground Team',
+    icon: PhoneCall
+  }
+];
+---
+
+<div class="my-12">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    {stages.map((stage) => {
+      const Icon = stage.icon;
+      return (
+        <div class="relative bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition duration-200 group shadow-lg">
+          <div>
+            <!-- Top Step & Badge Row -->
+            <div class="flex items-center justify-between mb-4">
+              <span class="font-mono text-2xl font-black text-slate-700 group-hover:text-slate-500 transition">
+                {stage.step}
+              </span>
+              <span class={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border ${stage.colorClass}`}>
+                {stage.badge}
+              </span>
+            </div>
+
+            <!-- Icon -->
+            <div class={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 shadow-lg ${stage.iconBg}`}>
+              <Icon class="w-6 h-6" />
+            </div>
+
+            <!-- Heading & Subtitle -->
+            <h3 class="font-heading font-black text-lg text-white mb-1 group-hover:text-slate-100 transition">
+              {stage.title}
+            </h3>
+            <div class={`text-xs font-mono font-semibold mb-3 ${stage.accent}`}>
+              {stage.subtitle}
+            </div>
+
+            <!-- Description -->
+            <p class="text-xs text-slate-300 leading-relaxed">
+              {stage.description}
+            </p>
+          </div>
+
+          <!-- Bottom Micro-Detail -->
+          <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+            <span class="flex items-center gap-1">
+              <Sparkles class="w-3 h-3 text-amber-400" />
+              <span>InteGrowSys Standard</span>
+            </span>
+            <span class="font-mono text-slate-500">→</span>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div>

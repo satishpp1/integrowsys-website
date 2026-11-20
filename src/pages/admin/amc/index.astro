@@ -1,0 +1,163 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { 
+  CalendarCheck, 
+  CheckCircle, 
+  Sparkles,
+  ArrowRight
+} from '@lucide/astro';
+
+const mockContracts = [
+  {
+    facility: 'Magarpatta Cybercity Tower 4',
+    location: 'Hadapsar, Pune',
+    serviceType: 'Comprehensive Fire AMC + Pump Supervision',
+    renewalDue: '15 Jan 2027',
+    formBStatus: 'Valid (Form-B Filed July)',
+    lastQuarterlyTest: '12 Oct 2026',
+    status: 'active'
+  },
+  {
+    facility: 'Khed City Industrial Logistics Zone',
+    location: 'Chakan MIDC, Pune',
+    serviceType: 'Hydrant & Sprinkler Semi-Comprehensive AMC',
+    renewalDue: '28 Feb 2027',
+    formBStatus: 'Renewal Required by Jan',
+    lastQuarterlyTest: '04 Nov 2026',
+    status: 'upcoming'
+  },
+  {
+    facility: 'ICC Trade Tower Complex',
+    location: 'Senapati Bapat Road, Pune',
+    serviceType: 'Addressable Fire Alarm & PA System AMC',
+    renewalDue: '10 Apr 2027',
+    formBStatus: 'Valid',
+    lastQuarterlyTest: '18 Sep 2026',
+    status: 'active'
+  }
+];
+---
+
+<AdminLayout title="AMC Management Portal | InteGrowSys Admin">
+  <div class="space-y-8">
+    
+    <!-- Top Header -->
+    <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-2">
+          <CalendarCheck class="w-3.5 h-3.5 text-emerald-600" />
+          <span>Facility Webapp · In Active Development</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-heading font-black text-slate-900 tracking-tight">
+          AMC Contracts & Statutory Form-B Portal
+        </h1>
+        <p class="text-sm text-slate-500 mt-1">
+          Track client facility preventative maintenance schedules, quarterly pump tests, and statutory Form-B compliance renewals.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a 
+          href="/contact/?enquiry=fire-safety" 
+          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 shadow-sm transition"
+        >
+          <span>Onboard New AMC Contract</span>
+          <ArrowRight class="w-3.5 h-3.5" />
+        </a>
+      </div>
+    </header>
+
+    <!-- Architecture Roadmap Notice Banner -->
+    <div class="bg-gradient-to-r from-emerald-950 via-slate-900 to-slate-900 border border-emerald-800/40 rounded-2xl p-6 text-white shadow-lg">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div class="space-y-2 max-w-2xl">
+          <div class="flex items-center gap-2 text-xs font-mono font-bold uppercase text-emerald-400">
+            <Sparkles class="w-4 h-4 text-emerald-400" />
+            <span>Architecture Roadmap</span>
+          </div>
+          <h2 class="text-lg font-heading font-bold text-white">
+            Upcoming D1 Schema: <code class="text-emerald-300 font-mono text-sm">amc_contracts</code> & <code class="text-emerald-300 font-mono text-sm">amc_schedules</code>
+          </h2>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            This module will automatically calculate Maharashtra Fire Service Form-B biannual filing deadlines (January & July) based on client equipment inventories, dispatch service engineer reminders, and track pump performance histories.
+          </p>
+        </div>
+
+        <div class="shrink-0 flex flex-col gap-2 text-xs font-mono">
+          <div class="px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80 text-emerald-400">
+            ✓ Form-B Statutory Compliance Tracker
+          </div>
+          <div class="px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80 text-blue-400">
+            ✓ Quarterly Service Dispatch Allocations
+          </div>
+          <div class="px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/80 text-amber-400">
+            ✓ Pump Run & Churn Reading Logs
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Mock Contracts Register -->
+    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+      <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+        <div>
+          <h2 class="font-heading font-bold text-base text-slate-900">
+            Client AMC Contracts Register (Preview Mode)
+          </h2>
+          <p class="text-xs text-slate-500 mt-0.5">Sample Pune industrial & IT park contracts schema representation</p>
+        </div>
+        <span class="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+          3 Contracts Active
+        </span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-slate-50 border-b border-slate-100 text-xs font-bold uppercase tracking-wider text-slate-500">
+            <tr>
+              <th class="py-3.5 px-6">Facility & Location</th>
+              <th class="py-3.5 px-6">Scope of Contract</th>
+              <th class="py-3.5 px-6">Form-B Status</th>
+              <th class="py-3.5 px-6">Last Quarterly Test</th>
+              <th class="py-3.5 px-6">Next Renewal</th>
+              <th class="py-3.5 px-6 text-right">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            {mockContracts.map((c) => (
+              <tr class="hover:bg-slate-50/70 transition">
+                <td class="py-4 px-6">
+                  <div class="font-bold text-slate-900">{c.facility}</div>
+                  <div class="text-xs text-slate-500">{c.location}</div>
+                </td>
+                <td class="py-4 px-6">
+                  <span class="text-xs font-medium text-slate-700 bg-slate-100 px-2.5 py-1 rounded-md">
+                    {c.serviceType}
+                  </span>
+                </td>
+                <td class="py-4 px-6 text-xs font-medium text-emerald-700">
+                  <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200">
+                    <CheckCircle class="w-3 h-3 text-emerald-600" />
+                    <span>{c.formBStatus}</span>
+                  </span>
+                </td>
+                <td class="py-4 px-6 text-xs text-slate-600 font-mono">
+                  {c.lastQuarterlyTest}
+                </td>
+                <td class="py-4 px-6 text-xs font-bold text-slate-800">
+                  {c.renewalDue}
+                </td>
+                <td class="py-4 px-6 text-right">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 capitalize">
+                    {c.status}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</AdminLayout>

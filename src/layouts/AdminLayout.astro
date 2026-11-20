@@ -5,8 +5,10 @@ import {
   LayoutDashboard, 
   Users, 
   ExternalLink, 
-  ShieldCheck 
-} from 'lucide-astro';
+  ShieldCheck,
+  CalendarCheck,
+  ClipboardList
+} from '@lucide/astro';
 
 interface Props {
   title: string;
@@ -57,7 +59,7 @@ const currentPath = Astro.url.pathname;
           </a>
 
           <!-- Navigation Pills -->
-          <nav class="hidden sm:flex items-center gap-1.5 pl-4 border-l border-slate-800" aria-label="Admin Navigation">
+          <nav class="hidden md:flex items-center gap-1.5 pl-4 border-l border-slate-800" aria-label="Admin Navigation">
             <a 
               href="/admin/" 
               class={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${currentPath === '/admin/' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-slate-800'}`}
@@ -71,6 +73,22 @@ const currentPath = Astro.url.pathname;
             >
               <Users class="w-3.5 h-3.5" />
               <span>Leads Pipeline</span>
+            </a>
+            <a 
+              href="/admin/amc" 
+              class={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${currentPath.startsWith('/admin/amc') ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-slate-800'}`}
+            >
+              <CalendarCheck class="w-3.5 h-3.5 text-emerald-400" />
+              <span>AMC Portal</span>
+              <span class="text-[9px] uppercase font-mono px-1 py-0.5 bg-emerald-950 text-emerald-400 border border-emerald-800 rounded">Soon</span>
+            </a>
+            <a 
+              href="/admin/reports" 
+              class={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${currentPath.startsWith('/admin/reports') ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-slate-800'}`}
+            >
+              <ClipboardList class="w-3.5 h-3.5 text-amber-400" />
+              <span>Field Reports</span>
+              <span class="text-[9px] uppercase font-mono px-1 py-0.5 bg-amber-950 text-amber-400 border border-amber-800 rounded">Soon</span>
             </a>
           </nav>
         </div>

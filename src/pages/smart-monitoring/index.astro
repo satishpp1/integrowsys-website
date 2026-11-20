@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
 import AlertGuardDiagnostic from '../../components/AlertGuardDiagnostic.astro';
+import AlertGuardArchitectureGraphic from '../../components/AlertGuardArchitectureGraphic.astro';
 import { 
   Cpu, 
   Flame, 
@@ -10,7 +11,8 @@ import {
   ArrowRight, 
   Sliders, 
   ShieldAlert, 
-  HelpCircle
+  HelpCircle,
+  MessageSquare
 } from 'lucide-astro';
 
 const monitorPoints = [
@@ -78,20 +80,29 @@ const steps = [
 
         <p class="text-lg text-slate-300 mt-6 leading-relaxed">
           You don’t have to discard functional fire alarm panels or pump controllers to get remote alerts. 
-          AlertGuard connects non-invasively to existing dry-contact relay outputs, dispatching instant notifications over Wi-Fi or cellular the moment a condition changes.
+          AlertGuard connects non-invasively to existing dry-contact relay outputs, dispatching instant notifications over Wi-Fi, email, webhooks, and WhatsApp the moment a condition changes.
         </p>
 
         <div class="flex flex-wrap items-center gap-4 mt-8">
           <a 
             href="#diagnostic-tool" 
-            class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition active:scale-[0.98]"
+            class="btn-cta-primary"
           >
             <span>Run Feasibility Diagnostic</span>
             <ArrowRight class="w-4 h-4" />
           </a>
           <a 
+            href="https://wa.me/919860027825?text=Hello%20InteGrowSys%20team,%20I%20would%20like%20to%20discuss%20AlertGuard%20IoT%20integration" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="btn-cta-whatsapp"
+          >
+            <MessageSquare class="w-4 h-4" />
+            <span>Chat on WhatsApp</span>
+          </a>
+          <a 
             href="/contact/?enquiry=smart-monitoring" 
-            class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 transition"
+            class="btn-cta-secondary !border-slate-700 !bg-slate-800 !text-slate-200 hover:!bg-slate-700 hover:!text-white"
           >
             <span>Book Site Survey</span>
           </a>
@@ -181,6 +192,23 @@ const steps = [
             Email & Webhook Delivered
           </div>
         </div>
+      </div>
+
+      <!-- Detailed Hardware Architecture Diagram from Manual -->
+      <div class="mt-14">
+        <div class="text-center max-w-xl mx-auto mb-8">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 text-slate-300 text-xs font-mono mb-2">
+            <span>Hardware & Firmware Specification</span>
+          </div>
+          <h3 class="font-heading font-bold text-2xl text-slate-900">
+            Inside the AlertGuard Wi-Fi Module
+          </h3>
+          <p class="text-xs text-slate-500 mt-1">
+            As documented in the official AlertGuard Hardware & Integration Guide v1.0
+          </p>
+        </div>
+
+        <AlertGuardArchitectureGraphic />
       </div>
     </div>
   </section>

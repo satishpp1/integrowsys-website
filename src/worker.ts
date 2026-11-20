@@ -3,6 +3,10 @@ interface Env {
   ASSETS: Fetcher;
   TURNSTILE_SECRET_KEY?: string;
   LEAD_NOTIFICATION_WEBHOOK?: string;
+  WHATSAPP_WEBHOOK_URL?: string;
+  WHATSAPP_ACCESS_TOKEN?: string;
+  WHATSAPP_PHONE_NUMBER_ID?: string;
+  WHATSAPP_RECIPIENT_PHONE?: string;
 }
 
 const MAX_BODY_SIZE = 10_000;
@@ -265,6 +269,58 @@ export default {
             }).catch(err => console.error("Webhook notification dispatch error:", err));
           } catch (webhookErr) {
             console.error("Webhook preparation error:", webhookErr);
+          }
+        }
+
+        // Dedicated WhatsApp Notification Dispatch (Webhook or Meta WhatsApp Cloud API)
+        const waRecipient = env.WHATSAPP_RECIPIENT_PHONE || "919860027825";
+        const waText = `🚨 *NEW LEAD - InteGrowSys*\n━━━━━━━━━━━━━━━━━━━\n👤 *Name*: ${name}\n🏢 *Company*: ${company || 'N/A'}\n💼 *Role*: ${designation || 'N/A'}\n📞 *Phone*: ${phone}\n✉️ *Email*: ${email || 'N/A'}\n📍 *City*: ${city || 'N/A'} (${facilityType || 'Facility'})\n🛡️ *Service*: ${serviceInterest}\n💬 *Requirement*: ${message.slice(0, 350)}\n🔗 *Source*: ${sourcePath || '/contact'}\n━━━━━━━━━━━━━━━━━━━\n👉 *View*: https://integrowsys-site.satishpp1.workers.dev/admin/leads/${encodeURIComponent(leadId)}`;
+
+        if (env.WHATSAPP_WEBHOOK_URL) {
+          try {
+            fetch(env.WHATSAPP_WEBHOOK_URL, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                to: waRecipient,
+                phone: waRecipient,
+                recipient: waRecipient,
+                message: waText,
+                text: waText,
+                lead: {
+                  id: leadId,
+                  name,
+                  company,
+                  phone,
+                  email,
+                  service: serviceInterest
+                }
+              })
+            }).catch(err => console.error("WhatsApp webhook dispatch error:", err));
+          } catch (waErr) {
+            console.error("WhatsApp webhook preparation error:", waErr);
+          }
+        }
+
+        if (env.WHATSAPP_ACCESS_TOKEN && env.WHATSAPP_PHONE_NUMBER_ID) {
+          try {
+            const cleanTo = waRecipient.replace(/[^0-9]/g, "");
+            fetch(`https://graph.facebook.com/v21.0/${env.WHATSAPP_PHONE_NUMBER_ID}/messages`, {
+              method: "POST",
+              headers: {
+                "Authorization": `Bearer ${env.WHATSAPP_ACCESS_TOKEN}`,
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                messaging_product: "whatsapp",
+                recipient_type: "individual",
+                to: cleanTo,
+                type: "text",
+                text: { preview_url: true, body: waText }
+              })
+            }).catch(err => console.error("Meta WhatsApp Cloud API dispatch error:", err));
+          } catch (metaErr) {
+            console.error("Meta WhatsApp Cloud API prep error:", metaErr);
           }
         }
 
