@@ -3,42 +3,9 @@ import AdminLayout from '../../../layouts/AdminLayout.astro';
 import { 
   ClipboardList, 
   Sparkles, 
-  ArrowRight,
-  UserCheck
+  Plus,
+  X
 } from '@lucide/astro';
-
-const mockReports = [
-  {
-    id: 'FSR-2026-104',
-    facility: 'Tata BlueScope Steel Complex',
-    date: '18 Nov 2026',
-    engineer: 'Vikas Jadhav (Senior Service Eng)',
-    type: 'Quarterly Pump Room Hydraulic Test',
-    pressureReadings: 'Jockey 7.5 Bar · Main 8.2 Bar · Diesel 9.0 Bar',
-    clientSign: 'M. S. Deshmukh (GM Facilities)',
-    status: 'Verified & Signed'
-  },
-  {
-    id: 'FSR-2026-103',
-    facility: 'EON Free Zone Cluster C',
-    date: '14 Nov 2026',
-    engineer: 'Amit Patil (Lead Fire Tech)',
-    type: 'Addressable Loop & Smoke Sensor Audit',
-    pressureReadings: 'Loop 1-4 Normalized · 0 Faults Reported',
-    clientSign: 'S. N. Nair (Building Manager)',
-    status: 'Verified & Signed'
-  },
-  {
-    id: 'FSR-2026-102',
-    facility: 'Hinjawadi Phase 3 Tech Center',
-    date: '08 Nov 2026',
-    engineer: 'Rohan Shinde (Service Tech)',
-    type: 'Basement Jet Fan & Damper Relay Test',
-    pressureReadings: 'Aux Contacts Verified · Interlock Pass',
-    clientSign: 'Pravin Kulkarni (Facility Admin)',
-    status: 'Verified & Signed'
-  }
-];
 ---
 
 <AdminLayout title="Field Service Reports | InteGrowSys Admin">
@@ -49,23 +16,24 @@ const mockReports = [
       <div>
         <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider mb-2">
           <ClipboardList class="w-3.5 h-3.5 text-amber-600" />
-          <span>Field Ops Webapp · In Active Development</span>
+          <span>Field Ops Webapp · Interactive Workspace</span>
         </div>
         <h1 class="text-2xl sm:text-3xl font-heading font-black text-slate-900 tracking-tight">
           Field Service Reports (FSR) & Inspection Logs
         </h1>
         <p class="text-sm text-slate-500 mt-1">
-          Digital job cards, pump pressure transducer calibrations, alarm loop diagnostic checklists, and client sign-off records.
+          Record digital job cards, fire pump hydraulic test curves, alarm loop diagnostics, and client verification sign-offs.
         </p>
       </div>
 
       <div class="flex items-center gap-2">
         <button 
           type="button" 
-          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 shadow-sm transition"
+          id="btn-open-modal"
+          class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold bg-amber-600 text-white hover:bg-amber-700 shadow-sm transition active:scale-[0.98]"
         >
+          <Plus class="w-4 h-4" />
           <span>Create Digital Field Job Card</span>
-          <ArrowRight class="w-3.5 h-3.5" />
         </button>
       </div>
     </header>
@@ -82,7 +50,7 @@ const mockReports = [
             Upcoming D1 Schema: <code class="text-amber-300 font-mono text-sm">field_service_reports</code> & <code class="text-amber-300 font-mono text-sm">equipment_readings</code>
           </h2>
           <p class="text-xs text-slate-300 leading-relaxed">
-            Engineers on site will fill out pump churn test curves, smoke detector loop voltage readings, and valve inspection logs from mobile phones. Once signed by the client, reports generate instant PDF dossiers and dispatch via WhatsApp.
+            Service technicians in the field fill out pump pressure logs, test landing valves, verify AlertGuard relay closures, and capture client signatures directly from mobile devices.
           </p>
         </div>
 
@@ -100,17 +68,17 @@ const mockReports = [
       </div>
     </div>
 
-    <!-- Mock Field Reports Register -->
+    <!-- Field Reports Register -->
     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
       <div class="p-6 border-b border-slate-100 flex items-center justify-between">
         <div>
           <h2 class="font-heading font-bold text-base text-slate-900">
-            Recent Field Service Reports (Preview Mode)
+            Completed Field Service Reports
           </h2>
-          <p class="text-xs text-slate-500 mt-0.5">Sample verified inspection reports from Pune facility maintenance teams</p>
+          <p class="text-xs text-slate-500 mt-0.5">Verified on-site job cards from Pune facility engineering teams</p>
         </div>
-        <span class="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
-          3 Reports Logged
+        <span id="reports-counter" class="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1 rounded-full">
+          Loading...
         </span>
       </div>
 
@@ -123,43 +91,341 @@ const mockReports = [
               <th class="py-3.5 px-6">Assigned Engineer</th>
               <th class="py-3.5 px-6">Equipment Readings</th>
               <th class="py-3.5 px-6">Client Sign-off</th>
-              <th class="py-3.5 px-6 text-right">Status</th>
+              <th class="py-3.5 px-6 text-right">Action</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-100">
-            {mockReports.map((r) => (
-              <tr class="hover:bg-slate-50/70 transition">
-                <td class="py-4 px-6 font-mono text-xs">
-                  <div class="font-bold text-slate-900">{r.id}</div>
-                  <div class="text-slate-500">{r.date}</div>
-                </td>
-                <td class="py-4 px-6">
-                  <div class="font-bold text-slate-900 text-sm">{r.facility}</div>
-                  <div class="text-xs text-slate-500">{r.type}</div>
-                </td>
-                <td class="py-4 px-6 text-xs text-slate-700 font-medium">
-                  {r.engineer}
-                </td>
-                <td class="py-4 px-6 font-mono text-xs text-slate-600">
-                  {r.pressureReadings}
-                </td>
-                <td class="py-4 px-6 text-xs text-emerald-700">
-                  <span class="inline-flex items-center gap-1 font-semibold">
-                    <UserCheck class="w-3.5 h-3.5 text-emerald-600" />
-                    <span>{r.clientSign}</span>
-                  </span>
-                </td>
-                <td class="py-4 px-6 text-right">
-                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    {r.status}
-                  </span>
-                </td>
-              </tr>
-            ))}
+          <tbody id="reports-table-body" class="divide-y divide-slate-100">
+            <!-- Rendered by client script -->
           </tbody>
         </table>
       </div>
     </div>
 
   </div>
+
+  <!-- Create Field Service Report Modal -->
+  <div id="modal-backdrop" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-xl w-full shadow-2xl border border-slate-200 overflow-hidden transform transition-all">
+      <div class="px-6 py-5 bg-slate-900 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center font-bold">
+            <ClipboardList class="w-4 h-4" />
+          </div>
+          <div>
+            <h3 class="font-heading font-bold text-base text-white">New Field Service Report</h3>
+            <p class="text-xs text-slate-400">Log pump pressures, panel checks & client sign-off</p>
+          </div>
+        </div>
+        <button id="btn-close-modal" type="button" class="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition">
+          <X class="w-5 h-5" />
+        </button>
+      </div>
+
+      <form id="form-add-fsr" class="p-6 space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Facility Name *</label>
+            <input type="text" id="inp-facility" required placeholder="e.g. Bajaj Auto Akurdi Plant" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20 outline-none" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Assigned Engineer *</label>
+            <input type="text" id="inp-engineer" required placeholder="e.g. Vikas Jadhav (Service Eng)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20 outline-none" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Service & Inspection Scope *</label>
+          <select id="inp-type" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20 outline-none">
+            <option value="Quarterly Pump Room Hydraulic Test">Quarterly Pump Room Hydraulic Test</option>
+            <option value="Addressable Smoke Detector Loop Audit">Addressable Smoke Detector Loop Audit</option>
+            <option value="Hydrant Valve & Sprinkler Flow Verification">Hydrant Valve & Sprinkler Flow Verification</option>
+            <option value="AlertGuard IoT Module Dry-Contact Commissioning">AlertGuard IoT Module Dry-Contact Commissioning</option>
+            <option value="Staircase Jet Fan & Pressurization Interlock Test">Staircase Jet Fan & Pressurization Interlock Test</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+          <div>
+            <label class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Jockey (Bar)</label>
+            <input type="text" id="inp-jockey" placeholder="e.g. 7.5 Bar" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-mono outline-none" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Main Pump (Bar)</label>
+            <input type="text" id="inp-main" placeholder="e.g. 8.2 Bar" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-mono outline-none" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Diesel Engine (Bar)</label>
+            <input type="text" id="inp-diesel" placeholder="e.g. 9.0 Bar" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-mono outline-none" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Client Representative Signee *</label>
+          <input type="text" id="inp-clientsign" required placeholder="e.g. S. K. Kulkarni (Facility Manager)" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm focus:border-amber-600 focus:ring-2 focus:ring-amber-500/20 outline-none" />
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+          <button type="button" id="btn-cancel-modal" class="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-700 text-white shadow-sm transition active:scale-[0.98]">
+            Save & Generate Job Card
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </AdminLayout>
+
+<script>
+  interface ReportItem {
+    id: string;
+    facility: string;
+    date: string;
+    engineer: string;
+    type: string;
+    pressureReadings: string;
+    clientSign: string;
+    status: string;
+  }
+
+  const STORAGE_KEY = 'integrowsys_field_reports';
+
+  const defaultReports: ReportItem[] = [
+    {
+      id: 'FSR-2026-104',
+      facility: 'Tata BlueScope Steel Complex',
+      date: '18 Nov 2026',
+      engineer: 'Vikas Jadhav (Senior Service Eng)',
+      type: 'Quarterly Pump Room Hydraulic Test',
+      pressureReadings: 'Jockey 7.5 Bar · Main 8.2 Bar · Diesel 9.0 Bar',
+      clientSign: 'M. S. Deshmukh (GM Facilities)',
+      status: 'Verified & Signed'
+    },
+    {
+      id: 'FSR-2026-103',
+      facility: 'EON Free Zone Cluster C',
+      date: '14 Nov 2026',
+      engineer: 'Amit Patil (Lead Fire Tech)',
+      type: 'Addressable Loop & Smoke Sensor Audit',
+      pressureReadings: 'Loop 1-4 Normalized · 0 Faults Reported',
+      clientSign: 'S. N. Nair (Building Manager)',
+      status: 'Verified & Signed'
+    },
+    {
+      id: 'FSR-2026-102',
+      facility: 'Hinjawadi Phase 3 Tech Center',
+      date: '08 Nov 2026',
+      engineer: 'Rohan Shinde (Service Tech)',
+      type: 'Basement Jet Fan & Damper Relay Test',
+      pressureReadings: 'Aux Contacts Verified · Interlock Pass',
+      clientSign: 'Pravin Kulkarni (Facility Admin)',
+      status: 'Verified & Signed'
+    }
+  ];
+
+  function getReports(): ReportItem[] {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) return JSON.parse(stored);
+    } catch (e) {
+      console.error('Error reading localStorage:', e);
+    }
+    return defaultReports;
+  }
+
+  function saveReports(list: ReportItem[]) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    } catch (e) {
+      console.error('Error saving to localStorage:', e);
+    }
+  }
+
+  const tbody = document.getElementById('reports-table-body');
+  const counter = document.getElementById('reports-counter');
+
+  function renderTable() {
+    const list = getReports();
+    if (counter) {
+      counter.textContent = `${list.length} Reports Logged`;
+    }
+
+    if (!tbody) return;
+
+    if (!list.length) {
+      tbody.innerHTML = `<tr><td colspan="6" class="py-12 text-center text-slate-400 text-sm">No field reports logged yet.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = list.map((r, index) => `
+      <tr class="hover:bg-slate-50/70 transition">
+        <td class="py-4 px-6 font-mono text-xs">
+          <div class="font-bold text-slate-900">${escapeHtml(r.id)}</div>
+          <div class="text-slate-500">${escapeHtml(r.date)}</div>
+        </td>
+        <td class="py-4 px-6">
+          <div class="font-bold text-slate-900 text-sm">${escapeHtml(r.facility)}</div>
+          <div class="text-xs text-slate-500">${escapeHtml(r.type)}</div>
+        </td>
+        <td class="py-4 px-6 text-xs text-slate-700 font-medium">
+          ${escapeHtml(r.engineer)}
+        </td>
+        <td class="py-4 px-6 font-mono text-xs text-slate-600">
+          ${escapeHtml(r.pressureReadings)}
+        </td>
+        <td class="py-4 px-6 text-xs text-emerald-700">
+          <span class="inline-flex items-center gap-1 font-semibold">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            <span>${escapeHtml(r.clientSign)}</span>
+          </span>
+        </td>
+        <td class="py-4 px-6 text-right">
+          <div class="flex items-center justify-end gap-2">
+            <button 
+              type="button" 
+              data-index="${index}" 
+              class="btn-print-report text-xs text-blue-600 hover:text-blue-800 font-semibold px-2 py-1 rounded hover:bg-blue-50 transition"
+              title="Print Job Card"
+            >
+              Print Card
+            </button>
+            <button 
+              type="button" 
+              data-index="${index}" 
+              class="btn-delete-report text-xs text-rose-600 hover:text-rose-800 font-semibold px-2 py-1 rounded hover:bg-rose-50 transition"
+              title="Delete record"
+            >
+              Delete
+            </button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+
+    // Attach listeners
+    document.querySelectorAll('.btn-print-report').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const idx = Number((e.currentTarget as HTMLElement).getAttribute('data-index'));
+        const r = getReports()[idx];
+        if (!r) return;
+        const printWindow = window.open('', '_blank');
+        if (printWindow) {
+          printWindow.document.write(`
+            <html>
+              <head>
+                <title>${r.id} - Field Service Job Card</title>
+                <style>
+                  body { font-family: sans-serif; padding: 40px; color: #1e293b; }
+                  .header { border-bottom: 2px solid #0f172a; padding-bottom: 15px; margin-bottom: 20px; }
+                  .title { font-size: 20px; font-weight: bold; }
+                  .meta { margin-top: 5px; font-size: 13px; color: #64748b; }
+                  .section { margin: 20px 0; padding: 15px; border: 1px solid #e2e8f0; border-radius: 8px; }
+                  .field { margin-bottom: 10px; }
+                  .label { font-weight: bold; font-size: 12px; color: #475569; text-transform: uppercase; }
+                  .val { font-size: 15px; margin-top: 2px; }
+                  .sign-box { margin-top: 40px; border-top: 1px dashed #94a3b8; padding-top: 15px; display: flex; justify-content: space-between; }
+                </style>
+              </head>
+              <body>
+                <div class="header">
+                  <div class="title">InteGrowSys - Field Service Report &amp; Inspection Card</div>
+                  <div class="meta">Report ID: <strong>${r.id}</strong> | Inspection Date: ${r.date}</div>
+                </div>
+                <div class="section">
+                  <div class="field"><div class="label">Client Facility</div><div class="val">${r.facility}</div></div>
+                  <div class="field"><div class="label">Scope of Service</div><div class="val">${r.type}</div></div>
+                  <div class="field"><div class="label">Service Engineer</div><div class="val">${r.engineer}</div></div>
+                  <div class="field"><div class="label">Equipment Calibration &amp; Pressure Logs</div><div class="val">${r.pressureReadings}</div></div>
+                  <div class="field"><div class="label">Compliance Status</div><div class="val">${r.status}</div></div>
+                </div>
+                <div class="sign-box">
+                  <div><strong>Inspected By:</strong><br/>${r.engineer}<br/>InteGrowSys Pune Team</div>
+                  <div><strong>Client Sign-off:</strong><br/>${r.clientSign}<br/>Facility Authority</div>
+                </div>
+                <script>window.print();<\/script>
+              </body>
+            </html>
+          `);
+          printWindow.document.close();
+        }
+      });
+    });
+
+    document.querySelectorAll('.btn-delete-report').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const idx = Number((e.currentTarget as HTMLElement).getAttribute('data-index'));
+        const currentList = getReports();
+        if (confirm(`Remove report "${currentList[idx]?.id}"?`)) {
+          currentList.splice(idx, 1);
+          saveReports(currentList);
+          renderTable();
+        }
+      });
+    });
+  }
+
+  function escapeHtml(str: string): string {
+    return String(str || '').replace(/[&<>"']/g, (m) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[m] || m));
+  }
+
+  // Modal Handlers
+  const modal = document.getElementById('modal-backdrop');
+  const btnOpen = document.getElementById('btn-open-modal');
+  const btnClose = document.getElementById('btn-close-modal');
+  const btnCancel = document.getElementById('btn-cancel-modal');
+  const form = document.getElementById('form-add-fsr') as HTMLFormElement | null;
+
+  btnOpen?.addEventListener('click', () => modal?.classList.remove('hidden'));
+  btnClose?.addEventListener('click', () => modal?.classList.add('hidden'));
+  btnCancel?.addEventListener('click', () => modal?.classList.add('hidden'));
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const facility = (document.getElementById('inp-facility') as HTMLInputElement)?.value.trim();
+    const engineer = (document.getElementById('inp-engineer') as HTMLInputElement)?.value.trim();
+    const type = ((document.getElementById('inp-type') as unknown) as HTMLSelectElement)?.value;
+    const jockey = (document.getElementById('inp-jockey') as HTMLInputElement)?.value.trim() || 'N/A';
+    const main = (document.getElementById('inp-main') as HTMLInputElement)?.value.trim() || 'N/A';
+    const diesel = (document.getElementById('inp-diesel') as HTMLInputElement)?.value.trim() || 'N/A';
+    const clientSign = (document.getElementById('inp-clientsign') as HTMLInputElement)?.value.trim();
+
+    if (!facility || !engineer || !clientSign) return;
+
+    const dateFormatted = new Date().toLocaleDateString('en-IN', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    });
+
+    const newReport: ReportItem = {
+      id: `FSR-2026-${Math.floor(100 + Math.random() * 900)}`,
+      facility,
+      date: dateFormatted,
+      engineer,
+      type,
+      pressureReadings: `Jockey: ${jockey} · Main: ${main} · Diesel: ${diesel}`,
+      clientSign,
+      status: 'Verified & Signed'
+    };
+
+    const currentList = getReports();
+    currentList.unshift(newReport);
+    saveReports(currentList);
+    renderTable();
+
+    form.reset();
+    modal?.classList.add('hidden');
+    alert(`✓ Field Service Report "${newReport.id}" generated successfully!`);
+  });
+
+  // Initial render
+  renderTable();
+</script>

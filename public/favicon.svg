@@ -1,1 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#100ec3"/><path d="M31 47C13 42 9 29 15 17c13 0 23 9 21 23" fill="#8cbf24"/><path d="M34 42C35 24 46 15 55 16c1 15-7 26-21 26" fill="#e85695"/><path d="M30 48c0-14 2-24 9-32" fill="none" stroke="#f7c02d" stroke-width="4" stroke-linecap="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Subtle circular base for maximum contrast in both dark and light browser tabs -->
+  <circle cx="32" cy="32" r="31" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  
+  <defs>
+    <!-- Organic curved petal shape from InteGrowSys emblem -->
+    <path id="petal" d="M 32 32 C 25 25 24 13 33 4.5 C 41.5 11 39.5 24 32 32 Z"/>
+  </defs>
+
+  <!-- 6 Multi-Colored Petals Radiating from Center -->
+  <!-- 1. Flame Crimson (Top) -->
+  <use href="#petal" fill="#e11d48" transform="rotate(0 32 32)" />
+  <!-- 2. Safety Orange -->
+  <use href="#petal" fill="#ea580c" transform="rotate(60 32 32)" />
+  <!-- 3. Amber Gold -->
+  <use href="#petal" fill="#f59e0b" transform="rotate(120 32 32)" />
+  <!-- 4. Compliance Emerald Green -->
+  <use href="#petal" fill="#10b981" transform="rotate(180 32 32)" />
+  <!-- 5. Engineering Cyan / Blue -->
+  <use href="#petal" fill="#0284c7" transform="rotate(240 32 32)" />
+  <!-- 6. Smart Violet / Purple -->
+  <use href="#petal" fill="#7c3aed" transform="rotate(300 32 32)" />
+
+  <!-- Center Pinwheel Hub -->
+  <circle cx="32" cy="32" r="5" fill="#ffffff" />
+  <circle cx="32" cy="32" r="2.5" fill="#1e293b" />
+</svg>

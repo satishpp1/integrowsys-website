@@ -7,8 +7,9 @@ import {
   X, 
   ChevronDown, 
   ArrowRight,
-  MessageSquare
-} from 'lucide-astro';
+  MessageSquare,
+  Lock
+} from '@lucide/astro';
 
 const currentPath = Astro.url.pathname;
 
@@ -58,6 +59,10 @@ const serviceLinks = [
           <span>+91 75076 00091</span>
         </a>
         <a href="mailto:crm@integrowsys.com" class="hover:text-white transition">crm@integrowsys.com</a>
+        <a href="/admin/" class="hover:text-amber-300 text-slate-400 transition flex items-center gap-1 font-medium pl-2 border-l border-slate-800" title="Internal Staff & Admin Console">
+          <Lock class="w-3 h-3 text-amber-400" />
+          <span>Staff Portal</span>
+        </a>
       </div>
     </div>
   </div>
