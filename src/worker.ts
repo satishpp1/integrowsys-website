@@ -1,6 +1,7 @@
 interface Env {
   DB: D1Database;
   ASSETS: Fetcher;
+  TURNSTILE_SECRET_KEY?: string;
 }
 
 const MAX_BODY_SIZE = 10_000;
@@ -47,6 +48,26 @@ function toCsv(rows: Record<string, unknown>[]): string {
     lines.push(headers.map(h => csvEscape(row[h])).join(","));
   }
   return lines.join("\r\n");
+}
+
+async function verifyTurnstile(token: string, secret: string, remoteIp?: string): Promise<boolean> {
+  if (!token || !secret) return false;
+  try {
+    const formData = new FormData();
+    formData.append("secret", secret);
+    formData.append("response", token);
+    if (remoteIp) {
+      formData.append("remoteip", remoteIp);
+    }
+    const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      body: formData
+    });
+    const outcome = (await res.json()) as { success?: boolean };
+    return Boolean(outcome.success);
+  } catch {
+    return false;
+  }
 }
 
 function getAdminUser(request: Request, url: URL): string | null {
@@ -120,6 +141,19 @@ export default {
           success: true,
           message: "Thank you. Your enquiry has been received."
         }, 201);
+      }
+
+      // Verify Cloudflare Turnstile token if secret key is configured
+      if (env.TURNSTILE_SECRET_KEY) {
+        const turnstileToken = clean(body.turnstile_token || body["cf-turnstile-response"], 2048);
+        const remoteIp = request.headers.get("cf-connecting-ip") || undefined;
+        const isHuman = await verifyTurnstile(turnstileToken, env.TURNSTILE_SECRET_KEY, remoteIp);
+        if (!isHuman) {
+          return json({
+            success: false,
+            message: "Security verification failed. Please complete the verification check."
+          }, 400);
+        }
       }
 
       const name = clean(body.name, 100);

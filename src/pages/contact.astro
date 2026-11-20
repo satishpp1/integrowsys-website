@@ -333,6 +333,16 @@ import {
                 </label>
               </div>
 
+              <!-- Cloudflare Turnstile Bot Protection -->
+              <div class="pt-2">
+                <div 
+                  class="cf-turnstile" 
+                  data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || "1x00000000000000000000AA"} 
+                  data-theme="light"
+                  data-size="flexible"
+                ></div>
+              </div>
+
               <!-- Submit Button -->
               <div class="pt-3">
                 <button 
@@ -356,6 +366,8 @@ import {
       </div>
     </div>
   </section>
+  <!-- Cloudflare Turnstile API Script -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </MainLayout>
 
 <script>
@@ -376,6 +388,17 @@ import {
     }
   }
 
+  // Pre-fill message if diagnostic config was passed from AlertGuard tool
+  const configParam = urlParams.get('config');
+  const messageArea = document.getElementById('message') as HTMLTextAreaElement | null;
+  if (configParam && messageArea && !messageArea.value) {
+    try {
+      messageArea.value = decodeURIComponent(configParam);
+    } catch {
+      messageArea.value = configParam;
+    }
+  }
+
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -387,6 +410,8 @@ import {
     formStatus.className = 'text-sm font-semibold text-center mt-3';
 
     const formData = new FormData(form);
+    const turnstileToken = (formData.get('cf-turnstile-response') as string | null) ||
+      ((window as unknown as { turnstile?: { getResponse: () => string } }).turnstile?.getResponse()) || '';
 
     const payload = {
       name: formData.get('name'),
@@ -399,6 +424,7 @@ import {
       service_interest: formData.get('service_interest'),
       message: formData.get('message'),
       website: formData.get('website'),
+      turnstile_token: turnstileToken,
       consent: formData.get('consent') === 'on'
     };
 
@@ -418,6 +444,7 @@ import {
       formStatus.textContent = result.message || 'Thank you! Your enquiry has been received.';
       formStatus.className = 'text-sm font-semibold text-center mt-3 text-emerald-600 bg-emerald-50 py-3 rounded-xl border border-emerald-200';
       form.reset();
+      ((window as unknown as { turnstile?: { reset: () => void } }).turnstile?.reset?.());
 
     } catch (error) {
       formStatus.textContent =
@@ -425,6 +452,7 @@ import {
           ? error.message
           : 'Something went wrong. Please try again or email crm@integrowsys.com.';
       formStatus.className = 'text-sm font-semibold text-center mt-3 text-rose-600 bg-rose-50 py-3 rounded-xl border border-rose-200';
+      ((window as unknown as { turnstile?: { reset: () => void } }).turnstile?.reset?.());
 
     } finally {
       submitButton.disabled = false;

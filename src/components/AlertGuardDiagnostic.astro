@@ -1,0 +1,431 @@
+---
+import { 
+  CheckCircle2, 
+  Copy, 
+  ArrowRight, 
+  ShieldCheck, 
+  Sparkles
+} from 'lucide-astro';
+---
+
+<div id="diagnostic-tool" class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden scroll-mt-24">
+  <!-- Top Banner -->
+  <div class="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white p-6 sm:p-10 border-b border-slate-800">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wider mb-2">
+          <Sparkles class="w-3.5 h-3.5 text-amber-400" />
+          <span>Interactive Feasibility Engine</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-heading font-black text-white tracking-tight">
+          AlertGuard™ Retrofit Compatibility Assessment
+        </h2>
+        <p class="text-slate-300 text-sm mt-1 max-w-2xl">
+          Select your installed equipment and desired monitoring signals to calculate compatibility, channel requirements, and deployment specifications.
+        </p>
+      </div>
+      <div class="text-right hidden md:block">
+        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          Non-Invasive Verification
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-10">
+    <!-- Left Column: Interactive Form Controls -->
+    <div class="lg:col-span-7 space-y-8">
+
+      <!-- Step 1: Alarm Panel Selection -->
+      <div>
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600 mb-3">
+          <span class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-[11px] font-black">1</span>
+          <span>Installed Fire Alarm Control Panel (FACP)</span>
+        </div>
+        <label for="diag-panel" class="block text-sm font-bold text-slate-800 mb-2">
+          Select your existing panel make or architecture:
+        </label>
+        <select 
+          id="diag-panel" 
+          class="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-sm font-semibold text-slate-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+        >
+          <option value="Notifier by Honeywell (NFS Series)" selected>Notifier by Honeywell (NFS-320 / 640 / 3030)</option>
+          <option value="Morley-IAS (DXc / ZX Series)">Morley-IAS (DXc / ZX Series)</option>
+          <option value="GST / Edwards (GST200 / EST Series)">GST / Edwards (GST200 / EST Series)</option>
+          <option value="System Sensor / Fire-Lite">System Sensor / Fire-Lite</option>
+          <option value="Ravel / Agni Electronics (Avani / Conventional)">Ravel / Agni Electronics (Avani / Conventional)</option>
+          <option value="Siemens / Cerberus PRO">Siemens / Cerberus PRO</option>
+          <option value="Conventional Multi-Zone Panel (Any Brand)">Conventional Multi-Zone Panel (Any Brand with Auxiliary Relays)</option>
+          <option value="Other / Custom Panel">Other Make / Not Listed</option>
+        </select>
+        <p class="text-xs text-slate-500 mt-2">
+          Almost all commercial panels supply standard Form-C (NO/NC) potential-free contacts for Common Fire and Common Fault conditions.
+        </p>
+      </div>
+
+      <!-- Step 2: Pump House & Pressure Signals -->
+      <div>
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600 mb-3">
+          <span class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-[11px] font-black">2</span>
+          <span>Pump House & Hydraulic Supervision</span>
+        </div>
+        <div class="space-y-3">
+          <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:border-blue-300 bg-slate-50/50 hover:bg-blue-50/30 transition cursor-pointer">
+            <input 
+              type="checkbox" 
+              name="pump-electric" 
+              id="diag-pump-electric" 
+              checked 
+              class="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 diag-input" 
+            />
+            <div>
+              <span class="block text-sm font-bold text-slate-900">Main Electric Hydrant Pump</span>
+              <span class="text-xs text-slate-500">Supervise auto-start run indication and motor trip overload contacts.</span>
+            </div>
+          </label>
+
+          <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:border-blue-300 bg-slate-50/50 hover:bg-blue-50/30 transition cursor-pointer">
+            <input 
+              type="checkbox" 
+              name="pump-diesel" 
+              id="diag-pump-diesel" 
+              checked 
+              class="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 diag-input" 
+            />
+            <div>
+              <span class="block text-sm font-bold text-slate-900">Diesel Engine Fire Pump</span>
+              <span class="text-xs text-slate-500">Monitor starter battery low-voltage alarm, auto-crank status, and engine run.</span>
+            </div>
+          </label>
+
+          <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:border-blue-300 bg-slate-50/50 hover:bg-blue-50/30 transition cursor-pointer">
+            <input 
+              type="checkbox" 
+              name="pump-jockey" 
+              id="diag-pump-jockey" 
+              checked 
+              class="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 diag-input" 
+            />
+            <div>
+              <span class="block text-sm font-bold text-slate-900">Jockey Pressure Maintenance Pump</span>
+              <span class="text-xs text-slate-500">Detect abnormal pump hunting / cycling indicating pipe leaks or check valve failure.</span>
+            </div>
+          </label>
+
+          <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:border-blue-300 bg-slate-50/50 hover:bg-blue-50/30 transition cursor-pointer">
+            <input 
+              type="checkbox" 
+              name="line-pressure" 
+              id="diag-line-pressure" 
+              checked 
+              class="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 diag-input" 
+            />
+            <div>
+              <span class="block text-sm font-bold text-slate-900">Hydrant / Sprinkler Header Line Pressure</span>
+              <span class="text-xs text-slate-500">Drop below statutory operating pressure (e.g., &lt; 7 bar) alert switch.</span>
+            </div>
+          </label>
+
+          <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:border-blue-300 bg-slate-50/50 hover:bg-blue-50/30 transition cursor-pointer">
+            <input 
+              type="checkbox" 
+              name="water-sump" 
+              id="diag-water-sump" 
+              class="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 diag-input" 
+            />
+            <div>
+              <span class="block text-sm font-bold text-slate-900">Fire Water Sump / Tank Level</span>
+              <span class="text-xs text-slate-500">Low water reserve warning switch preventing pumps from running dry.</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Step 3: Server Room & Specialized Sensors -->
+      <div>
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600 mb-3">
+          <span class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-[11px] font-black">3</span>
+          <span>Environmental & Specialized Sensors</span>
+        </div>
+        <div class="space-y-3">
+          <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:border-blue-300 bg-slate-50/50 hover:bg-blue-50/30 transition cursor-pointer">
+            <input 
+              type="checkbox" 
+              name="server-leak" 
+              id="diag-server-leak" 
+              class="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 diag-input" 
+            />
+            <div>
+              <span class="block text-sm font-bold text-slate-900">Server Room Water Leak Detection (WLD)</span>
+              <span class="text-xs text-slate-500">Under-floor sensing cable dry contact for PAC condensation or seepage.</span>
+            </div>
+          </label>
+
+          <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:border-blue-300 bg-slate-50/50 hover:bg-blue-50/30 transition cursor-pointer">
+            <input 
+              type="checkbox" 
+              name="gas-suppression" 
+              id="diag-gas-suppression" 
+              class="mt-1 w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 diag-input" 
+            />
+            <div>
+              <span class="block text-sm font-bold text-slate-900">Clean Agent Gas Suppression Status</span>
+              <span class="text-xs text-slate-500">FM-200 / Novec / Inergen pre-discharge and cylinder pressure supervisor.</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Step 4: Network Connectivity -->
+      <div>
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600 mb-3">
+          <span class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-[11px] font-black">4</span>
+          <span>Gateway Connectivity Pathway</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <label class="flex items-start gap-3 p-3.5 rounded-xl border border-blue-500 bg-blue-50/50 transition cursor-pointer diag-net-label">
+            <input 
+              type="radio" 
+              name="diag-net" 
+              value="Dual-Path (Wi-Fi + 4G SIM Backup)" 
+              checked 
+              class="mt-1 w-4 h-4 text-blue-600 focus:ring-blue-500 border-slate-300 diag-input" 
+            />
+            <div>
+              <span class="block text-sm font-bold text-slate-900">Dual-Path (Recommended)</span>
+              <span class="text-xs text-slate-500">Facility Wi-Fi primary with automatic 4G LTE cellular failover.</span>
+            </div>
+          </label>
+
+          <label class="flex items-start gap-3 p-3.5 rounded-xl border border-slate-200 hover:border-blue-300 bg-slate-50/50 transition cursor-pointer diag-net-label">
+            <input 
+              type="radio" 
+              name="diag-net" 
+              value="Standalone 4G/LTE SIM Gateway" 
+              class="mt-1 w-4 h-4 text-blue-600 focus:ring-blue-500 border-slate-300 diag-input" 
+            />
+            <div>
+              <span class="block text-sm font-bold text-slate-900">Standalone 4G Cellular</span>
+              <span class="text-xs text-slate-500">Air-gapped deployment for isolated pump rooms or basement areas.</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column: Live Output & Action Card -->
+    <div class="lg:col-span-5">
+      <div class="sticky top-28 bg-slate-900 text-white rounded-3xl p-6 sm:p-8 border border-slate-800 shadow-2xl space-y-6">
+        
+        <!-- Feasibility Result Header -->
+        <div class="border-b border-slate-800 pb-5">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-mono uppercase tracking-wider text-slate-400">Diagnostic Verdict</span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold">
+              <CheckCircle2 class="w-3.5 h-3.5" />
+              100% Feasible
+            </span>
+          </div>
+          <div class="text-xl font-heading font-black text-white" id="result-title">
+            AlertGuard™ Ready Architecture
+          </div>
+          <p class="text-xs text-slate-300 mt-1" id="result-desc">
+            Your selected panel and equipment signals can be monitored non-invasively via potential-free dry contacts.
+          </p>
+        </div>
+
+        <!-- Calculated Specifications -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs">
+            <span class="text-slate-400">Input Channels Required:</span>
+            <span class="font-mono font-bold text-blue-300 text-sm" id="spec-channels">6 Channels</span>
+          </div>
+
+          <div class="flex items-center justify-between p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs">
+            <span class="text-slate-400">Recommended Node:</span>
+            <span class="font-bold text-white text-xs" id="spec-node">AlertGuard Node-8 (8-Ch DIN)</span>
+          </div>
+
+          <div class="flex items-center justify-between p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs">
+            <span class="text-slate-400">Connectivity Profile:</span>
+            <span class="font-mono font-bold text-indigo-300 text-xs" id="spec-net">Dual-Path (Wi-Fi + 4G)</span>
+          </div>
+
+          <div class="flex items-center justify-between p-3.5 rounded-xl bg-slate-800/80 border border-slate-700/60 text-xs">
+            <span class="text-slate-400">Alert Dispatch Speed:</span>
+            <span class="font-mono font-bold text-emerald-400">&lt; 3.0 Seconds</span>
+          </div>
+        </div>
+
+        <!-- Compliance & Scope Note -->
+        <div class="p-4 rounded-xl bg-blue-950/60 border border-blue-800/60 text-xs text-blue-200 flex items-start gap-3">
+          <ShieldCheck class="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
+          <p class="leading-relaxed">
+            <strong class="text-white">Statutory Safety:</strong> AlertGuard passive dry-contact monitoring preserves all certified life safety panel loops, local sirens, and Form-B compliance intact.
+          </p>
+        </div>
+
+        <!-- CTAs -->
+        <div class="space-y-3 pt-2">
+          <a 
+            id="btn-apply-survey" 
+            href="/contact/?enquiry=smart-monitoring" 
+            class="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/25 transition active:scale-[0.98]"
+          >
+            <span>Request Site Survey with this Spec</span>
+            <ArrowRight class="w-4 h-4" />
+          </a>
+
+          <button 
+            type="button" 
+            id="btn-copy-spec" 
+            class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition"
+          >
+            <Copy class="w-3.5 h-3.5" />
+            <span id="copy-btn-text">Copy Specification to Clipboard</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  interface DiagnosticState {
+    panel: string;
+    pumpElectric: boolean;
+    pumpDiesel: boolean;
+    pumpJockey: boolean;
+    linePressure: boolean;
+    waterSump: boolean;
+    serverLeak: boolean;
+    gasSuppression: boolean;
+    network: string;
+  }
+
+  function getDiagnosticState(): DiagnosticState {
+    const panelSelect = document.getElementById('diag-panel') as HTMLSelectElement | null;
+    const pumpElectric = (document.getElementById('diag-pump-electric') as HTMLInputElement | null)?.checked ?? false;
+    const pumpDiesel = (document.getElementById('diag-pump-diesel') as HTMLInputElement | null)?.checked ?? false;
+    const pumpJockey = (document.getElementById('diag-pump-jockey') as HTMLInputElement | null)?.checked ?? false;
+    const linePressure = (document.getElementById('diag-line-pressure') as HTMLInputElement | null)?.checked ?? false;
+    const waterSump = (document.getElementById('diag-water-sump') as HTMLInputElement | null)?.checked ?? false;
+    const serverLeak = (document.getElementById('diag-server-leak') as HTMLInputElement | null)?.checked ?? false;
+    const gasSuppression = (document.getElementById('diag-gas-suppression') as HTMLInputElement | null)?.checked ?? false;
+    
+    const netRadio = document.querySelector<HTMLInputElement>('input[name="diag-net"]:checked');
+
+    return {
+      panel: panelSelect?.value || 'Notifier by Honeywell',
+      pumpElectric,
+      pumpDiesel,
+      pumpJockey,
+      linePressure,
+      waterSump,
+      serverLeak,
+      gasSuppression,
+      network: netRadio?.value || 'Dual-Path (Wi-Fi + 4G SIM Backup)'
+    };
+  }
+
+  function recalculate() {
+    const state = getDiagnosticState();
+
+    // Calculate required channels:
+    // Base 2 channels for Fire Panel (Common Fire + Common Fault)
+    let channels = 2;
+    if (state.pumpElectric) channels += 1;
+    if (state.pumpDiesel) channels += 2; // Run + Battery/Fault
+    if (state.pumpJockey) channels += 1;
+    if (state.linePressure) channels += 1;
+    if (state.waterSump) channels += 1;
+    if (state.serverLeak) channels += 1;
+    if (state.gasSuppression) channels += 1;
+
+    // Determine recommended node
+    let nodeRecommendation = 'AlertGuard Node-4 (4-Ch DIN)';
+    if (channels > 8) {
+      nodeRecommendation = 'AlertGuard Dual-Hub (16-Ch Industrial Rack)';
+    } else if (channels > 4) {
+      nodeRecommendation = 'AlertGuard Node-8 (8-Ch DIN Enclosure)';
+    }
+
+    // Update UI elements
+    const specChannels = document.getElementById('spec-channels');
+    if (specChannels) {
+      specChannels.textContent = `${channels} Channels`;
+    }
+
+    const specNode = document.getElementById('spec-node');
+    if (specNode) {
+      specNode.textContent = nodeRecommendation;
+    }
+
+    const specNet = document.getElementById('spec-net');
+    if (specNet) {
+      specNet.textContent = state.network.includes('Dual-Path') ? 'Dual-Path (Wi-Fi + 4G)' : 'Standalone 4G Cellular';
+    }
+
+    // Build specification text summary
+    const signalsList: string[] = ['FACP Fire & Fault Relays'];
+    if (state.pumpElectric) signalsList.push('Electric Pump Run/Trip');
+    if (state.pumpDiesel) signalsList.push('Diesel Pump Run & Battery');
+    if (state.pumpJockey) signalsList.push('Jockey Pump Hunting');
+    if (state.linePressure) signalsList.push('Header Line Pressure');
+    if (state.waterSump) signalsList.push('Sump Low Water Cutoff');
+    if (state.serverLeak) signalsList.push('Server Room WLD Rope');
+    if (state.gasSuppression) signalsList.push('Gas Suppression Discharge');
+
+    const summaryText = `[AlertGuard Feasibility Specification]\n` +
+      `• Panel: ${state.panel}\n` +
+      `• Required Inputs: ${channels} Channels (${signalsList.join(', ')})\n` +
+      `• Recommended Hub: ${nodeRecommendation}\n` +
+      `• Gateway: ${state.network}\n` +
+      `• Verification: Feasible via potential-free NO/NC relay contacts.`;
+
+    // Update survey request button link with pre-encoded configuration
+    const btnSurvey = document.getElementById('btn-apply-survey') as HTMLAnchorElement | null;
+    if (btnSurvey) {
+      btnSurvey.href = `/contact/?enquiry=smart-monitoring&config=${encodeURIComponent(summaryText)}`;
+    }
+
+    return summaryText;
+  }
+
+  // Bind event listeners to all interactive inputs
+  const diagContainer = document.getElementById('diagnostic-tool');
+  if (diagContainer) {
+    const inputs = diagContainer.querySelectorAll('.diag-input, #diag-panel');
+    inputs.forEach(input => {
+      (input as HTMLElement).addEventListener('change', recalculate);
+    });
+
+    // Copy to clipboard handler
+    const btnCopy = document.getElementById('btn-copy-spec');
+    const copyBtnText = document.getElementById('copy-btn-text');
+
+    btnCopy?.addEventListener('click', async () => {
+      const summary = recalculate();
+      try {
+        await navigator.clipboard.writeText(summary);
+        if (copyBtnText) {
+          copyBtnText.textContent = '✓ Specification Copied!';
+          setTimeout(() => {
+            copyBtnText.textContent = 'Copy Specification to Clipboard';
+          }, 3000);
+        }
+      } catch {
+        if (copyBtnText) {
+          copyBtnText.textContent = 'Please copy from URL';
+        }
+      }
+    });
+
+    // Initial calculation
+    recalculate();
+  }
+</script>

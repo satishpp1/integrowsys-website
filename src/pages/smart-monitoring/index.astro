@@ -1,5 +1,6 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
+import AlertGuardDiagnostic from '../../components/AlertGuardDiagnostic.astro';
 import { 
   Cpu, 
   Flame, 
@@ -82,17 +83,17 @@ const steps = [
 
         <div class="flex flex-wrap items-center gap-4 mt-8">
           <a 
-            href="/contact/?enquiry=smart-monitoring" 
-            class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition"
+            href="#diagnostic-tool" 
+            class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition active:scale-[0.98]"
           >
-            <span>Request a Smart Assessment</span>
+            <span>Run Feasibility Diagnostic</span>
             <ArrowRight class="w-4 h-4" />
           </a>
           <a 
-            href="mailto:crm@integrowsys.com?subject=AlertGuard%20Technical%20Inquiry" 
+            href="/contact/?enquiry=smart-monitoring" 
             class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 transition"
           >
-            Ask About AlertGuard Specs
+            <span>Book Site Survey</span>
           </a>
         </div>
       </div>
@@ -222,6 +223,13 @@ const steps = [
           );
         })}
       </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE DIAGNOSTIC TOOL SECTION -->
+  <section class="py-16 lg:py-20 bg-slate-100 border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <AlertGuardDiagnostic />
     </div>
   </section>
 
