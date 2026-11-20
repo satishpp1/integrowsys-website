@@ -1,0 +1,150 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { 
+  Warehouse, 
+  Radio, 
+  Flame, 
+  CheckCircle2, 
+  ArrowRight, 
+  ShieldCheck, 
+  Phone
+} from 'lucide-astro';
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.integrowsys.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Solutions", "item": "https://www.integrowsys.com/solutions/" },
+    { "@type": "ListItem", "position": 3, "name": "Warehouses & Logistics Hubs", "item": "https://www.integrowsys.com/solutions/warehouses/" }
+  ]
+};
+---
+
+<MainLayout 
+  title="Fire Safety & ESFR Sprinklers for Warehouses & Logistics Hubs | InteGrowSys" 
+  description="Specialized fire protection for high-bay warehousing, cold storage, and logistics parks in Pune. ESFR sprinklers, beam detectors, and remote pump room IoT telemetry."
+  canonicalPath="/solutions/warehouses/"
+  structuredData={breadcrumbSchema}
+>
+  <!-- Hero Section -->
+  <section class="bg-slate-900 text-white py-16 lg:py-24 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-6" aria-label="Breadcrumbs">
+        <a href="/" class="hover:text-white transition">Home</a>
+        <span>/</span>
+        <a href="/solutions/" class="hover:text-white transition">Solutions</a>
+        <span>/</span>
+        <span class="text-blue-400">Warehouses & Logistics</span>
+      </nav>
+
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/20 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-4">
+          <Warehouse class="w-3.5 h-3.5 text-emerald-400" />
+          <span>High-Bay Logistics Storage</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-heading font-black tracking-tight text-white leading-tight">
+          Fire Safety for <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-blue-400">Warehouses & Logistics Hubs.</span>
+        </h1>
+        <p class="text-base sm:text-lg text-slate-300 mt-4 leading-relaxed">
+          High ceiling clearances (10m to 14m), dense vertical racking, and vast open footprints in Chakan, Wagholi, and Lonikand require early optical sensing, high-volume ESFR water discharge, and remote monitoring across isolated pump houses.
+        </p>
+        <div class="flex flex-wrap items-center gap-4 mt-8">
+          <a 
+            href="/contact/?enquiry=fire-safety" 
+            class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition"
+          >
+            <span>Request Warehouse Assessment</span>
+            <ArrowRight class="w-4 h-4" />
+          </a>
+          <a 
+            href="tel:+919860027825" 
+            class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 transition"
+          >
+            <Phone class="w-4 h-4 text-emerald-400" />
+            <span>Call +91 98600 27825</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Warehouse Protection Capabilities -->
+  <section class="py-20 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2">High-Bay Protection</div>
+        <h2 class="text-3xl font-heading font-bold text-slate-900">
+          Engineered for vertical racking and high thermal plumes
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <Flame class="w-6 h-6" />
+          </div>
+          <h3 class="text-xl font-heading font-bold text-slate-900">ESFR Ceiling Sprinkler Systems</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Early Suppression Fast Response (ESFR) pendent sprinkler heads designed to penetrate high-velocity thermal plumes and suppress packaging and pallet fires at ceiling heights up to 14 meters.
+          </p>
+          <ul class="space-y-2 text-xs text-slate-700 pt-2 border-t border-slate-100">
+            <li class="flex items-center gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>K-factor 14.0 to 25.2 high-discharge heads</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Eliminates in-rack sprinklers in most setups</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
+            <Radio class="w-6 h-6" />
+          </div>
+          <h3 class="text-xl font-heading font-bold text-slate-900">Optical Beam & Aspirating Detection</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Long-range reflective beam detectors and aspirating smoke detection (VESDA) to overcome air stratification in high-bay roofs where standard spot detectors fail to respond.
+          </p>
+          <ul class="space-y-2 text-xs text-slate-700 pt-2 border-t border-slate-100">
+            <li class="flex items-center gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Up to 100m path length per beam set</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Easy floor-level motorized alignment testing</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+            <ShieldCheck class="w-6 h-6" />
+          </div>
+          <h3 class="text-xl font-heading font-bold text-slate-900">Perimeter Hydrants & Cellular IoT</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Perimeter yard hydrants covering loading docks and truck aprons, paired with AlertGuard cellular IoT for pump houses located hundreds of meters away from the main office.
+          </p>
+          <ul class="space-y-2 text-xs text-slate-700 pt-2 border-t border-slate-100">
+            <li class="flex items-center gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Independent 4G cellular gateway</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Underground ring main leak detection alerts</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</MainLayout>

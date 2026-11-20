@@ -62,11 +62,11 @@ const services = [
 ];
 
 const environments = [
-  { name: 'IT / ITES Campuses', icon: Building2, desc: 'High-density office parks & server rooms' },
-  { name: 'Manufacturing Plants', icon: Factory, desc: 'Industrial machinery, paint booths & raw materials' },
-  { name: 'Warehouses & Logistics', icon: Warehouse, desc: 'High-bay racking, sprinkler heads & dock areas' },
-  { name: 'Data & Server Rooms', icon: Server, desc: 'Clean agent suppression & micro-environment sensing' },
-  { name: 'Commercial High-Rises', icon: Building2, desc: 'Pressurization, wet risers & staircase evacuation' }
+  { name: 'IT / ITES Campuses', icon: Building2, desc: 'High-density office parks & server rooms', href: '/solutions/it-campuses/' },
+  { name: 'Manufacturing Plants', icon: Factory, desc: 'Industrial machinery, paint booths & raw materials', href: '/solutions/manufacturing/' },
+  { name: 'Warehouses & Logistics', icon: Warehouse, desc: 'High-bay racking, sprinkler heads & dock areas', href: '/solutions/warehouses/' },
+  { name: 'Data & Server Rooms', icon: Server, desc: 'Clean agent suppression & micro-environment sensing', href: '/solutions/it-campuses/' },
+  { name: 'Commercial High-Rises', icon: Building2, desc: 'Pressurization, wet risers & staircase evacuation', href: '/solutions/commercial-highrise/' }
 ];
 ---
 
@@ -408,15 +408,22 @@ const environments = [
         {environments.map((env) => {
           const Icon = env.icon;
           return (
-            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+            <a 
+              href={env.href}
+              class="group bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm hover:border-blue-300 hover:shadow-md transition flex flex-col justify-between"
+            >
               <div>
-                <div class="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mb-3">
+                <div class="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mb-3 group-hover:bg-blue-600 group-hover:text-white transition duration-200">
                   <Icon class="w-5 h-5" />
                 </div>
-                <div class="font-bold text-slate-800 text-sm mb-1">{env.name}</div>
+                <div class="font-bold text-slate-800 text-sm mb-1 group-hover:text-blue-600 transition">{env.name}</div>
                 <div class="text-xs text-slate-500 leading-snug">{env.desc}</div>
               </div>
-            </div>
+              <div class="mt-3 text-[11px] font-bold text-blue-600 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <span>Explore solution</span>
+                <span>→</span>
+              </div>
+            </a>
           );
         })}
       </div>

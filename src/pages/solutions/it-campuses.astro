@@ -1,0 +1,174 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { 
+  Building2, 
+  Server, 
+  Cpu, 
+  CheckCircle2, 
+  ArrowRight, 
+  ShieldCheck, 
+  Sliders, 
+  Phone
+} from 'lucide-astro';
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.integrowsys.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Solutions", "item": "https://www.integrowsys.com/solutions/" },
+    { "@type": "ListItem", "position": 3, "name": "IT & Corporate Campuses", "item": "https://www.integrowsys.com/solutions/it-campuses/" }
+  ]
+};
+---
+
+<MainLayout 
+  title="Fire Safety & Smart Monitoring for IT Parks & Tech Campuses | InteGrowSys" 
+  description="Engineered fire protection for high-density IT parks, server rooms, and corporate headquarters in Pune. Clean agent suppression, lift homing, and AlertGuard IoT retrofits."
+  canonicalPath="/solutions/it-campuses/"
+  structuredData={breadcrumbSchema}
+>
+  <!-- Hero Section -->
+  <section class="bg-slate-900 text-white py-16 lg:py-24 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="flex items-center gap-2 text-xs font-semibold text-slate-400 mb-6" aria-label="Breadcrumbs">
+        <a href="/" class="hover:text-white transition">Home</a>
+        <span>/</span>
+        <a href="/solutions/" class="hover:text-white transition">Solutions</a>
+        <span>/</span>
+        <span class="text-blue-400">IT & Corporate Campuses</span>
+      </nav>
+
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-xs font-bold uppercase tracking-wider mb-4">
+          <Building2 class="w-3.5 h-3.5 text-blue-400" />
+          <span>Specialized Industry Solution</span>
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-heading font-black tracking-tight text-white leading-tight">
+          Fire Safety & Smart Monitoring for <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-emerald-400">IT Parks & Corporate Campuses.</span>
+        </h1>
+        <p class="text-base sm:text-lg text-slate-300 mt-4 leading-relaxed">
+          High-density tech parks in Hinjawadi, Magarpatta, and Kharadi present unique challenges: continuous 24/7 server operations, multi-tenant lease agreements, complex elevator homing protocols, and the need for zero-disruption maintenance.
+        </p>
+        <div class="flex flex-wrap items-center gap-4 mt-8">
+          <a 
+            href="/contact/?enquiry=smart-monitoring" 
+            class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition"
+          >
+            <span>Request Campus Survey</span>
+            <ArrowRight class="w-4 h-4" />
+          </a>
+          <a 
+            href="tel:+919860027825" 
+            class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-slate-800 text-slate-200 border border-slate-700 hover:bg-slate-700 transition"
+          >
+            <Phone class="w-4 h-4 text-emerald-400" />
+            <span>Call +91 98600 27825</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Challenges & Solutions -->
+  <section class="py-20 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-2">Campus Architecture</div>
+        <h2 class="text-3xl font-heading font-bold text-slate-900">
+          How InteGrowSys solves IT facility challenges
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+            <Server class="w-6 h-6" />
+          </div>
+          <h3 class="text-xl font-heading font-bold text-slate-900">Server & Data Hub Protection</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Clean agent fire suppression (Novec 1230 / FM-200) with under-floor water leak detection (WLD) sensing ropes to protect mission-critical servers without water damage.
+          </p>
+          <ul class="space-y-2 text-xs text-slate-700 pt-2 border-t border-slate-100">
+            <li class="flex items-center gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Zero residue non-conductive gas</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Dual-detector cross-zone release interlocks</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
+            <Sliders class="w-6 h-6" />
+          </div>
+          <h3 class="text-xl font-heading font-bold text-slate-900">Building System Interlocking</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Coordinated lift homing, staircase pressurization fans, and motorized AHU fire dampers engineered to prevent toxic smoke spread and ensure fast, safe evacuation.
+          </p>
+          <ul class="space-y-2 text-xs text-slate-700 pt-2 border-t border-slate-100">
+            <li class="flex items-center gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>NBC 2016 Part 4 staircase pressurization (50 Pa)</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Automatic elevator grounding on alarm trip</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <Cpu class="w-6 h-6" />
+          </div>
+          <h3 class="text-xl font-heading font-bold text-slate-900">AlertGuard™ IoT Notification Hub</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Retrofit legacy fire alarm panels across multiple tech towers. Dispatches real-time alerts to the central command desk, facility manager, and AMC engineers within 3 seconds.
+          </p>
+          <ul class="space-y-2 text-xs text-slate-700 pt-2 border-t border-slate-100">
+            <li class="flex items-center gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Multi-building unified email/webhook alerts</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Preserves existing panel approvals intact</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Compliance & Testing Note -->
+      <div class="mt-12 bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="space-y-2">
+          <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600">
+            <ShieldCheck class="w-4 h-4" />
+            <span>Off-Hours Testing & Tenant Coordination</span>
+          </div>
+          <h3 class="text-xl font-heading font-bold text-slate-900">
+            Need testing without disrupting 2,000+ tech employees?
+          </h3>
+          <p class="text-sm text-slate-600 max-w-2xl">
+            We schedule routine audible smoke alarm tests, pump runs, and damper checks on weekend mornings with pre-approved tenant notifications and comprehensive Form-B documentation.
+          </p>
+        </div>
+        <a 
+          href="/contact/?enquiry=fire-safety" 
+          class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-700 text-white transition shrink-0"
+        >
+          <span>Schedule Discussion</span>
+          <ArrowRight class="w-4 h-4" />
+        </a>
+      </div>
+
+    </div>
+  </section>
+</MainLayout>

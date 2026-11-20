@@ -1,0 +1,168 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { 
+  Building2, 
+  Factory, 
+  Warehouse, 
+  Hospital, 
+  ArrowRight, 
+  CheckCircle2, 
+  Sparkles
+} from 'lucide-astro';
+
+const solutions = [
+  {
+    title: 'IT & Corporate Campuses',
+    slug: '/solutions/it-campuses/',
+    icon: Building2,
+    badge: 'High-Density Occupancy',
+    desc: 'Mission-critical life safety for multi-tenant software parks, corporate headquarters, and high-density tech hubs.',
+    highlights: [
+      'Server room clean agent (Novec / FM-200) gas suppression',
+      'Automated elevator homing & staircase smoke pressurization',
+      'AlertGuard IoT instant notification to facility & security heads',
+      'Minimal disruption testing during non-business hours'
+    ],
+    bgClass: 'border-blue-200 hover:border-blue-400'
+  },
+  {
+    title: 'Manufacturing & Industrial Plants',
+    slug: '/solutions/manufacturing/',
+    icon: Factory,
+    badge: 'Heavy Hazard & Production',
+    desc: 'Heavy-duty fire protection built for industrial machinery, paint booths, chemical handling, and expansive manufacturing floors.',
+    highlights: [
+      'High-head hydrant ring mains & deluge foam spray systems',
+      'Automated diesel pump standby with battery voltage health alerts',
+      'Hazardous area flame & thermal linear heat detection',
+      'Maharashtra Fire Act & Directorate of Industrial Safety (DISH) audit readiness'
+    ],
+    bgClass: 'border-amber-200 hover:border-amber-400'
+  },
+  {
+    title: 'Warehouses & Logistics Hubs',
+    slug: '/solutions/warehouses/',
+    icon: Warehouse,
+    badge: 'High-Bay Storage & Logistics',
+    desc: 'Specialized fire detection and suppression for high-bay racking, cold storage, and expansive distribution hubs.',
+    highlights: [
+      'Early suppression fast response (ESFR) sprinkler networks',
+      'Optical beam & aspirating smoke detection (VESDA) for high ceilings',
+      'Perimeter yard hydrants with heavy-duty hose cabinets',
+      'Solar-powered & cellular-connected remote pump house telemetry'
+    ],
+    bgClass: 'border-emerald-200 hover:border-emerald-400'
+  },
+  {
+    title: 'Commercial High-Rises & Hospitals',
+    slug: '/solutions/commercial-highrise/',
+    icon: Hospital,
+    badge: 'Multi-Storey & Critical Care',
+    desc: 'Vertical life safety architectures designed for rapid phased evacuation, wet risers, and emergency smoke control.',
+    highlights: [
+      'Wet riser & landing valve pressure balancing (< 7 bar regulation)',
+      'Basement jet fan & dual-speed smoke extract interlocking',
+      'Public address voice evacuation (PA/VA) with phased messaging',
+      'Bi-annual Form-B certification and municipal fire brigade coordination'
+    ],
+    bgClass: 'border-indigo-200 hover:border-indigo-400'
+  }
+];
+---
+
+<MainLayout 
+  title="Industry Solutions | Fire Safety & Smart Monitoring | InteGrowSys" 
+  description="Tailored fire safety engineering, AMC contracts, and AlertGuard IoT retrofits designed for IT parks, manufacturing plants, warehouses, and commercial high-rises in Pune."
+  canonicalPath="/solutions/"
+>
+  <!-- Hero Section -->
+  <section class="bg-slate-900 text-white py-16 lg:py-24 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-xs font-bold uppercase tracking-wider mb-6">
+          <Sparkles class="w-3.5 h-3.5 text-amber-400" />
+          <span>Tailored Facility Architecture</span>
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-heading font-black tracking-tight text-white leading-tight">
+          Engineered to match your <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-emerald-400">facility’s real-world risks.</span>
+        </h1>
+        <p class="text-base sm:text-lg text-slate-300 mt-4 leading-relaxed">
+          Fire risks in a high-density IT park differ fundamentally from a chemical plant or high-bay logistics warehouse. We engineer, maintain, and monitor systems built specifically for your occupancy, operational schedule, and regulatory obligations.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions Grid -->
+  <section class="py-20 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {solutions.map((item) => {
+          const Icon = item.icon;
+          return (
+            <article class={`bg-white rounded-3xl p-8 sm:p-10 border shadow-sm hover:shadow-xl transition-all duration-200 flex flex-col justify-between ${item.bgClass}`}>
+              <div>
+                <div class="flex items-center justify-between mb-6">
+                  <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                    <Icon class="w-6 h-6" />
+                  </div>
+                  <span class="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1 rounded-full">
+                    {item.badge}
+                  </span>
+                </div>
+
+                <h2 class="text-2xl font-heading font-bold text-slate-900 mb-3">
+                  {item.title}
+                </h2>
+                <p class="text-sm text-slate-600 leading-relaxed mb-6">
+                  {item.desc}
+                </p>
+
+                <div class="space-y-2.5 pt-4 border-t border-slate-100 mb-8">
+                  <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Key Engineering Solutions:</div>
+                  {item.highlights.map((point) => (
+                    <div class="flex items-start gap-2.5 text-xs text-slate-700">
+                      <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <span>{point}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <a 
+                href={item.slug} 
+                class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-slate-900 hover:bg-blue-600 text-white transition duration-200 shadow-sm"
+              >
+                <span>View {item.title} Solutions</span>
+                <ArrowRight class="w-4 h-4" />
+              </a>
+            </article>
+          );
+        })}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="py-16 bg-blue-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-heading font-black tracking-tight">
+          Have a multi-building facility in Maharashtra?
+        </h2>
+        <p class="text-blue-100 text-sm mt-1 max-w-xl">
+          Our engineering team provides comprehensive site assessments covering existing panel condition, pump room health, and Form-B statutory compliance.
+        </p>
+      </div>
+      <a 
+        href="/contact/" 
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-white text-blue-900 hover:bg-slate-100 shadow-lg transition shrink-0"
+      >
+        <span>Request Site Survey</span>
+        <ArrowRight class="w-4 h-4" />
+      </a>
+    </div>
+  </section>
+</MainLayout>
