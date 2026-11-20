@@ -2,6 +2,7 @@ interface Env {
   DB: D1Database;
   ASSETS: Fetcher;
   TURNSTILE_SECRET_KEY?: string;
+  LEAD_NOTIFICATION_WEBHOOK?: string;
 }
 
 const MAX_BODY_SIZE = 10_000;
@@ -216,6 +217,8 @@ export default {
       }
 
       try {
+        const leadId = crypto.randomUUID();
+
         await env.DB.prepare(`
           INSERT INTO leads (
             id, name, company, designation, email, phone, city,
@@ -223,7 +226,7 @@ export default {
           )
           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `).bind(
-          crypto.randomUUID(),
+          leadId,
           name,
           company || null,
           designation || null,
@@ -236,6 +239,33 @@ export default {
           1,
           sourcePath
         ).run();
+
+        // Optional Webhook notification (e.g. Slack, Telegram, CRM, Email Gateway)
+        if (env.LEAD_NOTIFICATION_WEBHOOK) {
+          try {
+            const webhookPayload = {
+              text: `🚨 *New InteGrowSys Lead Received*\n• *Name*: ${name}\n• *Company*: ${company || 'N/A'}\n• *Phone*: ${phone}\n• *Email*: ${email || 'N/A'}\n• *Service*: ${serviceInterest}\n• *City*: ${city || 'N/A'}\n• *Facility*: ${facilityType || 'N/A'}\n• *Message*: ${message.slice(0, 500)}`,
+              lead: {
+                id: leadId,
+                name,
+                company,
+                phone,
+                email,
+                service: serviceInterest,
+                city,
+                facility_type: facilityType,
+                source_path: sourcePath
+              }
+            };
+            fetch(env.LEAD_NOTIFICATION_WEBHOOK, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(webhookPayload)
+            }).catch(err => console.error("Webhook notification dispatch error:", err));
+          } catch (webhookErr) {
+            console.error("Webhook preparation error:", webhookErr);
+          }
+        }
 
         return json({
           success: true,

@@ -1,5 +1,12 @@
 ---
 import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { 
+  ArrowLeft, 
+  Building2, 
+  MessageSquare, 
+  FileText, 
+  Send 
+} from '@lucide/astro';
 
 export function getStaticPaths() {
   return [
@@ -9,105 +16,182 @@ export function getStaticPaths() {
 ---
 
 <AdminLayout title="Lead Details | InteGrowSys Admin">
-  <header class="page-header">
+  <!-- Top Navigation Bar -->
+  <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
     <div>
-      <h1>Lead Details</h1>
-      <p id="lead-breadcrumb" style="margin:0;color:var(--admin-muted);">Loading…</p>
+      <div class="flex items-center gap-2 mb-1">
+        <a 
+          href="/admin/leads" 
+          class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-blue-600 transition"
+        >
+          <ArrowLeft class="w-3.5 h-3.5" />
+          <span>Back to All Leads</span>
+        </a>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-heading font-black text-slate-900 tracking-tight" id="lead-heading">
+        Lead Record
+      </h1>
+      <p id="lead-breadcrumb" class="text-xs text-slate-500 mt-1">Loading enquiry details...</p>
     </div>
-    <a class="button secondary" href="/admin/leads">← Back to Leads</a>
+
+    <!-- Quick Status Dropdown in Header -->
+    <div class="flex items-center gap-3">
+      <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Status:</span>
+      <select 
+        id="status-select" 
+        class="px-4 py-2 rounded-xl border border-slate-300 bg-white text-xs font-bold text-slate-900 focus:ring-2 focus:ring-blue-500 outline-none shadow-sm cursor-pointer"
+        aria-label="Lead status"
+      >
+        <option value="new">New</option>
+        <option value="contacted">Contacted</option>
+        <option value="qualified">Qualified</option>
+        <option value="proposal">Proposal Sent</option>
+        <option value="won">Won / Contract Closed</option>
+        <option value="lost">Lost</option>
+        <option value="spam">Spam / Junk</option>
+      </select>
+    </div>
   </header>
 
-  <div class="detail-grid">
-    <div>
-      <div class="detail-card">
-        <h2>Contact Information</h2>
-        <div class="detail-field">
-          <label>Name</label>
-          <div class="value" id="f-name">—</div>
+  <!-- Main 2-Column Detail Layout -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- Left Column: Contact & Enquiry Details -->
+    <div class="lg:col-span-7 space-y-6">
+      
+      <!-- Card 1: Contact Information -->
+      <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6">
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600 border-b border-slate-100 pb-3">
+          <Building2 class="w-4 h-4" />
+          <span>Contact & Organization</span>
         </div>
-        <div class="detail-field">
-          <label>Company</label>
-          <div class="value" id="f-company">—</div>
-        </div>
-        <div class="detail-field">
-          <label>Designation</label>
-          <div class="value" id="f-designation">—</div>
-        </div>
-        <div class="detail-field">
-          <label>Email</label>
-          <div class="value"><a href="#" id="f-email">—</a></div>
-        </div>
-        <div class="detail-field">
-          <label>Phone</label>
-          <div class="value"><a href="#" id="f-phone">—</a></div>
-        </div>
-        <div class="detail-field">
-          <label>City / Location</label>
-          <div class="value" id="f-city">—</div>
-        </div>
-        <div class="detail-field">
-          <label>Facility Type</label>
-          <div class="value" id="f-facility">—</div>
-        </div>
-      </div>
 
-      <div class="detail-card detail-section">
-        <h2>Enquiry Details</h2>
-        <div class="detail-field">
-          <label>Service Interest</label>
-          <div class="value" id="f-service">—</div>
-        </div>
-        <div class="detail-field">
-          <label>Message</label>
-          <div class="value" id="f-message" style="white-space:pre-wrap;line-height:1.6;">—</div>
-        </div>
-        <div class="detail-field">
-          <label>Source Page</label>
-          <div class="value" id="f-source">—</div>
-        </div>
-      </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-0.5">Full Name</div>
+            <div class="font-bold text-slate-900 text-base" id="f-name">—</div>
+          </div>
 
-      <div class="detail-card detail-section">
-        <h2>Status & Activity</h2>
-        <div class="detail-field">
-          <label>Current Status</label>
-          <div class="value">
-            <select class="status-select" id="status-select" aria-label="Lead status">
-              <option value="new">New</option>
-              <option value="contacted">Contacted</option>
-              <option value="qualified">Qualified</option>
-              <option value="proposal">Proposal</option>
-              <option value="won">Won</option>
-              <option value="lost">Lost</option>
-              <option value="spam">Spam</option>
-            </select>
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-0.5">Company / Organization</div>
+            <div class="font-semibold text-slate-800" id="f-company">—</div>
+          </div>
+
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-0.5">Designation / Role</div>
+            <div class="font-medium text-slate-700" id="f-designation">—</div>
+          </div>
+
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-0.5">Facility Type</div>
+            <div class="font-medium text-slate-700" id="f-facility">—</div>
+          </div>
+
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-0.5">Phone Number</div>
+            <div>
+              <a href="#" id="f-phone" class="font-mono font-bold text-blue-600 hover:underline">—</a>
+            </div>
+          </div>
+
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-0.5">Email Address</div>
+            <div>
+              <a href="#" id="f-email" class="font-medium text-blue-600 hover:underline break-all">—</a>
+            </div>
+          </div>
+
+          <div class="sm:col-span-2">
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-0.5">City / Site Location</div>
+            <div class="font-medium text-slate-700" id="f-city">—</div>
           </div>
         </div>
-        <div class="detail-field" style="margin-top:16px;">
-          <label>Created</label>
-          <div class="value" id="f-created">—</div>
+      </div>
+
+      <!-- Card 2: Enquiry Message & Technical Details -->
+      <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-5">
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600 border-b border-slate-100 pb-3">
+          <FileText class="w-4 h-4" />
+          <span>Enquiry Scope & Message</span>
         </div>
-        <div class="detail-field">
-          <label>Last Updated</label>
-          <div class="value" id="f-updated">—</div>
+
+        <div>
+          <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Service Interest</div>
+          <span id="f-service" class="inline-block text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200">
+            —
+          </span>
         </div>
+
+        <div>
+          <div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Client Message / Scope Notes</div>
+          <div 
+            id="f-message" 
+            class="p-4 rounded-xl bg-slate-50 border border-slate-200/70 text-slate-800 text-sm whitespace-pre-wrap leading-relaxed font-sans"
+          >
+            —
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-100 text-xs">
+          <div>
+            <span class="text-slate-400 block font-semibold">Source Page:</span>
+            <span id="f-source" class="font-mono text-slate-700 font-bold">—</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block font-semibold">Created At:</span>
+            <span id="f-created" class="text-slate-700">—</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block font-semibold">Last Updated:</span>
+            <span id="f-updated" class="text-slate-700">—</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column: Internal Follow-up Notes -->
+    <div class="lg:col-span-5 space-y-6">
+      <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-6 sticky top-24">
+        
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-600">
+            <MessageSquare class="w-4 h-4" />
+            <span>Internal Notes & Follow-ups</span>
+          </div>
+          <span class="text-[11px] text-slate-400 font-medium">Team Only</span>
+        </div>
+
+        <!-- Notes Timeline -->
+        <div class="space-y-3 max-h-[420px] overflow-y-auto pr-1" id="notes-list">
+          <div class="py-8 text-center text-slate-400 text-xs">Loading notes timeline...</div>
+        </div>
+
+        <!-- Add Note Form -->
+        <form class="space-y-3 pt-4 border-t border-slate-100" id="note-form">
+          <label for="note-text" class="block text-xs font-bold text-slate-700">Add Internal Note</label>
+          <textarea 
+            id="note-text" 
+            placeholder="Record site visit observations, quotation status, client feedback, or phone call notes..." 
+            aria-label="Note text" 
+            required
+            rows="3"
+            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs text-slate-800 focus:ring-2 focus:ring-blue-500 outline-none leading-relaxed"
+          ></textarea>
+          <div class="flex justify-end">
+            <button 
+              type="submit" 
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-xs bg-slate-900 hover:bg-blue-600 text-white transition active:scale-[0.98]"
+            >
+              <Send class="w-3.5 h-3.5" />
+              <span>Post Note</span>
+            </button>
+          </div>
+        </form>
+
       </div>
     </div>
 
-    <aside>
-      <div class="detail-card">
-        <h2>Notes</h2>
-        <div class="notes-list" id="notes-list">
-          <div class="loading"><div class="spinner"></div>Loading notes…</div>
-        </div>
-        <form class="note-form" id="note-form">
-          <textarea id="note-text" placeholder="Add a note…" aria-label="Note text" required></textarea>
-          <div class="btn-row">
-            <button class="button" type="submit">Add Note</button>
-          </div>
-        </form>
-      </div>
-    </aside>
   </div>
 </AdminLayout>
 
@@ -172,28 +256,29 @@ function formatDateTime(ts: unknown): string {
 }
 
 function showToast(message: string, type: 'info' | 'success' | 'error' = 'info') {
-  const existing = document.querySelector('.toast');
+  const existing = document.querySelector('.admin-toast');
   if (existing) existing.remove();
   const toast = document.createElement('div');
-  toast.className = `toast ${type === 'success' ? 'success' : type === 'error' ? 'error' : ''}`;
+  const bg = type === 'success' ? 'bg-emerald-600 text-white' : type === 'error' ? 'bg-rose-600 text-white' : 'bg-slate-900 text-white';
+  toast.className = `admin-toast fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl font-bold text-xs shadow-xl transition-all ${bg}`;
   toast.textContent = message;
   document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 3000);
+  setTimeout(() => toast.remove(), 3500);
 }
 
 function renderNotes(notes: NoteRecord[]) {
   if (!notesList) return;
   if (!notes.length) {
-    notesList.innerHTML = `<div class="empty-state" style="padding:20px;">No notes yet</div>`;
+    notesList.innerHTML = `<div class="py-8 text-center text-slate-400 text-xs">No internal notes added yet. Use the box below to post update notes.</div>`;
     return;
   }
   notesList.innerHTML = notes.map(note => `
-    <div class="note-item">
-      <div class="note-header">
-        <strong>${escapeHtml(note.author || 'Admin')}</strong>
+    <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/70 text-xs space-y-1.5">
+      <div class="flex items-center justify-between text-[11px] text-slate-400">
+        <span class="font-bold text-slate-700">${escapeHtml(note.author || 'Admin')}</span>
         <span>${formatDateTime(note.created_at)}</span>
       </div>
-      <div class="note-text">${escapeHtml(note.text)}</div>
+      <div class="text-slate-800 leading-relaxed font-sans whitespace-pre-wrap">${escapeHtml(note.text)}</div>
     </div>
   `).join('');
 }
@@ -206,14 +291,18 @@ async function loadNotes() {
     renderNotes(data.data ?? []);
   } catch (err) {
     console.error('Load notes failed:', err);
-    notesList.innerHTML = `<div class="empty-state" style="padding:20px;">Failed to load notes</div>`;
+    notesList.innerHTML = `<div class="py-6 text-center text-rose-600 text-xs">Failed to load notes</div>`;
   }
 }
 
 function renderLead(lead: LeadRecord) {
+  const heading = document.getElementById('lead-heading');
   const breadcrumb = document.getElementById('lead-breadcrumb');
+  if (heading) {
+    heading.textContent = lead.name;
+  }
   if (breadcrumb) {
-    breadcrumb.textContent = `${lead.name} · ${lead.service_interest} · ${formatDateTime(lead.created_at)}`;
+    breadcrumb.textContent = `${lead.company || 'Direct'} · ${lead.service_interest} · Submitted on ${formatDateTime(lead.created_at)}`;
   }
 
   const fName = document.getElementById('f-name');
@@ -259,8 +348,8 @@ function renderLead(lead: LeadRecord) {
 async function loadLead() {
   if (!leadId || leadId === 'view') {
     const breadcrumb = document.getElementById('lead-breadcrumb');
-    if (breadcrumb) breadcrumb.textContent = 'Please select a lead from the leads list';
-    if (notesList) notesList.innerHTML = `<div class="empty-state" style="padding:20px;">No lead selected</div>`;
+    if (breadcrumb) breadcrumb.textContent = 'Please select a lead record from the pipeline list';
+    if (notesList) notesList.innerHTML = `<div class="py-8 text-center text-slate-400 text-xs">No lead selected</div>`;
     return;
   }
 
@@ -292,7 +381,7 @@ statusSelect?.addEventListener('change', async () => {
     });
     if (!res.ok) throw new Error('Failed to update status');
     currentLead.status = newStatus;
-    showToast(`Status updated to ${newStatus}`, 'success');
+    showToast(`Status updated to "${newStatus}"`, 'success');
   } catch (err) {
     console.error('Status update failed:', err);
     showToast('Failed to update status', 'error');
@@ -311,7 +400,7 @@ noteForm?.addEventListener('submit', async (e) => {
   const submitBtn = noteForm.querySelector<HTMLButtonElement>('button');
   if (submitBtn) {
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Adding…';
+    submitBtn.textContent = 'Saving...';
   }
 
   try {
@@ -323,14 +412,14 @@ noteForm?.addEventListener('submit', async (e) => {
     if (!res.ok) throw new Error('Failed to add note');
     noteText.value = '';
     loadNotes();
-    showToast('Note added', 'success');
+    showToast('Internal note saved successfully', 'success');
   } catch (err) {
     console.error('Add note failed:', err);
-    showToast('Failed to add note', 'error');
+    showToast('Failed to save note', 'error');
   } finally {
     if (submitBtn) {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Add Note';
+      submitBtn.innerHTML = `<svg class="w-3.5 h-3.5 inline mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Post Note`;
     }
   }
 });

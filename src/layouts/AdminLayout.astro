@@ -1,6 +1,12 @@
 ---
 import '../styles/global.css';
 import '../styles/admin.css';
+import { 
+  LayoutDashboard, 
+  Users, 
+  ExternalLink, 
+  ShieldCheck 
+} from 'lucide-astro';
 
 interface Props {
   title: string;
@@ -9,10 +15,11 @@ interface Props {
 
 const { title, description = 'InteGrowSys Lead Management Dashboard' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://www.integrowsys.com').toString();
+const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="h-full bg-slate-50 antialiased">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -23,37 +30,92 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://www.integro
   <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
   <title>{title}</title>
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="admin-header">
-    <div class="container admin-header-inner">
-      <a class="admin-brand" href="/admin/" aria-label="InteGrowSys Admin home">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-          <rect width="32" height="32" rx="8" fill="var(--blue)"/>
-          <path d="M8 16L14 22L24 10" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span>InteGrowSys Admin</span>
-      </a>
-      <nav class="admin-nav" aria-label="Admin navigation">
-        <a href="/admin/" class:list={{active: Astro.url.pathname === '/admin/'}}>Dashboard</a>
-        <a href="/admin/leads" class:list={{active: Astro.url.pathname.startsWith('/admin/leads')}}>Leads</a>
-      </nav>
-      <div class="admin-user">
-        <span id="user-email" class="user-email">Loading…</span>
-        <a class="button secondary" href="/">View Site</a>
+<body class="min-h-full flex flex-col font-sans text-slate-900 selection:bg-blue-600 selection:text-white">
+  <a class="skip-link sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:p-3 focus:bg-white focus:shadow-lg focus:rounded-lg" href="#main">
+    Skip to content
+  </a>
+
+  <!-- Modern Admin Top Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-slate-900 border-b border-slate-800 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Left: Brand & Badges -->
+        <div class="flex items-center gap-6">
+          <a href="/admin/" class="flex items-center gap-3 group" aria-label="InteGrowSys Admin Home">
+            <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-black text-sm shadow-sm group-hover:bg-blue-500 transition">
+              IGS
+            </div>
+            <div>
+              <span class="font-heading font-black text-base text-white tracking-tight block">
+                InteGrow<span class="text-blue-400">Sys</span>
+              </span>
+              <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block -mt-1">
+                Admin Console
+              </span>
+            </div>
+          </a>
+
+          <!-- Navigation Pills -->
+          <nav class="hidden sm:flex items-center gap-1.5 pl-4 border-l border-slate-800" aria-label="Admin Navigation">
+            <a 
+              href="/admin/" 
+              class={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${currentPath === '/admin/' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-slate-800'}`}
+            >
+              <LayoutDashboard class="w-3.5 h-3.5" />
+              <span>Dashboard</span>
+            </a>
+            <a 
+              href="/admin/leads" 
+              class={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${currentPath.startsWith('/admin/leads') ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-300 hover:text-white hover:bg-slate-800'}`}
+            >
+              <Users class="w-3.5 h-3.5" />
+              <span>Leads Pipeline</span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- Right: Auth User Email & Public Site Link -->
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2 text-xs bg-slate-800/80 border border-slate-700/80 px-3 py-1.5 rounded-full">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="user-email" class="text-slate-300 font-medium font-mono text-[11px]">Loading...</span>
+          </div>
+
+          <a 
+            href="/" 
+            target="_blank" 
+            class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-700 transition"
+          >
+            <span>Live Site</span>
+            <ExternalLink class="w-3.5 h-3.5" />
+          </a>
+        </div>
+
       </div>
     </div>
   </header>
-  <main id="main" class="admin-main">
-    <div class="container">
+
+  <!-- Main Content Container -->
+  <main id="main" class="flex-grow py-8 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <slot/>
     </div>
   </main>
-  <footer class="admin-footer">
-    <div class="container">
-      <p>© {new Date().getFullYear()} InteGrowSys. Internal use only.</p>
+
+  <!-- Modern Admin Footer -->
+  <footer class="bg-white border-t border-slate-200 py-4 text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-1.5 text-slate-600">
+        <ShieldCheck class="w-4 h-4 text-blue-600" />
+        <span>InteGrowSys Internal CRM · Cloudflare D1 Protected</span>
+      </div>
+      <div>
+        © {new Date().getFullYear()} InteGrowSys. Authorized personnel only.
+      </div>
     </div>
   </footer>
+
   <script>
     const email = document.querySelector<HTMLElement>('#user-email');
     const userMeta = document.querySelector<HTMLMetaElement>('meta[name="cf-access-user"]');
@@ -62,7 +124,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://www.integro
     if (email && userEmail) {
       email.textContent = decodeURIComponent(userEmail);
     } else if (email) {
-      email.textContent = 'Authenticated';
+      email.textContent = 'Authenticated Admin';
     }
   </script>
 </body>

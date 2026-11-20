@@ -1,53 +1,121 @@
 ---
 import AdminLayout from '../../layouts/AdminLayout.astro';
+import { 
+  Users, 
+  Sparkles, 
+  Target, 
+  Trophy, 
+  ArrowRight, 
+  Clock 
+} from '@lucide/astro';
 ---
 
 <AdminLayout title="Dashboard | InteGrowSys Admin">
-  <header class="page-header">
+  <!-- Top Page Header -->
+  <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
     <div>
-      <h1>Dashboard</h1>
-      <p>Overview of lead pipeline and recent activity</p>
+      <h1 class="text-2xl sm:text-3xl font-heading font-black text-slate-900 tracking-tight">
+        Lead Operations Dashboard
+      </h1>
+      <p class="text-sm text-slate-500 mt-1">
+        Real-time pipeline metrics, recent enquiry activity, and status conversions.
+      </p>
     </div>
-    <a class="button" href="/admin/leads">View All Leads →</a>
+    <div>
+      <a 
+        href="/admin/leads" 
+        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition active:scale-[0.98]"
+      >
+        <span>View Complete Pipeline</span>
+        <ArrowRight class="w-4 h-4" />
+      </a>
+    </div>
   </header>
 
-  <div class="stats-grid" id="stats-grid">
-    <div class="stat-card">
-      <div class="label">Total Leads</div>
-      <div class="value" id="stat-total">—</div>
+  <!-- Modern 4-Card Stats Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10" id="stats-grid">
+    
+    <!-- Stat 1: Total Leads -->
+    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex items-start justify-between">
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Total Pipeline</div>
+        <div class="text-3xl font-heading font-black text-slate-900" id="stat-total">—</div>
+        <div class="text-[11px] text-slate-400 mt-1">All recorded enquiries</div>
+      </div>
+      <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+        <Users class="w-5 h-5" />
+      </div>
     </div>
-    <div class="stat-card">
-      <div class="label">New This Month</div>
-      <div class="value" id="stat-new">—</div>
+
+    <!-- Stat 2: New This Month -->
+    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex items-start justify-between">
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-1">New This Month</div>
+        <div class="text-3xl font-heading font-black text-blue-600" id="stat-new">—</div>
+        <div class="text-[11px] text-slate-400 mt-1">Requires follow-up</div>
+      </div>
+      <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+        <Sparkles class="w-5 h-5" />
+      </div>
     </div>
-    <div class="stat-card">
-      <div class="label">Qualified / Proposal</div>
-      <div class="value" id="stat-active">—</div>
+
+    <!-- Stat 3: Qualified / Proposal -->
+    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex items-start justify-between">
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-purple-600 mb-1">In Proposal / Active</div>
+        <div class="text-3xl font-heading font-black text-purple-600" id="stat-active">—</div>
+        <div class="text-[11px] text-slate-400 mt-1">Qualified & proposals sent</div>
+      </div>
+      <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
+        <Target class="w-5 h-5" />
+      </div>
     </div>
-    <div class="stat-card">
-      <div class="label">Won</div>
-      <div class="value won" id="stat-won">—</div>
+
+    <!-- Stat 4: Won Contracts -->
+    <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex items-start justify-between">
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-emerald-600 mb-1">Contracts Won</div>
+        <div class="text-3xl font-heading font-black text-emerald-600" id="stat-won">—</div>
+        <div class="text-[11px] text-slate-400 mt-1">Active AMC & project wins</div>
+      </div>
+      <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+        <Trophy class="w-5 h-5" />
+      </div>
     </div>
+
   </div>
 
-  <section>
-    <div class="page-header" style="margin-bottom: 16px;">
-      <h2 style="font-size: 1.2rem;">Recent Leads</h2>
+  <!-- Recent Leads Table Section -->
+  <section class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+    <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <Clock class="w-4 h-4 text-slate-400" />
+        <h2 class="font-heading font-bold text-base text-slate-900">Recent Enquiries (Last 10)</h2>
+      </div>
+      <a href="/admin/leads" class="text-xs font-bold text-blue-600 hover:text-blue-700">
+        View all in pipeline →
+      </a>
     </div>
-    <div class="table-wrapper">
-      <table>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
         <thead>
-          <tr>
-            <th>Lead</th>
-            <th>Service</th>
-            <th>Phone</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Actions</th>
+          <tr class="bg-slate-50/80 border-b border-slate-200/80 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+            <th class="py-3 px-6">Lead / Company</th>
+            <th class="py-3 px-6">Service Interest</th>
+            <th class="py-3 px-6">Phone</th>
+            <th class="py-3 px-6">Received Date</th>
+            <th class="py-3 px-6">Status</th>
+            <th class="py-3 px-6 text-right">Action</th>
           </tr>
         </thead>
-        <tbody id="leads-table-body">
-          <tr><td colspan="6" class="loading"><div class="spinner"></div>Loading…</td></tr>
+        <tbody id="leads-table-body" class="divide-y divide-slate-100 text-sm">
+          <tr>
+            <td colspan="6" class="py-12 text-center text-slate-400 text-sm">
+              <div class="inline-block w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mb-2"></div>
+              <div>Loading recent pipeline data...</div>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -91,6 +159,20 @@ function formatDate(ts: unknown): string {
   return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
+function getStatusBadge(status: string): string {
+  const s = status.toLowerCase();
+  let color = 'bg-slate-100 text-slate-700 border-slate-200';
+  if (s === 'new') color = 'bg-blue-50 text-blue-700 border-blue-200';
+  else if (s === 'contacted') color = 'bg-cyan-50 text-cyan-700 border-cyan-200';
+  else if (s === 'qualified') color = 'bg-purple-50 text-purple-700 border-purple-200';
+  else if (s === 'proposal') color = 'bg-amber-50 text-amber-700 border-amber-200';
+  else if (s === 'won') color = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+  else if (s === 'lost') color = 'bg-rose-50 text-rose-700 border-rose-200';
+  else if (s === 'spam') color = 'bg-slate-100 text-slate-500 border-slate-200';
+
+  return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border capitalize ${color}">${escapeHtml(status)}</span>`;
+}
+
 async function loadDashboard() {
   const tbody = document.getElementById('leads-table-body');
   try {
@@ -107,44 +189,51 @@ async function loadDashboard() {
     const statActive = document.getElementById('stat-active');
     const statWon = document.getElementById('stat-won');
 
-    if (statTotal) statTotal.textContent = String(stats.total ?? '—');
-    if (statNew) statNew.textContent = String(stats.new_this_month ?? '—');
+    if (statTotal) statTotal.textContent = String(stats.total ?? '0');
+    if (statNew) statNew.textContent = String(stats.new_this_month ?? '0');
     if (statActive) {
       const activeCount = (stats.qualified ?? 0) + (stats.proposal ?? 0);
       statActive.textContent = String(activeCount);
     }
-    if (statWon) statWon.textContent = String(stats.won ?? '—');
+    if (statWon) statWon.textContent = String(stats.won ?? '0');
 
     if (!tbody) return;
 
     if (!leads.data?.length) {
-      tbody.innerHTML = `<tr><td colspan="6" class="empty-state" style="display:block;padding:40px;">No leads yet</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="6" class="py-12 text-center text-slate-400 text-sm">No enquiries recorded yet.</td></tr>`;
       return;
     }
 
     tbody.innerHTML = leads.data.map(lead => `
-      <tr>
-        <td>
-          <div class="lead-name">${escapeHtml(lead.name)}</div>
-          <div class="lead-company">${escapeHtml(lead.company || '—')}</div>
+      <tr class="hover:bg-slate-50/70 transition">
+        <td class="py-4 px-6">
+          <div class="font-bold text-slate-900">${escapeHtml(lead.name)}</div>
+          <div class="text-xs text-slate-500">${escapeHtml(lead.company || '—')}</div>
         </td>
-        <td><span class="lead-service">${escapeHtml(lead.service_interest)}</span></td>
-        <td class="lead-phone">${escapeHtml(lead.phone)}</td>
-        <td class="lead-date">${formatDate(lead.created_at)}</td>
-        <td><span class="status-badge ${escapeHtml(lead.status)}">${escapeHtml(lead.status)}</span></td>
-        <td>
-          <div class="actions">
-            <a class="btn-icon" href="/admin/leads/${encodeURIComponent(lead.id)}" title="View details" aria-label="View ${escapeHtml(lead.name)}">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            </a>
-          </div>
+        <td class="py-4 px-6">
+          <span class="inline-block text-xs font-medium text-slate-700 bg-slate-100 px-2.5 py-1 rounded-md">
+            ${escapeHtml(lead.service_interest)}
+          </span>
+        </td>
+        <td class="py-4 px-6 font-mono text-xs text-slate-600">${escapeHtml(lead.phone)}</td>
+        <td class="py-4 px-6 text-xs text-slate-500">${formatDate(lead.created_at)}</td>
+        <td class="py-4 px-6">${getStatusBadge(lead.status)}</td>
+        <td class="py-4 px-6 text-right">
+          <a 
+            class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-700 transition" 
+            href="/admin/leads/${encodeURIComponent(lead.id)}" 
+            title="View details"
+          >
+            <span>Details</span>
+            <span>→</span>
+          </a>
         </td>
       </tr>
     `).join('');
   } catch (err) {
     console.error('Dashboard load failed:', err);
     if (tbody) {
-      tbody.innerHTML = `<tr><td colspan="6" class="empty-state" style="display:block;padding:40px;color:#dc2626;">Failed to load</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="6" class="py-12 text-center text-rose-600 text-sm font-semibold">Failed to connect to /api/admin. Please verify Cloudflare Access authorization.</td></tr>`;
     }
   }
 }
