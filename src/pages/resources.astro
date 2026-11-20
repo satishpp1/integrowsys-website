@@ -47,11 +47,25 @@ const faqs = [
     a: 'Our primary engineering and rapid-response operations are centered in Pune and surrounding industrial corridors including Hadapsar, Magarpatta, Hinjawadi, Chakan, Talegaon, Ranjangaon, and PCMC, as well as project-based engagements across Maharashtra.'
   }
 ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": f.a
+    }
+  }))
+};
 ---
 
 <MainLayout 
   title="Fire Safety & Smart Monitoring Resources | InteGrowSys" 
   description="Practical checklists, compliance guidance, and FAQs for fire safety maintenance, statutory audits, and legacy equipment IoT retrofits."
+  structuredData={faqSchema}
 >
   <!-- Hero Section -->
   <section class="bg-slate-900 text-white py-16 lg:py-20 border-b border-slate-800">

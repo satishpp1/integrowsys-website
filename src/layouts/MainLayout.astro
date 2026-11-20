@@ -8,13 +8,15 @@ interface Props {
   description?: string;
   canonicalPath?: string;
   image?: string;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
   title = 'InteGrowSys | Fire & Life Safety Systems Integration and Smart Monitoring',
   description = 'Fire and life safety systems, planned maintenance AMC, building systems integration and configuration-based smart monitoring from InteGrowSys Pune.',
   canonicalPath = Astro.url.pathname,
-  image = '/images/integrowsys-logo.jpg'
+  image = '/images/integrowsys-logo.jpg',
+  structuredData
 } = Astro.props;
 
 const siteUrl = Astro.site ?? 'https://www.integrowsys.com';
@@ -80,6 +82,9 @@ const jsonLd = {
 
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  {structuredData && (
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  )}
 
   <title>{title}</title>
 </head>

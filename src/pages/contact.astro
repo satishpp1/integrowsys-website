@@ -6,7 +6,8 @@ import {
   MapPin, 
   Clock, 
   CheckCircle2, 
-  Send
+  Send,
+  MessageSquare
 } from 'lucide-astro';
 ---
 
@@ -92,7 +93,17 @@ import {
               </div>
             </div>
 
-            <div class="pt-4 border-t border-slate-100">
+            <div class="pt-4 border-t border-slate-100 space-y-2.5">
+              <a 
+                href="https://wa.me/919860027825?text=Hello%20InteGrowSys%20team%2C%20I%20would%20like%20to%20inquire%20about%20fire%20safety%20services%20and%20smart%20monitoring." 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition active:scale-[0.99]"
+              >
+                <MessageSquare class="w-4 h-4" />
+                <span>Chat on WhatsApp (+91 98600 27825)</span>
+              </a>
+
               <a 
                 href="mailto:crm@integrowsys.com?subject=InteGrowSys%20Direct%20Inquiry" 
                 class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm bg-slate-900 text-white hover:bg-slate-800 transition"
